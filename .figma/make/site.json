@@ -1,0 +1,10 @@
+{
+  "description": "Showcases stunning, animated one-page websites for oven and stove glass products, offering a unique and engaging user experience for potential buyers.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
