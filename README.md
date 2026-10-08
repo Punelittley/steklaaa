@@ -15,10 +15,9 @@
 - **Полки для холодильников из закаленного стекла** по точным размерам
 
 ## Доставка и самовывоз
-- 📦 **Доставка СДЭК** по всей территории России **(кроме Москвы и Московской области)**.
-- 📍 **Самовывоз в Челябинске** по предварительному звонку.
+- Отправка СДЭК по всей территории России (кроме Москвы и Московской области).
+- Самовывоз в Челябинске по предварительному звонку.
 
 ## Контакты для оперативной связи
-- 💬 **ВКонтакте:** [https://vk.ru/grachova_ekaterina](https://vk.ru/grachova_ekaterina) *(самое оперативное общение)*
-- 📱 **Мессенджер Макс:** [https://max.ru/u/f9LHodD0cOK4ePqHs6WvYTHxZW-LHtvgB6OTpEP9gY51sCGm1km_3Nb2c-M](https://max.ru/u/f9LHodD0cOK4ePqHs6WvYTHxZW-LHtvgB6OTpEP9gY51sCGm1km_3Nb2c-M)
-- 🛒 **Профиль и отзывы на Авито:** [https://www.avito.ru/brands/i8757937/all/predlozheniya_uslug?sellerId=305b7706778de70c2ad0787bfe2d565a](https://www.avito.ru/brands/i8757937/all/predlozheniya_uslug?sellerId=305b7706778de70c2ad0787bfe2d565a)
+- **Мессенджер Макс:** [https://max.ru/u/f9LHodD0cOK4ePqHs6WvYTHxZW-LHtvgB6OTpEP9gY51sCGm1km_3Nb2c-M](https://max.ru/u/f9LHodD0cOK4ePqHs6WvYTHxZW-LHtvgB6OTpEP9gY51sCGm1km_3Nb2c-M)
+- **Профиль и отзывы на Авито:** [https://www.avito.ru/brands/i8757937/all/predlozheniya_uslug?sellerId=305b7706778de70c2ad0787bfe2d565a](https://www.avito.ru/brands/i8757937/all/predlozheniya_uslug?sellerId=305b7706778de70c2ad0787bfe2d565a)
