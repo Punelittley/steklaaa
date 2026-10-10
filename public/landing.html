@@ -25,7 +25,7 @@
 * { box-sizing: border-box; }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 130px;
+  scroll-padding-top: 24px;
   overflow-x: hidden;
 }
 body {
@@ -49,14 +49,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--orange); outlin
 
 /* ЗАКРЕПЛЕННАЯ ШАПКА НАВСЕГДА ВВЕРХУ */
 .sticky-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(247, 246, 240, 0.97);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  position: static;
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .top-announcement {
