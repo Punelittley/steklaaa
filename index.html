@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Мастерская «Форма стекла» — изготовление жаропрочных стекол для духовых шкафов, панелей управления с отверстиями под переключатели, плит, СВЧ и полок холодильников. г. Челябинск, ул. 3-го Интернационала 90. Доставка СДЭК по всей России. Тел: +7 (902) 024-64-82.">
 <title>Форма стекла — жаропрочные стекла для духовок, плит и панелей управления | Доставка по РФ</title>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -360,13 +361,13 @@ h2 {
 
 .catalog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
 }
 .catalog-card {
-  background: #ffffff;
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -375,13 +376,13 @@ h2 {
   position: relative;
 }
 .catalog-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   border-color: var(--orange);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 32px rgba(31, 33, 29, 0.06);
 }
 .catalog-card-image {
-  height: 220px;
-  background: #eae8df;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-card);
   position: relative;
   overflow: hidden;
 }
@@ -396,34 +397,35 @@ h2 {
 }
 .catalog-tag {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  background: rgba(31, 33, 29, 0.85);
+  top: 18px;
+  left: 18px;
+  background: var(--paper);
   backdrop-filter: blur(4px);
-  color: #ffffff;
+  color: var(--ink);
   font-size: 10px;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 6px;
+  padding: 8px 12px;
+  border-radius: 30px;
   letter-spacing: 0.5px;
 }
 .catalog-body {
-  padding: 22px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 .catalog-body h3 {
-  font-size: 16px;
+  font-size: 21px;
+  letter-spacing: -0.6px;
   font-weight: 700;
   margin: 0 0 10px;
   line-height: 1.35;
 }
 .catalog-body p {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
   line-height: 1.6;
-  margin: 0 0 18px;
+  margin: 0 0 26px;
   flex-grow: 1;
 }
 .catalog-footer {
@@ -434,11 +436,11 @@ h2 {
   padding-top: 16px;
 }
 .catalog-action-btn {
-  background: var(--orange);
-  color: #ffffff;
+  background: var(--ink);
+  color: var(--paper);
   border: 0;
-  border-radius: 6px;
-  padding: 9px 16px;
+  border-radius: 30px;
+  padding: 11px 17px;
   font-size: 12px;
   font-weight: 700;
   display: inline-flex;
@@ -447,11 +449,25 @@ h2 {
   transition: background 0.2s;
 }
 .catalog-card:hover .catalog-action-btn {
-  background: var(--orange-hover);
+  background: var(--orange);
 }
 
 /* ГАЛЕРЕЯ */
-.gallery-section { padding: 70px 0; background: #eeede5; border-block: 1px solid var(--line); }
+.gallery-section { padding: 96px 0; background: var(--paper-card); border-block: 1px solid var(--line); }
+.gallery-section .section-head {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+.gallery-section .eyebrow { margin-bottom: 16px; }
+.gallery-section .filters-bar,
+.gallery-section .gallery-caption,
+.gallery-section .gallery-thumb-zoom,
+.gallery-section .section-desc { display: none; }
+#catalog { padding-block: 80px; }
+#catalog .section-head { padding-bottom: 30px; border-bottom: 1px solid var(--line); margin-bottom: 32px; }
+#catalog h2, #gallery h2 { max-width: 680px; font-size: clamp(26px, 3.2vw, 42px); letter-spacing: -1.5px; }
+#catalog .section-desc { max-width: 340px; line-height: 1.8; }
 .filters-bar {
   display: flex;
   gap: 10px;
@@ -477,40 +493,60 @@ h2 {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(180px, 20vw, 280px);
+  grid-auto-flow: dense;
+  gap: 20px;
 }
 .gallery-item {
-  background: #ffffff;
+  background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 20px;
+  padding: 6px;
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
-  transition: transform 0.25s, box-shadow 0.25s;
+  transition: box-shadow 0.3s, border-color 0.3s;
   display: flex;
   flex-direction: column;
 }
+.gallery-item:nth-child(10n + 1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.gallery-item:nth-child(10n + 6) { grid-column: span 2; }
 .gallery-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  transform: none;
+  border-color: var(--muted);
+  box-shadow: 0 12px 28px rgba(31, 33, 29, 0.08);
 }
 .gallery-thumb {
-  aspect-ratio: 4/3;
   width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
   position: relative;
-  background: #e1dfd4;
+  background: var(--line);
+  border-radius: 14px;
   overflow: hidden;
-  cursor: pointer;
+  cursor: zoom-in;
   border: 0;
   padding: 0;
   display: block;
 }
 .gallery-thumb img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s;
+  transition: transform 0.65s cubic-bezier(0.2, 0.65, 0.3, 1);
 }
-.gallery-thumb:hover img { transform: scale(1.06); }
+.gallery-thumb:hover img { transform: scale(1.035); }
+.gallery-thumb:focus-visible { outline-offset: -4px; }
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item, .gallery-thumb img { transition: none; }
+  .gallery-thumb:hover img { transform: none; }
+}
 .gallery-thumb-zoom {
   position: absolute;
   right: 10px;
@@ -1002,7 +1038,8 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
   .benefits-bar { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .benefit-item { border-right: none; }
   .catalog-grid { grid-template-columns: repeat(2, 1fr); }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(180px, 30vw, 300px); gap: 16px; }
+  .gallery-item:nth-child(10n + 1) { grid-row: span 1; }
   .process-box { grid-template-columns: 1fr; }
 }
 
@@ -1016,7 +1053,14 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
   .hero-badges { grid-template-columns: 1fr; }
   .benefits-bar { grid-template-columns: 1fr; gap: 16px; padding: 20px 0; }
   .catalog-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(140px, 43vw, 250px); gap: 12px; }
+  .gallery-item { padding: 4px; border-radius: 14px; }
+  .gallery-thumb { border-radius: 10px; }
+  .gallery-item:nth-child(10n + 1) { grid-row: span 2; }
+  .gallery-section .section-head { margin-bottom: 24px; padding-bottom: 24px; }
+  #catalog .section-head { flex-direction: column; align-items: flex-start; }
+  #catalog, .gallery-section { padding-block: 48px; }
+  .catalog-body { padding: 22px; }
   .dispatch-card { grid-template-columns: 1fr; }
   .dispatch-info { padding: 26px 20px; }
   .dispatch-media { min-height: 260px; }
@@ -1176,7 +1220,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         <h2>Каталог жаропрочных стекол</h2>
       </div>
       <p class="section-desc">
-        Изготавливаем стекла для Bosch, Siemens, Electrolux, Gorenje, Hansa, Beko, Gefest и любых других производителей. Нажмите на нужную деталь для заказа или консультации.
+        Для вашей техники — по образцу, размерам или модели. Выберите деталь, а мы поможем с изготовлением.
       </p>
     </div>
 
@@ -1189,7 +1233,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
         <div class="catalog-body">
           <h3>Внешнее стекло духовки</h3>
-          <p>Лицевое закаленное стекло с отверстиями под ручку двери и петли. Широкая термостойкая покраска стемалит по периметру (чёрный или белый цвет) со смотровым окошком, либо качественная тонировочная плёнка.</p>
+          <p>Лицевое стекло со смотровым окном и отверстиями под ручку. Чёрная или белая термостойкая рамка, либо тонировка.</p>
           <div class="catalog-footer">
             <span style="font-size:11px;font-weight:700;color:var(--muted)">С отверстиями под ручку</span>
             <button type="button" class="catalog-action-btn">Заказать ↗</button>
@@ -1205,7 +1249,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
         <div class="catalog-body">
           <h3>Стёкла для панелей управления</h3>
-          <p>Изготовление лицевых стекол для панели управления духовки или плиты. <b>Точные круглые отверстия под поворотные ручки-переключатели</b>, регуляторы температуры, вырезы под сенсоры и таймеры, полированная еврокромка.</p>
+          <p>Точные отверстия под переключатели и вырезы под дисплей. Полированная кромка и изготовление по вашей модели.</p>
           <div class="catalog-footer">
             <span style="font-size:11px;font-weight:700;color:var(--muted)">С отверстиями под ручки</span>
             <button type="button" class="catalog-action-btn">Заказать ↗</button>
@@ -1221,7 +1265,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
         <div class="catalog-body">
           <h3>Внутреннее стекло духовки</h3>
-          <p>Изготавливаем внутренние стекла: <b>с термостойкой покраской стемалит</b> (чёрная рамка с вырезами под фиксаторы) и <b>полностью прозрачные жаропрочные</b> со скошенными углами и полированной еврокромкой. Прямой контакт с жаром до 300°C+.</p>
+          <p>Прозрачное или с термостойкой покраской стемалит. Вырезы под фиксаторы, обработанные углы и кромки.</p>
           <div class="catalog-footer">
             <span style="font-size:11px;font-weight:700;color:var(--muted)">С покраской или прозрачное</span>
             <button type="button" class="catalog-action-btn">Заказать ↗</button>
@@ -1237,7 +1281,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
         <div class="catalog-body">
           <h3>Промежуточное (среднее) стекло</h3>
-          <p>Термоизоляционный закаленный слой внутри многослойной двери духового шкафа. Удерживает тепло внутри камеры, снижает нагрев внешнего стекла и защищает фасад кухонного гарнитура.</p>
+          <p>Закалённый термоизоляционный слой для многослойной двери. Сохраняет тепло и снижает нагрев внешнего стекла.</p>
           <div class="catalog-footer">
             <span style="font-size:11px;font-weight:700;color:var(--muted)">Закаленное стекло</span>
             <button type="button" class="catalog-action-btn">Заказать ↗</button>
@@ -1253,7 +1297,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
         <div class="catalog-body">
           <h3>Керамические панели и плиты</h3>
-          <p>Жаропрочные стекла для кухонных плит и варочных поверхностей. Высокая термостойкость, ударопрочность, вырезы под конфорки и регуляторы строго по образцу или чертежу.</p>
+          <p>Стекло для плит и варочных поверхностей. Размеры и вырезы под конфорки и регуляторы — по образцу или чертежу.</p>
           <div class="catalog-footer">
             <span style="font-size:11px;font-weight:700;color:var(--muted)">По модели техники</span>
             <button type="button" class="catalog-action-btn">Заказать ↗</button>
@@ -1269,7 +1313,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
         <div class="catalog-body">
           <h3>Стекла для СВЧ-печей</h3>
-          <p>Жаропрочные стекла для микроволновых печей любых брендов. Точное соответствие размерам, вырезам и креплениям дверцы с обработанными безопасными кромками.</p>
+          <p>Стекло дверцы по размерам вашей микроволновой печи. Точные крепления, вырезы и безопасные обработанные кромки.</p>
           <div class="catalog-footer">
             <span style="font-size:11px;font-weight:700;color:var(--muted)">Для любых марок</span>
             <button type="button" class="catalog-action-btn">Заказать ↗</button>
@@ -1285,7 +1329,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
         <div class="catalog-body">
           <h3>Полки для холодильников</h3>
-          <p>Прочное закаленное стекло нужной толщины (4–6 мм) с полированной еврокромкой и скругленными углами под заводские пазы и направляющие вашего холодильника.</p>
+          <p>Закалённое стекло толщиной 4–6 мм с полированной кромкой. Скруглённые углы и точная посадка в направляющие.</p>
           <div class="catalog-footer">
             <span style="font-size:11px;font-weight:700;color:var(--muted)">Закаленное 4–6 мм</span>
             <button type="button" class="catalog-action-btn">Заказать ↗</button>
@@ -2128,9 +2172,8 @@ function showGalleryPhoto(idx) {
   viewerOrderBtn.setAttribute('data-modal-title', p.title);
 }
 
-document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+document.querySelectorAll('.gallery-thumb').forEach((thumb, idx) => {
   thumb.addEventListener('click', () => {
-    const idx = parseInt(thumb.getAttribute('data-photo-idx'), 10) || 0;
     showGalleryPhoto(idx);
     photoDialog.showModal();
   });
