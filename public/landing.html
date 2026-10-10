@@ -23,13 +23,20 @@
   --max-blue-hover: #0062d6;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 130px; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 130px;
+  overflow-x: hidden;
+}
 body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
   font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
 }
 button, input, select { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -182,11 +189,22 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--orange); outlin
 
 .menu-toggle {
   display: none;
-  background: none;
+  background: #ffffff;
   border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 7px 10px;
-  font-size: 20px;
+  border-radius: 8px;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ink);
+  transition: all 0.2s;
+}
+.menu-toggle:hover {
+  border-color: var(--orange);
+  color: var(--orange);
 }
 
 .mobile-nav-panel {
@@ -1034,7 +1052,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
 
 @media (max-width: 1100px) {
   .nav-links { display: none; }
-  .menu-toggle { display: block; }
+  .menu-toggle { display: inline-flex; }
   .benefits-bar { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .benefit-item { border-right: none; }
   .catalog-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1044,32 +1062,81 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
 }
 
 @media (max-width: 760px) {
-  .brand-name { font-size: 11px; }
-  .top-announcement { font-size: 10px; }
-  .header-main { height: 70px; }
+  .wrap { width: calc(100% - 28px); }
+  .top-announcement { font-size: 10px; padding: 6px 0; }
+  .top-announcement .wrap { justify-content: center; gap: 6px 14px; text-align: center; }
+  .announcement-item { justify-content: center; }
+  
+  .header-main { height: 64px; gap: 8px; }
+  .brand { gap: 8px; min-width: 0; flex-shrink: 1; }
+  .mark { width: 26px; height: 30px; flex-shrink: 0; }
+  .brand-name { font-size: 11px; line-height: 1.15; }
+  
+  .header-contacts { gap: 6px; flex-shrink: 0; }
+  .phone-badge { padding: 7px 9px; }
   .phone-badge span { display: none; }
-  .btn-max-header { padding: 8px 10px; font-size: 11px; }
+  .phone-badge svg { width: 16px; height: 16px; }
+  
+  .btn-max-header { padding: 7px 10px; font-size: 11px; gap: 5px; }
   .btn-call-popup { display: none; }
-  .hero { grid-template-columns: 1fr; padding: 34px 0 30px; gap: 24px; }
+  
+  .menu-toggle {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+  }
+  .menu-toggle svg { width: 18px; height: 18px; }
+  
+  .floating-call-btn {
+    right: 14px;
+    bottom: 16px;
+    padding: 12px 18px;
+    font-size: 12px;
+  }
+  
+  .hero { grid-template-columns: 1fr; padding: 28px 0 24px; gap: 20px; min-height: auto; }
   .hero-badges { grid-template-columns: 1fr; }
-  .benefits-bar { grid-template-columns: 1fr; gap: 16px; padding: 20px 0; }
+  .benefits-bar { grid-template-columns: 1fr; gap: 14px; padding: 18px 0; }
   .catalog-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(140px, 43vw, 250px); gap: 12px; }
-  .gallery-item { padding: 4px; border-radius: 14px; }
-  .gallery-thumb { border-radius: 10px; }
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(140px, 43vw, 250px); gap: 10px; }
+  .gallery-item { padding: 4px; border-radius: 12px; }
+  .gallery-thumb { border-radius: 8px; }
   .gallery-item:nth-child(10n + 1) { grid-row: span 2; }
-  .gallery-section .section-head { margin-bottom: 24px; padding-bottom: 24px; }
+  .gallery-section .section-head { margin-bottom: 20px; padding-bottom: 20px; }
   #catalog .section-head { flex-direction: column; align-items: flex-start; }
-  #catalog, .gallery-section { padding-block: 48px; }
-  .catalog-body { padding: 22px; }
+  #catalog, .gallery-section { padding-block: 40px; }
+  .catalog-body { padding: 18px; }
   .dispatch-card { grid-template-columns: 1fr; }
-  .dispatch-info { padding: 26px 20px; }
-  .dispatch-media { min-height: 260px; }
-  .process-box { padding: 26px 20px; }
-  .process-steps { grid-template-columns: 1fr; gap: 20px; }
-  .faq-layout { grid-template-columns: 1fr; gap: 24px; }
-  .contact-banner { grid-template-columns: 1fr; padding: 26px 20px; }
-  .footer-row { flex-direction: column; align-items: flex-start; }
+  .dispatch-info { padding: 22px 16px; }
+  .dispatch-media { min-height: 220px; }
+  .process-box { padding: 22px 16px; }
+  .process-steps { grid-template-columns: 1fr; gap: 18px; }
+  .faq-layout { grid-template-columns: 1fr; gap: 20px; }
+  .contact-banner { grid-template-columns: 1fr; padding: 22px 16px; }
+  .footer-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+
+@media (max-width: 480px) {
+  .wrap { width: calc(100% - 20px); }
+  .header-main { height: 58px; gap: 6px; }
+  .mark { width: 22px; height: 26px; }
+  .brand-name { font-size: 10px; }
+  .btn-max-header span { display: inline; font-size: 10px; }
+  .btn-max-header { padding: 6px 8px; }
+  .phone-badge { padding: 6px 8px; }
+  .menu-toggle { width: 34px; height: 34px; }
+  .floating-call-btn span { display: none; }
+  .floating-call-btn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .floating-call-btn svg { width: 22px; height: 22px; margin: 0; }
+  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+  .gallery-item:nth-child(10n + 1) { grid-row: span 1; }
 }
 </style>
 </head>
