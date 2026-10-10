@@ -1451,7 +1451,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
 
       <!-- Фильтры -->
       <div class="filters-bar" role="group" aria-label="Фильтры галереи">
-        <button type="button" class="filter-btn active" data-filter="all">Все работы (34)</button>
+        <button type="button" class="filter-btn active" data-filter="all">Все работы (35)</button>
         <button type="button" class="filter-btn" data-filter="shower">Душевые ширмы и перегородки</button>
         <button type="button" class="filter-btn" data-filter="external">Внешние стекла (с отверстиями)</button>
         <button type="button" class="filter-btn" data-filter="panel">Панели управления</button>
@@ -1970,6 +1970,21 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
             <button type="button" class="gallery-order-btn open-call-btn" data-modal-title="Душевые перегородки с полосой приватности">Заказать такую перегородку ↗</button>
           </div>
         </article>
+
+        <!-- Душевые ширмы: 33 Обработка кромки и плоскость сатинат -->
+        <article class="gallery-item" data-category="shower">
+          <button type="button" class="gallery-thumb" data-photo-idx="33" aria-label="Открыть фото: Кромка и плоскость матового стекла сатинат">
+            <img src="./works/shower-edge-frosted.png" alt="Кромка и плоскость матового стекла сатинат" loading="lazy">
+            <span class="gallery-thumb-zoom">↗</span>
+          </button>
+          <div class="gallery-caption">
+            <div>
+              <h4>Кромка и полотно сатинат</h4>
+              <p>Идеальная полированная еврокромка и бархатистая текстура стекла</p>
+            </div>
+            <button type="button" class="gallery-order-btn open-call-btn" data-modal-title="Матовое стекло сатинат с еврокромкой">Заказать такое полотно ↗</button>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -2352,7 +2367,8 @@ const photosData = [
   { src: './works/shower-table-long.png', title: 'Широкая душевая перегородка', desc: 'Индивидуальные размеры, идеальная геометрия и подготовка к безопасной транспортировке' },
   { src: './works/shower-corner-macro.png', title: 'Макро: полированный безопасный угол душевой ширмы', desc: 'Шлифованная трапециевидная еврокромка и скругление углов для максимальной безопасности' },
   { src: './works/shower-satin-hand.png', title: 'Матовое закалённое стекло (сатинат) на просвет', desc: 'Мягкое светорассеивание и визуальная приватность душевой зоны' },
-  { src: './works/shower-racks-storage.jpg', title: 'Душевые перегородки с полосой приватности', desc: 'Комбинированное прозрачно-матовое закалённое стекло на складе готовой продукции' }
+  { src: './works/shower-racks-storage.jpg', title: 'Душевые перегородки с полосой приватности', desc: 'Комбинированное прозрачно-матовое закалённое стекло на складе готовой продукции' },
+  { src: './works/shower-edge-frosted.png', title: 'Кромка и плоскость матового стекла сатинат', desc: 'Идеальная полировка еврокромки и приятная бархатистая фактура закалённого сатината' }
 ];
 
 let activePhotoIndex = 0;
