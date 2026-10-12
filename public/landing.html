@@ -520,6 +520,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   border-top: 1px solid var(--line);
   padding-top: 16px;
 }
@@ -534,6 +535,8 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: background 0.2s;
 }
 .catalog-card:hover .catalog-action-btn {
@@ -1416,14 +1419,14 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
       <!-- 4: Промежуточное (среднее) стекло -->
       <article class="catalog-card open-call-btn" data-modal-title="Промежуточное (среднее) стекло духовки">
         <div class="catalog-card-image">
-          <img src="./works/intermediate-clear-straight.png" alt="Промежуточное закаленное стекло духовки с прямыми углами">
+          <img src="./works/intermediate-clear-straight.png" alt="Промежуточное прозрачное закаленное стекло духовки с прямыми углами">
           <span class="catalog-tag">04 / ТЕРМОБАРЬЕР</span>
         </div>
         <div class="catalog-body">
           <h3>Промежуточное (среднее) стекло</h3>
-          <p>Бывает только с прямыми углами: прозрачное либо с термостойкой покраской. Защитный термобарьер двери духовки.</p>
+          <p>Изготавливается только прозрачным и с прямыми углами (без покраски, так как среднее стекло не видно снаружи). Защитный термобарьер двери духовки.</p>
           <div class="catalog-footer">
-            <span style="font-size:11px;font-weight:700;color:var(--muted)">Только прямые углы (прозрачное / покраска)</span>
+            <span style="font-size:11px;font-weight:700;color:var(--muted)">Только прозрачное (прямые углы)</span>
             <button type="button" class="catalog-action-btn">Заказать ↗</button>
           </div>
         </div>
@@ -2241,7 +2244,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
 
         <details>
           <summary>Чем отличаются внутренние и промежуточные стёкла духовки?</summary>
-          <p><b>Промежуточные (средние) стёкла</b> бывают исключительно с <b>прямыми углами</b> — прозрачные либо с покраской.<br>А со <b>скошенными углами</b> изготавливаются <b>внутренние стёкла</b> духовых шкафов (прозрачные под пазы крепления либо со стойкой покраской стемалит и фигурными вырезами).</p>
+          <p><b>Промежуточные (средние) стёкла</b> изготавливаются <b>только прозрачными</b> и исключительно с <b>прямыми углами</b> (без покраски, так как среднее стекло находится внутри двери и не видно снаружи).<br>А <b>внутренние стёкла</b> духовых шкафов бывают как прозрачными (в том числе со <b>скошенными углами</b> под пазы крепления), так и со стойкой покраской стемалит и фигурными вырезами.</p>
         </details>
 
         <details>
@@ -2283,7 +2286,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
           <span>↗</span>
         </a>
 
-        <a href="https://www.avito.ru/brands/i8757937/all/predlozheniya_uslug?sellerId=305b7706778de70c2ad0787bfe2d565a" target="_blank" rel="noopener noreferrer" class="big-contact-btn btn-avito-big">
+        <a href="https://www.avito.ru/brands/i8757937" target="_blank" rel="noopener" class="big-contact-btn btn-avito-big">
           <span>⭐ Наш профиль и отзывы на Авито</span>
           <span>↗</span>
         </a>
@@ -2310,7 +2313,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
       <div class="footer-links">
         <a href="tel:+79020246482">+7 (902) 024-64-82</a>
         <a href="https://max.ru/u/f9LHodD0cOK4ePqHs6WvYTHxZW-LHtvgB6OTpEP9gY51sCGm1km_3Nb2c-M" target="_blank" rel="noopener noreferrer">Мессенджер Макс</a>
-        <a href="https://www.avito.ru/brands/i8757937/all/predlozheniya_uslug?sellerId=305b7706778de70c2ad0787bfe2d565a" target="_blank" rel="noopener noreferrer">Авито</a>
+        <a href="https://www.avito.ru/brands/i8757937" target="_blank" rel="noopener">Авито</a>
       </div>
     </div>
   </div>
@@ -2349,7 +2352,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
       </a>
 
       <!-- 3: Авито -->
-      <a href="https://www.avito.ru/brands/i8757937/all/predlozheniya_uslug?sellerId=305b7706778de70c2ad0787bfe2d565a" target="_blank" rel="noopener noreferrer" class="modal-avito-btn">
+      <a href="https://www.avito.ru/brands/i8757937" target="_blank" rel="noopener" class="modal-avito-btn">
         <span>⭐ Наш профиль и отзывы на Авито ↗</span>
       </a>
     </div>
