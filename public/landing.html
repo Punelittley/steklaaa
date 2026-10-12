@@ -412,6 +412,7 @@ h2 {
   position: absolute;
   top: 18px;
   left: 18px;
+  z-index: 5;
   background: var(--paper);
   backdrop-filter: blur(4px);
   color: var(--ink);
@@ -420,6 +421,80 @@ h2 {
   padding: 8px 12px;
   border-radius: 30px;
   letter-spacing: 0.5px;
+}
+.card-carousel-slides {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.card-carousel-slides img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.4s ease;
+}
+.card-carousel-slides img.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.card-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(25, 28, 24, 0.72);
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+}
+.card-carousel-btn:hover {
+  background: var(--orange);
+  border-color: var(--orange);
+  transform: translateY(-50%) scale(1.08);
+}
+.card-carousel-btn.prev { left: 10px; }
+.card-carousel-btn.next { right: 10px; }
+.card-carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  gap: 6px;
+  background: rgba(25, 28, 24, 0.6);
+  padding: 5px 9px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+.card-carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.card-carousel-dot.active {
+  background: #ffffff;
+  width: 18px;
+  border-radius: 10px;
 }
 .catalog-body {
   padding: 26px;
@@ -1354,17 +1429,30 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
       </article>
 
-      <!-- 5: Зеркальное тонирование (Hansa, Hotpoint-Ariston) -->
-      <article class="catalog-card open-call-btn" data-modal-title="Стёкла с зеркальным тонированием (Hansa, Hotpoint-Ariston)">
-        <div class="catalog-card-image">
-          <img src="./works/mirror-tinted-hansa.jpg" alt="Стёкла с зеркальным тонированием (Hansa, Hotpoint-Ariston)">
-          <span class="catalog-tag">05 / ЗЕРКАЛЬНОЕ ТОНИРОВАНИЕ</span>
+      <!-- 5: Прозрачные стёкла с различными видами тонирования (с каруселью) -->
+      <article class="catalog-card open-call-btn" data-modal-title="Прозрачные стёкла с различными видами тонирования">
+        <div class="catalog-card-image" data-carousel>
+          <div class="card-carousel-slides">
+            <img src="./works/installed-kaiser.jpg" alt="Прозрачное стекло с тонированием на плите" class="active">
+            <img src="./works/real-black-tinted-workshop.png" alt="Тонированное стекло духовки в мастерской" loading="lazy">
+            <img src="./works/installed-aeg.png" alt="Духовой шкаф AEG с тонированным стеклом" loading="lazy">
+            <img src="./works/installed-hotpoint.jpg" alt="Тонированное стекло на духовом шкафу Hotpoint" loading="lazy">
+          </div>
+          <button type="button" class="card-carousel-btn prev" aria-label="Предыдущее фото">‹</button>
+          <button type="button" class="card-carousel-btn next" aria-label="Следующее фото">›</button>
+          <div class="card-carousel-dots">
+            <button type="button" class="card-carousel-dot active" aria-label="Фото 1"></button>
+            <button type="button" class="card-carousel-dot" aria-label="Фото 2"></button>
+            <button type="button" class="card-carousel-dot" aria-label="Фото 3"></button>
+            <button type="button" class="card-carousel-dot" aria-label="Фото 4"></button>
+          </div>
+          <span class="catalog-tag">05 / ТОНИРОВАНИЕ</span>
         </div>
         <div class="catalog-body">
-          <h3>Стёкла с зеркальным тонированием (Hansa, Hotpoint-Ariston)</h3>
-          <p>Внешние закалённые стёкла с зеркальным полупрозрачным эффектом. При выключенной духовке — зеркальный глянец, при включённой подсветке — прозрачное смотровое окно.</p>
+          <h3>Прозрачные стёкла с различными видами тонирования</h3>
+          <p>Закалённые прозрачные и полупрозрачные стёкла с заводским тонированием различной плотности и оттенков. С окраской рамки стемалитом или полностью тонированные.</p>
           <div class="catalog-footer">
-            <span style="font-size:11px;font-weight:700;color:var(--muted)">Hansa, Hotpoint-Ariston и др.</span>
+            <span style="font-size:11px;font-weight:700;color:var(--muted)">Различные виды тонирования</span>
             <button type="button" class="catalog-action-btn">Заказать ↗</button>
           </div>
         </div>
@@ -1386,11 +1474,36 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
       </article>
 
-      <!-- 7: Полки холодильников -->
+      <!-- 7: Стёкла с зеркальным тонированием (Hansa, Hotpoint-Ariston) (с каруселью) -->
+      <article class="catalog-card open-call-btn" data-modal-title="Стёкла с зеркальным тонированием (Hansa, Hotpoint-Ariston)">
+        <div class="catalog-card-image" data-carousel>
+          <div class="card-carousel-slides">
+            <img src="./works/mirror-tinted-hansa.jpg" alt="Стёкла с зеркальным тонированием (Hansa, Hotpoint-Ariston)" class="active">
+            <img src="./works/image-5.webp" alt="Зеркальное тонированное стекло для духовки" loading="lazy">
+          </div>
+          <button type="button" class="card-carousel-btn prev" aria-label="Предыдущее фото">‹</button>
+          <button type="button" class="card-carousel-btn next" aria-label="Следующее фото">›</button>
+          <div class="card-carousel-dots">
+            <button type="button" class="card-carousel-dot active" aria-label="Фото 1"></button>
+            <button type="button" class="card-carousel-dot" aria-label="Фото 2"></button>
+          </div>
+          <span class="catalog-tag">07 / ЗЕРКАЛЬНОЕ ТОНИРОВАНИЕ</span>
+        </div>
+        <div class="catalog-body">
+          <h3>Стёкла с зеркальным тонированием (Hansa, Hotpoint-Ariston)</h3>
+          <p>Внешние закалённые стёкла с зеркальным полупрозрачным эффектом. При выключенной духовке — зеркальный глянец, при включённой подсветке — прозрачное смотровое окно.</p>
+          <div class="catalog-footer">
+            <span style="font-size:11px;font-weight:700;color:var(--muted)">Hansa, Hotpoint-Ariston и др.</span>
+            <button type="button" class="catalog-action-btn">Заказать ↗</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8: Полки холодильников -->
       <article class="catalog-card open-call-btn" data-modal-title="Полка для холодильника из закаленного стекла">
         <div class="catalog-card-image">
           <img src="./works/image-12.webp" alt="Полка для холодильника">
-          <span class="catalog-tag">07 / ХОЛОДИЛЬНИКИ</span>
+          <span class="catalog-tag">08 / ХОЛОДИЛЬНИКИ</span>
         </div>
         <div class="catalog-body">
           <h3>Полки для холодильников</h3>
@@ -1402,11 +1515,26 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
       </article>
 
-      <!-- 8: Душевые ширмы и перегородки -->
+      <!-- 9: Душевые ширмы и перегородки (с каруселью) -->
       <article class="catalog-card open-call-btn" id="shower" data-modal-title="Душевые ширмы и перегородки для дома и офиса">
-        <div class="catalog-card-image">
-          <img src="./works/shower-screen-vertical.png" alt="Душевые ширмы и перегородки из закаленного стекла">
-          <span class="catalog-tag">08 / ДЛЯ ДОМА И ОФИСА</span>
+        <div class="catalog-card-image" data-carousel>
+          <div class="card-carousel-slides">
+            <img src="./works/shower-screen-vertical.png" alt="Душевые ширмы и перегородки из закаленного стекла" class="active">
+            <img src="./works/shower-partition-held.png" alt="Душевая ширма из матового стекла сатинат" loading="lazy">
+            <img src="./works/shower-table-long.png" alt="Широкая душевая перегородка" loading="lazy">
+            <img src="./works/shower-racks-storage.jpg" alt="Душевые перегородки с полосой приватности" loading="lazy">
+            <img src="./works/shower-corner-macro.png" alt="Макро: безопасный угол душевой ширмы" loading="lazy">
+          </div>
+          <button type="button" class="card-carousel-btn prev" aria-label="Предыдущее фото">‹</button>
+          <button type="button" class="card-carousel-btn next" aria-label="Следующее фото">›</button>
+          <div class="card-carousel-dots">
+            <button type="button" class="card-carousel-dot active" aria-label="Фото 1"></button>
+            <button type="button" class="card-carousel-dot" aria-label="Фото 2"></button>
+            <button type="button" class="card-carousel-dot" aria-label="Фото 3"></button>
+            <button type="button" class="card-carousel-dot" aria-label="Фото 4"></button>
+            <button type="button" class="card-carousel-dot" aria-label="Фото 5"></button>
+          </div>
+          <span class="catalog-tag">09 / ДЛЯ ДОМА И ОФИСА</span>
         </div>
         <div class="catalog-body">
           <h3>Душевые ширмы и перегородки</h3>
@@ -1418,11 +1546,11 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         </div>
       </article>
 
-      <!-- 9: Изделия из стеклокерамики -->
+      <!-- 10: Изделия из стеклокерамики -->
       <article class="catalog-card open-call-btn" data-modal-title="Изделия из жаропрочной стеклокерамики">
         <div class="catalog-card-image">
           <img src="./works/real-black-gloss.png" alt="Изделия из жаропрочной стеклокерамики">
-          <span class="catalog-tag">09 / СТЕКЛОКЕРАМИКА</span>
+          <span class="catalog-tag">10 / СТЕКЛОКЕРАМИКА</span>
         </div>
         <div class="catalog-body">
           <h3>Изделия из стеклокерамики</h3>
@@ -2277,10 +2405,57 @@ function openCallModal(title) {
 
 document.querySelectorAll('.open-call-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
+    if (e.target.closest('.card-carousel-btn, .card-carousel-dot')) return;
     e.stopPropagation();
     const title = btn.getAttribute('data-modal-title') || btn.querySelector('h3, h4')?.textContent || 'Консультация и подбор стекла';
     openCallModal(title);
   });
+});
+
+// КАРУСЕЛЬ В КАРТОЧКАХ КАТАЛОГА
+document.querySelectorAll('[data-carousel]').forEach(carousel => {
+  const slides = carousel.querySelectorAll('.card-carousel-slides img');
+  const dots = carousel.querySelectorAll('.card-carousel-dot');
+  const prevBtn = carousel.querySelector('.card-carousel-btn.prev');
+  const nextBtn = carousel.querySelector('.card-carousel-btn.next');
+  let current = 0;
+
+  function goToSlide(idx) {
+    current = (idx + slides.length) % slides.length;
+    slides.forEach((img, i) => img.classList.toggle('active', i === current));
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(current - 1);
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(current + 1);
+    });
+  }
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(i);
+    });
+  });
+
+  // Свайп на мобильных устройствах
+  let startX = 0;
+  carousel.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+  carousel.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].clientX - startX;
+    if (Math.abs(diff) > 40) {
+      goToSlide(diff > 0 ? current - 1 : current + 1);
+    }
+  }, { passive: true });
 });
 
 closeCallModalBtn.addEventListener('click', () => callDialog.close());
