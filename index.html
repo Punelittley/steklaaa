@@ -1168,18 +1168,54 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
     font-size: 12px;
   }
   
-  .hero { grid-template-columns: 1fr; padding: 28px 0 24px; gap: 20px; min-height: auto; }
-  .hero-badges { grid-template-columns: 1fr; }
+  .hero { grid-template-columns: 1fr; padding: 22px 0 20px; gap: 20px; min-height: auto; }
+  h1 { font-size: clamp(24px, 6.8vw, 34px); letter-spacing: -1px; margin: 10px 0 14px; word-break: break-word; }
+  .hero-lead { font-size: 13px; line-height: 1.6; margin-bottom: 20px; }
+  .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; width: 100%; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; text-align: center; padding: 14px 20px; }
+  .hero-badges { grid-template-columns: 1fr; gap: 8px; }
+  .hero-badge-card { padding: 12px 14px; }
+  .hero-preview-box { padding: 12px; border-radius: 14px; }
+  .hero-preview-footer { flex-wrap: wrap; gap: 10px; }
+  
   .benefits-bar { grid-template-columns: 1fr; gap: 14px; padding: 18px 0; }
   .catalog-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(140px, 43vw, 250px); gap: 10px; }
-  .gallery-item { padding: 4px; border-radius: 12px; }
-  .gallery-thumb { border-radius: 8px; }
-  .gallery-item:nth-child(10n + 1) { grid-row: span 2; }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+    grid-auto-rows: auto !important;
+    gap: 8px !important;
+  }
+  .gallery-item,
+  .gallery-item:nth-child(10n + 1),
+  .gallery-item:nth-child(10n + 6) {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    padding: 3px !important;
+    border-radius: 12px !important;
+  }
+  .gallery-thumb {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 9px !important;
+  }
+  .gallery-thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  
   .gallery-section .section-head { margin-bottom: 20px; padding-bottom: 20px; }
   #catalog .section-head { flex-direction: column; align-items: flex-start; }
-  #catalog, .gallery-section { padding-block: 40px; }
-  .catalog-body { padding: 18px; }
+  #catalog, .gallery-section { padding-block: 36px; }
+  .catalog-body { padding: 18px 16px; }
+  .catalog-body h3 { font-size: 19px; }
+  .catalog-footer { flex-wrap: wrap; gap: 10px; }
+  .catalog-action-btn { width: 100%; justify-content: center; }
+  
   .dispatch-card { grid-template-columns: 1fr; }
   .dispatch-info { padding: 22px 16px; }
   .dispatch-media { min-height: 220px; }
@@ -1188,11 +1224,18 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
   .faq-layout { grid-template-columns: 1fr; gap: 20px; }
   .contact-banner { grid-template-columns: 1fr; padding: 22px 16px; }
   .footer-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+  
+  .photo-dialog { width: calc(100% - 20px); }
+  .viewer-main-img { max-height: 52vh; padding: 6px; }
+  .viewer-footer { padding: 12px 14px; gap: 10px; }
+  .viewer-order-action { width: 100%; justify-content: center; }
+  .viewer-controls { width: 100%; justify-content: space-between; }
 }
 
 @media (max-width: 480px) {
-  .wrap { width: calc(100% - 20px); }
-  .header-main { height: 58px; gap: 6px; }
+  .wrap { width: calc(100% - 18px); }
+  .top-announcement .wrap { flex-direction: column; gap: 4px; }
+  .header-main { height: 56px; gap: 6px; }
   .mark { width: 22px; height: 26px; }
   .brand-name { font-size: 10px; }
   .btn-max-header span { display: inline; font-size: 10px; }
@@ -1201,15 +1244,29 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
   .menu-toggle { width: 34px; height: 34px; }
   .floating-call-btn span { display: none; }
   .floating-call-btn {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     padding: 0;
     justify-content: center;
     border-radius: 50%;
+    right: 12px;
+    bottom: 14px;
   }
-  .floating-call-btn svg { width: 22px; height: 22px; margin: 0; }
-  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
-  .gallery-item:nth-child(10n + 1) { grid-row: span 1; }
+  .floating-call-btn svg { width: 20px; height: 20px; margin: 0; }
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+  }
+  .gallery-item,
+  .gallery-item:nth-child(10n + 1),
+  .gallery-item:nth-child(10n + 6) {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    aspect-ratio: 1 / 1 !important;
+    padding: 2px !important;
+    border-radius: 10px !important;
+  }
+  .gallery-thumb { border-radius: 8px !important; }
 }
 </style>
 </head>
@@ -1281,7 +1338,6 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
   <section class="wrap">
     <div class="hero">
       <div>
-        <div class="eyebrow"><span class="dot"></span> Производство закалённого стекла в Челябинске</div>
         <h1>Закалённые стёкла <em>для дома и офиса</em></h1>
         <p class="hero-lead">
           (стёкла для дверей духовых шкафов и плит, полки холодильников, душевые ширмы/перегородки, изделия из стеклокерамики)
