@@ -2212,6 +2212,12 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
             <span>Рассчитать доставку / Позвонить ↗</span>
           </button>
         </div>
+
+        <!-- КАЛЬКУЛЯТОР СДЭК -->
+        <div style="margin-top:28px;">
+          <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;">Расчёт стоимости доставки СДЭК</div>
+          <div id="cdek-widget" style="border-radius:12px;overflow:hidden;border:1px solid var(--line);"></div>
+        </div>
       </div>
 
       <div class="dispatch-media">
@@ -2630,6 +2636,35 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') showGalleryPhoto(activePhotoIndex + 1);
   }
 });
+</script>
+
+<!-- ВИДЖЕТ КАЛЬКУЛЯТОРА СДЭК -->
+<script>
+(function() {
+  function loadCdekWidget() {
+    if (!document.getElementById('cdek-widget')) return;
+    var script = document.createElement('script');
+    script.src = 'https://cdn.cdek.ru/storage/widget/calc-v2/build/index.js';
+    script.onload = function() {
+      if (typeof CDEKWidget !== 'undefined') {
+        new CDEKWidget({
+          el: '#cdek-widget',
+          sender: { city: 'Челябинск' },
+          defaultWeight: 5,
+          defaultHeight: 10,
+          defaultWidth: 40,
+          defaultLength: 60
+        });
+      }
+    };
+    document.body.appendChild(script);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadCdekWidget);
+  } else {
+    loadCdekWidget();
+  }
+})();
 </script>
 
 </body>
