@@ -1268,6 +1268,335 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
   }
   .gallery-thumb { border-radius: 8px !important; }
 }
+/* СТИЛИ КАЛЬКУЛЯТОРА СДЭК */
+.cdek-calc-box {
+  margin-top: 26px;
+  background: #fbfaf5;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px;
+}
+.cdek-calc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.cdek-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e8f5e9;
+  color: #1b5e20;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 20px;
+}
+.cdek-calc-from {
+  font-size: 11px;
+  color: var(--muted);
+}
+.cdek-calc-from b { color: var(--ink); }
+.cdek-form-group {
+  margin-bottom: 10px;
+}
+.cdek-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.cdek-select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cdek-select:focus {
+  outline: 2px solid var(--orange);
+  border-color: var(--orange);
+}
+.cdek-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.cdek-chip {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 5px 11px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cdek-chip:hover, .cdek-chip.active {
+  background: var(--ink);
+  color: #ffffff;
+  border-color: var(--ink);
+}
+.cdek-type-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.cdek-type-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: all 0.15s ease;
+}
+.cdek-type-btn input { display: none; }
+.cdek-type-btn.active {
+  background: #edf7ed;
+  border-color: #2e7d32;
+  color: #1b5e20;
+  font-weight: 700;
+}
+.cdek-result-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.cdek-res-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+.cdek-res-lbl { color: var(--muted); font-size: 12px; }
+.cdek-res-val { color: var(--ink); }
+.cdek-price { color: #1b5e20; font-size: 16px; font-weight: 800; font-family: 'Unbounded', sans-serif; }
+.cdek-res-note {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.cdek-order-btn {
+  width: 100%;
+  justify-content: center;
+  font-size: 13px;
+  padding: 13px;
+}
+
+/* СТИЛИ КАЛЬКУЛЯТОРА СТОИМОСТИ СТЕКЛА */
+.calc-section-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 38px 40px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+.calc-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 28px;
+}
+.calc-badge-note {
+  background: #fff4ed;
+  border: 1px solid #ffd8c2;
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 30px;
+}
+.glass-calc-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.95fr;
+  gap: 34px;
+}
+.calc-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.calc-field {
+  display: flex;
+  flex-direction: column;
+}
+.calc-field-lbl {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.calc-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfaf5;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.calc-input:focus {
+  outline: 2px solid var(--orange);
+  border-color: var(--orange);
+}
+.calc-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.calc-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.calc-num-val {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange);
+}
+.calc-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: var(--line);
+  outline: none;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+.calc-range-limits {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.calc-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.calc-check-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #4a4d44;
+  cursor: pointer;
+  user-select: none;
+}
+.calc-check-opt input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+.calc-summary-card {
+  background: #242922;
+  color: #f7f6f0;
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.calc-summary-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.calc-summary-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-bottom: 22px;
+}
+.calc-sum-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #b5bdae;
+}
+.calc-sum-line b {
+  color: #ffffff;
+  font-weight: 600;
+  text-align: right;
+  max-width: 60%;
+}
+.calc-total-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+.calc-total-lbl {
+  font-size: 11px;
+  color: #b5bdae;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.calc-total-price {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--orange);
+  margin: 5px 0 3px;
+}
+.calc-total-sub {
+  font-size: 10px;
+  color: #8c9684;
+}
+
+@media (max-width: 900px) {
+  .glass-calc-grid { grid-template-columns: 1fr; gap: 24px; }
+  .calc-section-card { padding: 22px 16px; margin-block: 20px; }
+  .calc-row-2 { grid-template-columns: 1fr; gap: 14px; }
+  .cdek-type-toggle { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -1295,7 +1624,9 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
       </a>
 
       <nav class="nav-links">
-        <a href="#catalog">Каталог стекол</a>
+        <a href="#calc">Калькулятор</a>
+        <a href="#calc">Калькулятор стоимости</a>
+      <a href="#catalog">Каталог стекол</a>
         <a href="#shower">Душевые ширмы</a>
         <a href="#gallery">Наши работы</a>
         <a href="#dispatch">Доставка СДЭК</a>
@@ -1406,6 +1737,117 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
         <div>
           <b>СДЭК по всей России</b>
           <p>Жёсткая броне-упаковка с демпферами. Доставляем в любой город РФ.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- ОНЛАЙН-КАЛЬКУЛЯТОР СТОИМОСТИ СТЕКЛА -->
+  <section class="section wrap" id="calc">
+    <div class="calc-section-card">
+      <div class="calc-card-head">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Расчёт по вашим размерам</div>
+          <h2 style="font-size:clamp(22px, 3vw, 34px);margin:8px 0 12px;letter-spacing:-1px;">Онлайн-калькулятор стоимости стекла</h2>
+          <p style="font-size:13px;color:var(--muted);max-width:540px;margin:0;line-height:1.6;">
+            Укажите тип изделия, примерные размеры и нужные опции — калькулятор мгновенно рассчитает ориентировочную стоимость изготовления.
+          </p>
+        </div>
+        <div class="calc-badge-note">
+          Точный расчёт с учётом допусков
+        </div>
+      </div>
+
+      <div class="glass-calc-grid">
+        <!-- Левая колонка: параметры -->
+        <div class="calc-controls">
+          <div class="calc-field">
+            <label class="calc-field-lbl" for="glassType">Тип изделия:</label>
+            <select id="glassType" class="calc-input">
+              <option value="external" data-base="3200" selected>Внешнее стекло духовки (со смотровым окном)</option>
+              <option value="panel" data-base="2600">Стекло панели управления (под ручки/переключатели)</option>
+              <option value="inner" data-base="2100">Внутреннее стекло духовки (жаропрочное)</option>
+              <option value="intermediate" data-base="1700">Промежуточное стекло (термобарьер, прозрачное)</option>
+              <option value="shower" data-base="4200">Душевая перегородка / ширма (сатинат/прозрачное 8 мм)</option>
+              <option value="ceramic" data-base="4800">Изделие из стеклокерамики</option>
+            </select>
+          </div>
+
+          <div class="calc-row-2">
+            <div class="calc-field">
+              <div class="calc-label-row">
+                <label for="glassWidth" class="calc-field-lbl">Ширина (мм):</label>
+                <span class="calc-num-val" id="widthVal">595 мм</span>
+              </div>
+              <input type="range" id="glassWidth" min="200" max="1500" step="5" value="595" class="calc-slider">
+              <div class="calc-range-limits"><span>200 мм</span><span>1500 мм</span></div>
+            </div>
+
+            <div class="calc-field">
+              <div class="calc-label-row">
+                <label for="glassHeight" class="calc-field-lbl">Высота (мм):</label>
+                <span class="calc-num-val" id="heightVal">475 мм</span>
+              </div>
+              <input type="range" id="glassHeight" min="150" max="2200" step="5" value="475" class="calc-slider">
+              <div class="calc-range-limits"><span>150 мм</span><span>2200 мм</span></div>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label class="calc-field-lbl">Дополнительные опции:</label>
+            <div class="calc-options-list">
+              <label class="calc-check-opt">
+                <input type="checkbox" id="optHoles" checked>
+                <span>Отверстия под ручку двери / регуляторы (+350 ₽)</span>
+              </label>
+
+              <label class="calc-check-opt">
+                <input type="checkbox" id="optPaint" checked>
+                <span>Термостойкая покраска стемалит или шелкография (+600 ₽)</span>
+              </label>
+
+              <label class="calc-check-opt">
+                <input type="checkbox" id="optCorners" checked disabled>
+                <span>Полированная еврокромка + защитные транспортировочные уголки <b>(Бесплатно)</b></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: результат расчёта -->
+        <div class="calc-summary-card">
+          <div>
+            <div class="calc-summary-title">Итоговый расчёт</div>
+            <div class="calc-summary-lines">
+              <div class="calc-sum-line">
+                <span>Изделие:</span>
+                <b id="summaryType">Внешнее стекло духовки</b>
+              </div>
+              <div class="calc-sum-line">
+                <span>Размеры:</span>
+                <b id="summaryDimensions">595 × 475 мм (0.28 м²)</b>
+              </div>
+              <div class="calc-sum-line">
+                <span>Обработка:</span>
+                <b id="summaryOptions">Отверстия + Стемалит</b>
+              </div>
+              <div class="calc-sum-line">
+                <span>Срок изготовления:</span>
+                <b>3–5 рабочих дней</b>
+              </div>
+            </div>
+
+            <div class="calc-total-box">
+              <span class="calc-total-lbl">Ориентировочная стоимость:</span>
+              <div class="calc-total-price" id="calcTotalPrice">3 850 ₽</div>
+              <div class="calc-total-sub">Точная цена подтверждается мастером по модели/шильдику</div>
+            </div>
+          </div>
+
+          <button type="button" class="btn-primary open-call-btn" id="calcOrderBtn" data-modal-title="Заказ стекла по калькулятору: 595x475 мм (3850 ₽)" style="width:100%;justify-content:center;">
+            <span>Заказать по этим размерам ↗</span>
+          </button>
         </div>
       </div>
     </div>
@@ -2638,32 +3080,144 @@ document.addEventListener('keydown', (e) => {
 });
 </script>
 
-<!-- ВИДЖЕТ КАЛЬКУЛЯТОРА СДЭК -->
+<!-- ЛОГИКА КАЛЬКУЛЯТОРОВ -->
 <script>
+// 1. ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР СТОИМОСТИ СТЕКЛА
 (function() {
-  function loadCdekWidget() {
-    if (!document.getElementById('cdek-widget')) return;
-    var script = document.createElement('script');
-    script.src = 'https://cdn.cdek.ru/storage/widget/calc-v2/build/index.js';
-    script.onload = function() {
-      if (typeof CDEKWidget !== 'undefined') {
-        new CDEKWidget({
-          el: '#cdek-widget',
-          sender: { city: 'Челябинск' },
-          defaultWeight: 5,
-          defaultHeight: 10,
-          defaultWidth: 40,
-          defaultLength: 60
-        });
+  const typeSelect = document.getElementById('glassType');
+  const widthSlider = document.getElementById('glassWidth');
+  const heightSlider = document.getElementById('glassHeight');
+  const widthVal = document.getElementById('widthVal');
+  const heightVal = document.getElementById('heightVal');
+  const optHoles = document.getElementById('optHoles');
+  const optPaint = document.getElementById('optPaint');
+  
+  const summaryType = document.getElementById('summaryType');
+  const summaryDimensions = document.getElementById('summaryDimensions');
+  const summaryOptions = document.getElementById('summaryOptions');
+  const calcTotalPrice = document.getElementById('calcTotalPrice');
+  const calcOrderBtn = document.getElementById('calcOrderBtn');
+
+  if (!typeSelect || !widthSlider || !heightSlider) return;
+
+  function updateGlassCalc() {
+    const w = parseInt(widthSlider.value, 10);
+    const h = parseInt(heightSlider.value, 10);
+    widthVal.textContent = w + ' мм';
+    heightVal.textContent = h + ' мм';
+
+    const selectedOpt = typeSelect.options[typeSelect.selectedIndex];
+    const basePrice = parseInt(selectedOpt.getAttribute('data-base'), 10) || 3000;
+    const typeTitle = selectedOpt.text.split('(')[0].trim();
+
+    // Расчет площади в м²
+    const area = (w * h) / 1000000;
+    const standardArea = 0.28; // стандартное стекло 595x475
+    const areaFactor = Math.max(0.7, area / standardArea);
+
+    let price = Math.round(basePrice * (0.6 + 0.4 * areaFactor));
+
+    const optionsList = [];
+    if (optHoles.checked) {
+      price += 350;
+      optionsList.push('Отверстия');
+    }
+    if (optPaint.checked) {
+      price += 600;
+      optionsList.push('Стемалит');
+    }
+    if (optionsList.length === 0) {
+      optionsList.push('Без доп. опций');
+    }
+
+    // Округление до 50 руб
+    price = Math.round(price / 50) * 50;
+
+    summaryType.textContent = typeTitle;
+    summaryDimensions.textContent = w + ' × ' + h + ' мм (' + area.toFixed(2) + ' м²)';
+    summaryOptions.textContent = optionsList.join(' + ');
+    calcTotalPrice.textContent = price.toLocaleString('ru-RU') + ' ₽';
+
+    const modalTitle = 'Заказ по калькулятору: ' + typeTitle + ' ' + w + 'x' + h + ' мм (' + price.toLocaleString('ru-RU') + ' ₽)';
+    calcOrderBtn.setAttribute('data-modal-title', modalTitle);
+  }
+
+  typeSelect.addEventListener('change', updateGlassCalc);
+  widthSlider.addEventListener('input', updateGlassCalc);
+  heightSlider.addEventListener('input', updateGlassCalc);
+  optHoles.addEventListener('change', updateGlassCalc);
+  optPaint.addEventListener('change', updateGlassCalc);
+
+  updateGlassCalc();
+})();
+
+// 2. ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР ДОСТАВКИ СДЭК
+(function() {
+  const citySelect = document.getElementById('cdekCitySelect');
+  const chips = document.querySelectorAll('.cdek-chip');
+  const btnTypePvz = document.getElementById('btnTypePvz');
+  const btnTypeDoor = document.getElementById('btnTypeDoor');
+  const daysEl = document.getElementById('cdekDays');
+  const costEl = document.getElementById('cdekCost');
+  const cityTarget = document.getElementById('cdekCityTarget');
+  const orderBtn = document.getElementById('cdekOrderBtn');
+
+  if (!citySelect || !daysEl || !costEl) return;
+
+  let currentType = 'pvz';
+
+  function updateCdek() {
+    const opt = citySelect.options[citySelect.selectedIndex];
+    const name = opt.getAttribute('data-name');
+    const days = opt.getAttribute('data-days');
+    const costPvz = parseInt(opt.getAttribute('data-pvz'), 10);
+    const costDoor = parseInt(opt.getAttribute('data-door'), 10);
+
+    const cost = currentType === 'pvz' ? costPvz : costDoor;
+    const costText = cost === 0 ? 'Бесплатно (0 ₽)' : 'от ' + cost + ' ₽';
+    const typeText = currentType === 'pvz' ? 'ПВЗ' : 'Курьер';
+
+    daysEl.textContent = days;
+    costEl.textContent = costText;
+    cityTarget.textContent = name;
+
+    const modalTitle = 'Доставка СДЭК в ' + name + ' (' + typeText + ', ' + costText + ')';
+    orderBtn.setAttribute('data-modal-title', modalTitle);
+
+    // Sync chips active state
+    chips.forEach(chip => {
+      if (chip.getAttribute('data-city') === citySelect.value) {
+        chip.classList.add('active');
+      } else {
+        chip.classList.remove('active');
       }
-    };
-    document.body.appendChild(script);
+    });
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadCdekWidget);
-  } else {
-    loadCdekWidget();
-  }
+
+  citySelect.addEventListener('change', updateCdek);
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      citySelect.value = chip.getAttribute('data-city');
+      updateCdek();
+    });
+  });
+
+  btnTypePvz.addEventListener('click', () => {
+    currentType = 'pvz';
+    btnTypePvz.classList.add('active');
+    btnTypeDoor.classList.remove('active');
+    updateCdek();
+  });
+
+  btnTypeDoor.addEventListener('click', () => {
+    currentType = 'door';
+    btnTypeDoor.classList.add('active');
+    btnTypePvz.classList.remove('active');
+    updateCdek();
+  });
+
+  updateCdek();
 })();
 </script>
 
