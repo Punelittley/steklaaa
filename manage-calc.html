@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Управление калькулятором | СТЕКЛА-РФ</title>
+  <title>Управление ценами калькулятора | СТЕКЛА-РФ</title>
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: #111827;
-      --card-border: #1f293d;
-      --card-hover: #26334d;
-      --text: #f1f5f9;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
       --muted: #94a3b8;
-      --accent: #f97316;
-      --accent-hover: #ea580c;
-      --accent-glow: rgba(249, 115, 22, 0.25);
-      --primary: #38bdf8;
-      --success: #22c55e;
-      --danger: #ef4444;
-      --danger-hover: #dc2626;
-      --input-bg: #0b111e;
-      --radius: 12px;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --success: #16a34a;
+      --success-hover: #15803d;
+      --danger: #dc2626;
+      --danger-hover: #b91c1c;
+      --input-bg: #0b1329;
+      --radius: 8px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,8 +32,8 @@
       flex-direction: column;
     }
 
-    /* ЗАГЛУШКА АВТОРИЗАЦИИ / ЗАЩИТА ПАРОЛЕМ */
-    .lock-screen {
+    /* ЭКРАН ВХОДА */
+    .auth-overlay {
       position: fixed;
       inset: 0;
       background: var(--bg);
@@ -45,117 +43,71 @@
       z-index: 9999;
       padding: 20px;
     }
-    .lock-card {
+    .auth-box {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       padding: 32px 28px;
-      max-width: 420px;
+      max-width: 380px;
       width: 100%;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
-    .lock-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 16px;
-      background: rgba(249, 115, 22, 0.1);
-      border: 1px solid rgba(249, 115, 22, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin: 0 auto 18px;
-    }
-    .lock-title {
-      font-size: 20px;
-      font-weight: 800;
+    .auth-title {
+      font-size: 18px;
+      font-weight: 700;
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
-    .lock-desc {
+    .auth-desc {
       font-size: 13px;
       color: var(--muted);
-      margin-bottom: 22px;
-      line-height: 1.5;
+      margin-bottom: 20px;
     }
-    .lock-input {
+    .auth-input {
       width: 100%;
       background: var(--input-bg);
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--border);
       color: #fff;
-      padding: 12px 14px;
-      border-radius: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
       font-size: 15px;
-      text-align: center;
-      letter-spacing: 2px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       outline: none;
-      transition: all 0.2s;
     }
-    .lock-input:focus {
+    .auth-input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 12px var(--accent-glow);
     }
-    .lock-btn {
+    .auth-btn {
       width: 100%;
       background: var(--accent);
       color: #fff;
       border: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: 700;
+      padding: 11px;
+      border-radius: var(--radius);
+      font-weight: 600;
       font-size: 14px;
       cursor: pointer;
-      transition: background 0.2s;
     }
-    .lock-btn:hover {
+    .auth-btn:hover {
       background: var(--accent-hover);
     }
-    .lock-err {
+    .auth-error {
       color: #f87171;
       font-size: 13px;
       margin-top: 10px;
       display: none;
     }
-    .shake {
-      animation: shake 0.4s ease-in-out;
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-8px); }
-      40%, 80% { transform: translateX(8px); }
-    }
 
     /* ШАПКА */
     header {
-      background: rgba(17, 24, 39, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--card-border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
       padding: 14px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .brand-logo {
-      background: linear-gradient(135deg, #f97316, #ef4444);
-      color: #fff;
-      font-weight: 800;
-      font-size: 14px;
-      padding: 6px 10px;
-      border-radius: 8px;
-      letter-spacing: 0.5px;
     }
     .brand-title {
       font-size: 16px;
@@ -166,51 +118,47 @@
       font-size: 12px;
       color: var(--muted);
     }
-
     .header-actions {
       display: flex;
       align-items: center;
       gap: 10px;
-      flex-wrap: wrap;
     }
 
+    /* КНОПКИ */
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 9px 16px;
+      justify-content: center;
+      padding: 8px 16px;
       font-size: 13px;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: var(--radius);
       cursor: pointer;
-      transition: all 0.2s ease;
       border: 1px solid transparent;
       text-decoration: none;
-    }
-    .btn-secondary {
-      background: #1e293b;
-      color: #e2e8f0;
-      border-color: #334155;
-    }
-    .btn-secondary:hover {
-      background: #334155;
-      color: #fff;
+      transition: background-color 0.15s, border-color 0.15s;
     }
     .btn-primary {
-      background: var(--accent);
+      background: var(--success);
       color: #fff;
-      box-shadow: 0 2px 12px var(--accent-glow);
     }
     .btn-primary:hover {
-      background: var(--accent-hover);
-      box-shadow: 0 4px 16px var(--accent-glow);
+      background: var(--success-hover);
     }
-    .btn-danger {
-      background: rgba(239, 68, 68, 0.15);
+    .btn-secondary {
+      background: #334155;
+      color: #f1f5f9;
+      border-color: #475569;
+    }
+    .btn-secondary:hover {
+      background: #475569;
+    }
+    .btn-danger-outline {
+      background: transparent;
       color: #f87171;
-      border-color: rgba(239, 68, 68, 0.3);
+      border-color: #7f1d1d;
     }
-    .btn-danger:hover {
+    .btn-danger-outline:hover {
       background: var(--danger);
       color: #fff;
     }
@@ -219,1198 +167,695 @@
       font-size: 12px;
     }
 
-    .container {
-      max-width: 1400px;
+    /* ОСНОВНАЯ СЕТКА */
+    .main-wrap {
+      max-width: 1240px;
       width: 100%;
       margin: 0 auto;
       padding: 24px 20px 60px;
       flex: 1;
     }
-
-    /* Status Bar */
-    .status-bar {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+    .save-bar {
+      background: #111e38;
+      border: 1px solid #1e3a8a;
       border-radius: var(--radius);
       padding: 12px 18px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
     }
-    .status-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .save-status {
       font-size: 13px;
+      color: #93c5fd;
     }
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--muted);
-      display: inline-block;
-    }
-    .status-dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); }
-    .status-dot.warning { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 
-    /* Layout */
-    .dashboard-grid {
+    .grid-layout {
       display: grid;
-      grid-template-columns: 1fr 440px;
-      gap: 24px;
+      grid-template-columns: 1fr 380px;
+      gap: 20px;
       align-items: start;
     }
-    @media (max-width: 1024px) {
-      .dashboard-grid {
+    @media (max-width: 900px) {
+      .grid-layout {
         grid-template-columns: 1fr;
       }
     }
 
-    .panel-card {
+    .card {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
-    .panel-head {
+    .card-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
     }
-    .panel-title {
-      font-size: 16px;
+    .card-title {
+      font-size: 15px;
       font-weight: 700;
       color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .panel-desc {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
     }
 
-    /* Form Fields */
-    .form-group {
-      margin-bottom: 14px;
-    }
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .form-input, .form-select {
-      width: 100%;
-      background: var(--input-bg);
-      border: 1px solid var(--card-border);
-      color: #fff;
-      padding: 9px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .form-input:focus, .form-select:focus {
-      border-color: var(--accent);
-    }
-    .input-unit {
-      position: relative;
-    }
-    .input-unit .form-input {
-      padding-right: 36px;
-    }
-    .unit-badge {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 12px;
-      pointer-events: none;
-    }
-
-    /* Glass item row */
-    .glass-item-row {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
+    /* ТАБЛИЦА / СТРОКИ ТОВАРОВ */
+    .row-item {
       display: grid;
-      grid-template-columns: 1fr 140px 40px;
-      gap: 12px;
-      align-items: center;
-    }
-    .glass-item-row:hover {
-      border-color: #334155;
-    }
-
-    /* Option item row */
-    .option-item-row {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
-      display: grid;
-      grid-template-columns: 1.4fr 120px 90px 40px;
+      grid-template-columns: 1fr 130px 40px;
       gap: 10px;
       align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #283548;
+    }
+    .row-item:last-child {
+      border-bottom: none;
+    }
+    .row-option {
+      display: grid;
+      grid-template-columns: 1fr 110px 85px 40px;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #283548;
+    }
+    .row-option:last-child {
+      border-bottom: none;
     }
 
-    .check-toggle {
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    /* ПОЛЯ ВВОДА */
+    .input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+    }
+    .input:focus {
+      border-color: var(--accent);
+    }
+    .input-group {
+      position: relative;
+    }
+    .input-group .input {
+      padding-right: 28px;
+    }
+    .input-unit {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
       font-size: 12px;
       color: var(--muted);
-      cursor: pointer;
+      pointer-events: none;
     }
-    .check-toggle input {
-      accent-color: var(--accent);
+    .form-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px;
     }
-
+    .form-lbl {
+      font-size: 12px;
+      color: var(--muted);
+    }
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
-    /* Sticky Preview Card */
-    .preview-sticky {
-      position: sticky;
-      top: 80px;
-    }
-    .preview-badge {
-      display: inline-block;
-      font-size: 11px;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--primary);
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-
-    .mock-calc {
-      background: #0d131f;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
+    /* ПРЕДПРОСМОТР */
+    .preview-box {
+      background: #0b1329;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       padding: 16px;
-      margin-top: 14px;
     }
-    .mock-label {
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 4px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .mock-select {
-      width: 100%;
-      background: #131b2e;
-      border: 1px solid #2d3748;
-      color: #fff;
-      padding: 8px 10px;
-      border-radius: 6px;
-      font-size: 13px;
-      margin-bottom: 12px;
-    }
-    .mock-slider {
-      width: 100%;
-      accent-color: var(--accent);
-      margin-bottom: 4px;
-    }
-    .mock-limits {
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-      color: #64748b;
-      margin-bottom: 12px;
-    }
-    .mock-opts {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin: 12px 0;
-    }
-    .mock-opt-line {
-      font-size: 12px;
-      color: #cbd5e1;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .mock-opt-line input {
-      accent-color: var(--accent);
-    }
-    .mock-summary {
-      background: #111827;
-      border: 1px dashed #334155;
-      border-radius: 8px;
-      padding: 12px;
-      margin-top: 14px;
-    }
-    .mock-sum-row {
+    .preview-line {
       display: flex;
       justify-content: space-between;
       font-size: 12px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
-    .mock-sum-row span { color: var(--muted); }
-    .mock-sum-row b { color: #fff; font-weight: 600; text-align: right; }
-    .mock-total-box {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid #1f293d;
+    .preview-line span { color: var(--muted); }
+    .preview-line b { color: #fff; font-weight: 600; text-align: right; }
+    .preview-total {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
       text-align: center;
     }
-    .mock-total-price {
+    .preview-price {
       font-size: 26px;
       font-weight: 800;
-      color: #f97316;
+      color: #38bdf8;
     }
 
-    /* Modal / Auth Overlay */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 20px;
-    }
-    .modal-overlay.active {
-      display: flex;
-    }
-    .modal-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      max-width: 520px;
-      width: 100%;
-      padding: 26px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Toast */
-    .toast-box {
+    /* УВЕДОМЛЕНИЕ */
+    .toast {
       position: fixed;
       bottom: 24px;
       right: 24px;
-      background: #1e293b;
-      border: 1px solid #334155;
+      background: #0f172a;
+      border: 1px solid var(--border);
       color: #fff;
       padding: 12px 20px;
-      border-radius: 8px;
+      border-radius: var(--radius);
       box-shadow: 0 10px 25px rgba(0,0,0,0.4);
       display: none;
-      align-items: center;
-      gap: 10px;
-      z-index: 2000;
-      font-size: 14px;
+      font-size: 13px;
+      z-index: 10000;
     }
-    .toast-box.show {
-      display: flex;
-      animation: slideIn 0.3s ease;
-    }
-    .toast-box.success { border-color: var(--success); }
-    .toast-box.error { border-color: var(--danger); color: #fca5a5; }
-
-    @keyframes slideIn {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
+    .toast.show { display: block; }
+    .toast.success { border-color: var(--success); }
+    .toast.error { border-color: var(--danger); color: #fca5a5; }
   </style>
 </head>
 <body>
 
-  <!-- ЭКРАН ВХОДА (ПАРОЛЬ ЗАШИФРОВАН SHA-256) -->
-  <div class="lock-screen" id="lockScreen">
-    <div class="lock-card" id="lockCard">
-      <div class="lock-icon">🔐</div>
-      <h2 class="lock-title">Панель управления</h2>
-      <p class="lock-desc">Для редактирования параметров калькулятора введите пароль администратора.</p>
-      
-      <form id="lockForm" onsubmit="handleLogin(event)">
-        <input type="password" id="passInput" class="lock-input" placeholder="••••••••••••" autofocus autocomplete="current-password">
-        <button type="submit" class="lock-btn">Войти в панель</button>
+  <!-- АВТОРИЗАЦИЯ -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-box">
+      <div class="auth-title">Вход в панель управления</div>
+      <div class="auth-desc">Введите пароль для редактирования параметров калькулятора.</div>
+      <form id="authForm" onsubmit="login(event)">
+        <input type="password" id="passField" class="auth-input" placeholder="Пароль" autofocus autocomplete="current-password">
+        <button type="submit" class="auth-btn">Войти</button>
       </form>
-      <div class="lock-err" id="lockErr">Неверный пароль доступа</div>
+      <div class="auth-error" id="authError">Неверный пароль</div>
     </div>
   </div>
 
-  <!-- ОСНОВНОЙ ИНТЕРФЕЙС (СКРЫТ ДО ВВОДА ПАРОЛЯ) -->
-  <div id="appContainer" style="display:none;min-height:100vh;flex-direction:column;">
-    
-    <!-- ХЕДЕР -->
+  <!-- ОСНОВНАЯ ПАНЕЛЬ -->
+  <div id="app" style="display:none;min-height:100vh;flex-direction:column;">
     <header>
-      <div class="brand">
-        <div class="brand-logo">СТЕКЛА</div>
-        <div>
-          <div class="brand-title">Панель управления калькулятором</div>
-          <div class="brand-sub">stekla-rf.ru &bull; Punelittley/steklaaa</div>
-        </div>
+      <div>
+        <div class="brand-title">СТЕКЛА-РФ | Редактор калькулятора</div>
+        <div class="brand-sub">Изменение цен и параметров на сайте stekla-rf.ru</div>
       </div>
       <div class="header-actions">
-        <a href="index.html" class="btn btn-secondary" target="_blank">↗ На сайт</a>
-        <button type="button" class="btn btn-secondary" id="btnSettingsModal" title="Настройки GitHub">🔑 GitHub</button>
-        <button type="button" class="btn btn-secondary" id="btnExportJson">📥 Экспорт JSON</button>
-        <label class="btn btn-secondary" style="margin:0;">
-          📤 Импорт JSON
-          <input type="file" id="fileImportJson" accept=".json" style="display:none;">
-        </label>
-        <button type="button" class="btn btn-primary" id="btnSaveAll">
-          <span>💾 Сохранить</span>
-        </button>
-        <button type="button" class="btn btn-danger btn-sm" id="btnLogout" title="Заблокировать панель">🚪 Выйти</button>
+        <a href="index.html" class="btn btn-secondary" target="_blank">На сайт</a>
+        <button type="button" class="btn btn-danger-outline btn-sm" id="logoutBtn">Выйти</button>
       </div>
     </header>
 
-    <!-- КОНТЕНТ -->
-    <main class="container">
-      <div class="status-bar">
-        <div class="status-info">
-          <span class="status-dot" id="statusDot"></span>
-          <span id="statusText">Загрузка данных...</span>
-          <span id="statusCommit" style="color:var(--muted);font-size:12px;"></span>
-        </div>
-        <div>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnReloadConfig">🔄 Обновить</button>
-        </div>
+    <main class="main-wrap">
+      <!-- Панель сохранения -->
+      <div class="save-bar">
+        <div class="save-status" id="saveStatus">Все параметры загружены.</div>
+        <button type="button" class="btn btn-primary" id="saveBtn" style="padding:10px 24px;font-size:14px;">
+          Сохранить изменения
+        </button>
       </div>
 
-      <div class="dashboard-grid">
+      <div class="grid-layout">
         <!-- ЛЕВАЯ КОЛОНКА -->
-        <div class="editor-col">
-
+        <div>
           <!-- 1. ТИПЫ СТЕКОЛ -->
-          <div class="panel-card">
-            <div class="panel-head">
-              <div>
-                <div class="panel-title">🪟 1. Типы изделий и базовая цена</div>
-                <div class="panel-desc">Базовая цена за стандартный размер. Пересчитывается пропорционально площади.</div>
-              </div>
-              <button type="button" class="btn btn-secondary btn-sm" id="btnAddGlassType">➕ Добавить тип</button>
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">1. Изделия и базовые цены</div>
+              <button type="button" class="btn btn-secondary btn-sm" id="addGlassBtn">+ Добавить изделие</button>
             </div>
-            <div id="glassTypesContainer"></div>
+            <div id="glassList"></div>
           </div>
 
-          <!-- 2. ПОЛЗУНКИ -->
-          <div class="panel-card">
-            <div class="panel-head">
-              <div>
-                <div class="panel-title">📏 2. Диапазоны размеров (ползунки)</div>
-                <div class="panel-desc">Ограничения минимального, максимального значения и шаг ползунка в миллиметрах.</div>
-              </div>
+          <!-- 2. ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">2. Дополнительные опции</div>
+              <button type="button" class="btn btn-secondary btn-sm" id="addOptionBtn">+ Добавить опцию</button>
             </div>
+            <div id="optionsList"></div>
+          </div>
 
+          <!-- 3. ДИАПАЗОНЫ РАЗМЕРОВ -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">3. Размеры изделий (ползунки)</div>
+            </div>
             <div class="grid-2">
-              <!-- Ширина -->
-              <div style="background:rgba(15,23,42,0.4);border:1px solid var(--card-border);border-radius:8px;padding:14px;">
-                <div style="font-weight:700;margin-bottom:10px;color:var(--primary);font-size:13px;">↔️ ШИРИНА (ММ)</div>
+              <div style="background:#131c2e;padding:12px;border-radius:6px;">
+                <div style="font-weight:600;font-size:13px;color:#38bdf8;margin-bottom:8px;">Ширина (мм)</div>
                 <div class="grid-2">
-                  <div class="form-group">
-                    <label class="form-label">Минимум</label>
-                    <input type="number" id="sliderWidthMin" class="form-input">
+                  <div class="form-col">
+                    <span class="form-lbl">Минимум:</span>
+                    <input type="number" id="wMin" class="input">
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">Максимум</label>
-                    <input type="number" id="sliderWidthMax" class="form-input">
+                  <div class="form-col">
+                    <span class="form-lbl">Максимум:</span>
+                    <input type="number" id="wMax" class="input">
                   </div>
                 </div>
-                <div class="grid-2">
-                  <div class="form-group">
-                    <label class="form-label">По умолчанию</label>
-                    <input type="number" id="sliderWidthDefault" class="form-input">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Шаг (step)</label>
-                    <input type="number" id="sliderWidthStep" class="form-input">
-                  </div>
+                <div class="form-col" style="margin-top:6px;">
+                  <span class="form-lbl">По умолчанию:</span>
+                  <input type="number" id="wDef" class="input">
                 </div>
               </div>
 
-              <!-- Высота -->
-              <div style="background:rgba(15,23,42,0.4);border:1px solid var(--card-border);border-radius:8px;padding:14px;">
-                <div style="font-weight:700;margin-bottom:10px;color:var(--primary);font-size:13px;">↕️ ВЫСОТА (ММ)</div>
+              <div style="background:#131c2e;padding:12px;border-radius:6px;">
+                <div style="font-weight:600;font-size:13px;color:#38bdf8;margin-bottom:8px;">Высота (мм)</div>
                 <div class="grid-2">
-                  <div class="form-group">
-                    <label class="form-label">Минимум</label>
-                    <input type="number" id="sliderHeightMin" class="form-input">
+                  <div class="form-col">
+                    <span class="form-lbl">Минимум:</span>
+                    <input type="number" id="hMin" class="input">
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">Максимум</label>
-                    <input type="number" id="sliderHeightMax" class="form-input">
+                  <div class="form-col">
+                    <span class="form-lbl">Максимум:</span>
+                    <input type="number" id="hMax" class="input">
                   </div>
                 </div>
-                <div class="grid-2">
-                  <div class="form-group">
-                    <label class="form-label">По умолчанию</label>
-                    <input type="number" id="sliderHeightDefault" class="form-input">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Шаг (step)</label>
-                    <input type="number" id="sliderHeightStep" class="form-input">
-                  </div>
+                <div class="form-col" style="margin-top:6px;">
+                  <span class="form-lbl">По умолчанию:</span>
+                  <input type="number" id="hDef" class="input">
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- 3. ДОПОЛНИТЕЛЬНЫЕ ОПЦИИ -->
-          <div class="panel-card">
-            <div class="panel-head">
-              <div>
-                <div class="panel-title">🛠️ 3. Дополнительные опции</div>
-                <div class="panel-desc">Отверстия, покраска стемалит, кромка и др.</div>
-              </div>
-              <button type="button" class="btn btn-secondary btn-sm" id="btnAddOption">➕ Добавить опцию</button>
-            </div>
-            <div id="optionsContainer"></div>
           </div>
 
           <!-- 4. СРОКИ И ПРИМЕЧАНИЯ -->
-          <div class="panel-card">
-            <div class="panel-head">
-              <div>
-                <div class="panel-title">📋 4. Тексты и параметры расчёта</div>
-                <div class="panel-desc">Сроки изготовления и примечания к заказу.</div>
-              </div>
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">4. Тексты в калькуляторе</div>
             </div>
-
-            <div class="grid-2">
-              <div class="form-group">
-                <label class="form-label">Срок изготовления</label>
-                <input type="text" id="textLeadTime" class="form-input">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Округление цен до</label>
-                <select id="selectRoundTo" class="form-select">
-                  <option value="50">50 ₽ (рекомендуется)</option>
-                  <option value="100">100 ₽</option>
-                  <option value="10">10 ₽</option>
-                  <option value="1">Без округления (1 ₽)</option>
-                </select>
-              </div>
+            <div class="form-col">
+              <span class="form-lbl">Срок изготовления:</span>
+              <input type="text" id="leadTimeInput" class="input">
             </div>
-
-            <div class="form-group">
-              <label class="form-label">Примечание к стоимости</label>
-              <input type="text" id="textNote" class="form-input">
+            <div class="form-col">
+              <span class="form-lbl">Примечание мастера:</span>
+              <input type="text" id="noteInput" class="input">
             </div>
           </div>
-
         </div>
 
-        <!-- ПРАВАЯ КОЛОНКА: ЖИВОЙ ПРЕДПРОСМОТР -->
-        <div class="preview-col">
-          <div class="panel-card preview-sticky">
-            <div class="panel-head" style="margin-bottom:10px;">
-              <div>
-                <div class="panel-title">👁️ Живой предпросмотр</div>
-                <div class="panel-desc">Мгновенный результат расчёта по вашим настройкам</div>
-              </div>
-              <span class="preview-badge">Live</span>
+        <!-- ПРАВАЯ КОЛОНКА: ПРЕДПРОСМОТР -->
+        <div>
+          <div class="card" style="position:sticky;top:20px;">
+            <div class="card-head">
+              <div class="card-title">Пример расчета для клиента</div>
             </div>
-
-            <div class="mock-calc">
-              <div class="mock-label">Тип изделия:</div>
-              <select id="mockGlassType" class="mock-select"></select>
-
-              <div class="mock-label">
-                <span>Ширина (мм):</span>
-                <b id="mockWidthVal" style="color:#fff;">595 мм</b>
+            <div class="preview-box">
+              <div class="form-col">
+                <span class="form-lbl">Изделие:</span>
+                <select id="prevGlassSelect" class="input"></select>
               </div>
-              <input type="range" id="mockWidthSlider" class="mock-slider">
-              <div class="mock-limits"><span id="mockWidthMinLbl">200 мм</span><span id="mockWidthMaxLbl">1500 мм</span></div>
 
-              <div class="mock-label">
-                <span>Высота (мм):</span>
-                <b id="mockHeightVal" style="color:#fff;">475 мм</b>
+              <div class="form-col">
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px;">
+                  <span>Ширина:</span>
+                  <b id="prevWVal" style="color:#fff;">595 мм</b>
+                </div>
+                <input type="range" id="prevWSlider" style="width:100%;accent-color:#2563eb;">
               </div>
-              <input type="range" id="mockHeightSlider" class="mock-slider">
-              <div class="mock-limits"><span id="mockHeightMinLbl">150 мм</span><span id="mockHeightMaxLbl">2200 мм</span></div>
 
-              <div class="mock-label" style="margin-top:10px;">Дополнительные опции:</div>
-              <div class="mock-opts" id="mockOptsContainer"></div>
+              <div class="form-col">
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px;">
+                  <span>Высота:</span>
+                  <b id="prevHVal" style="color:#fff;">475 мм</b>
+                </div>
+                <input type="range" id="prevHSlider" style="width:100%;accent-color:#2563eb;">
+              </div>
 
-              <div class="mock-summary">
-                <div class="mock-sum-row">
+              <div class="form-col" style="margin-top:10px;">
+                <span class="form-lbl">Опции:</span>
+                <div id="prevOptsBox" style="display:flex;flex-direction:column;gap:6px;margin-top:4px;"></div>
+              </div>
+
+              <div style="background:#131c2e;border:1px solid #1e293b;border-radius:6px;padding:12px;margin-top:14px;">
+                <div class="preview-line">
                   <span>Изделие:</span>
-                  <b id="mockSumType">-</b>
+                  <b id="prevSumType">-</b>
                 </div>
-                <div class="mock-sum-row">
+                <div class="preview-line">
                   <span>Размеры:</span>
-                  <b id="mockSumDim">-</b>
+                  <b id="prevSumDim">-</b>
                 </div>
-                <div class="mock-sum-row">
+                <div class="preview-line">
                   <span>Опции:</span>
-                  <b id="mockSumOpts">-</b>
+                  <b id="prevSumOpts">-</b>
                 </div>
-                <div class="mock-sum-row">
+                <div class="preview-line">
                   <span>Срок:</span>
-                  <b id="mockSumLead">-</b>
+                  <b id="prevSumLead">-</b>
                 </div>
 
-                <div class="mock-total-box">
-                  <div style="font-size:11px;color:var(--muted);text-transform:uppercase;">Стоимость:</div>
-                  <div class="mock-total-price" id="mockTotalPrice">0 ₽</div>
-                  <div style="font-size:11px;color:var(--muted);margin-top:4px;" id="mockSumNote">-</div>
+                <div class="preview-total">
+                  <span style="font-size:11px;color:var(--muted);text-transform:uppercase;">Стоимость:</span>
+                  <div class="preview-price" id="prevSumTotal">0 ₽</div>
                 </div>
               </div>
             </div>
 
-            <div style="margin-top:16px;">
-              <button type="button" class="btn btn-primary" id="btnSaveFromSticky" style="width:100%;justify-content:center;padding:12px;">
-                💾 Сохранить изменения
-              </button>
-            </div>
+            <button type="button" class="btn btn-primary" id="saveBtnSide" style="width:100%;margin-top:14px;padding:12px;">
+              Сохранить изменения
+            </button>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- МОДАЛКА GITHUB -->
-    <div class="modal-overlay" id="settingsModal">
-      <div class="modal-card">
-        <h3 style="color:#fff;margin-bottom:12px;font-size:18px;">🔑 Настройки сохранения в GitHub</h3>
-        <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">
-          Токен сохраняется только в вашем браузере и используется для коммита изменений в репозиторий.
-        </p>
-
-        <div class="form-group">
-          <label class="form-label">Репозиторий (owner/repo)</label>
-          <input type="text" id="cfgGithubRepo" class="form-input" value="Punelittley/steklaaa">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Ветка</label>
-          <input type="text" id="cfgGithubBranch" class="form-input" value="main">
-        </div>
-        <div class="form-group">
-          <label class="form-label">GitHub Token (PAT)</label>
-          <input type="password" id="cfgGithubToken" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-        </div>
-
-        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
-          <button type="button" class="btn btn-secondary" id="btnCloseModal">Отмена</button>
-          <button type="button" class="btn btn-primary" id="btnSaveCredentials">Сохранить</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- TOAST -->
-    <div class="toast-box" id="toastBox">
-      <span id="toastMsg">Готово</span>
-    </div>
-
+    <div class="toast" id="toast"></div>
   </div>
 
   <script>
-    // ХЕШИ РАЗРЕШЕННЫХ ПАРОЛЕЙ (SHA-256)
-    // Пароль 1: 'stekla2026'
-    // Пароль 2: 'SteklaCalc2026!'
     const ALLOWED_HASHES = [
       '9ad1157afc3b2a12e84034ca0ef71a316d6246b5fbcb4f3adc4090bd68f0495d', // stekla2026
       'dea8564f6195494aecf59b055ece6b247adf6af11efe67e7dd55c99d320d6d4c'  // SteklaCalc2026!
     ];
 
-    // Вычисление SHA-256 в браузере
     async function sha256(str) {
       const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
       return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    // Проверка авторизации
-    async function checkAuth() {
-      const savedHash = sessionStorage.getItem('calc_auth_hash');
-      if (savedHash && ALLOWED_HASHES.includes(savedHash)) {
-        unlockUI();
-        return true;
-      }
-      return false;
-    }
-
-    async function handleLogin(e) {
+    async function login(e) {
       if (e) e.preventDefault();
-      const pass = document.getElementById('passInput').value;
+      const pass = document.getElementById('passField').value;
       const hash = await sha256(pass);
 
       if (ALLOWED_HASHES.includes(hash)) {
         sessionStorage.setItem('calc_auth_hash', hash);
         sessionStorage.setItem('calc_entered_pass', pass);
-        unlockUI();
+        unlock();
       } else {
-        const err = document.getElementById('lockErr');
-        const card = document.getElementById('lockCard');
-        err.style.display = 'block';
-        card.classList.add('shake');
-        setTimeout(() => card.classList.remove('shake'), 400);
+        document.getElementById('authError').style.display = 'block';
       }
     }
 
-    function unlockUI() {
-      document.getElementById('lockScreen').style.display = 'none';
-      document.getElementById('appContainer').style.display = 'flex';
+    function unlock() {
+      document.getElementById('authOverlay').style.display = 'none';
+      document.getElementById('app').style.display = 'flex';
       loadConfig();
     }
 
-    document.getElementById('btnLogout').addEventListener('click', () => {
+    document.getElementById('logoutBtn').addEventListener('click', () => {
       sessionStorage.removeItem('calc_auth_hash');
       sessionStorage.removeItem('calc_entered_pass');
       location.reload();
     });
 
-    // КОНФИГУРАЦИЯ ПО УМОЛЧАНИЮ
-    const DEFAULT_CONFIG = {
-      glassTypes: [
-        { id: "external", name: "Внешнее стекло духовки (со смотровым окном)", basePrice: 3200 },
-        { id: "panel", name: "Стекло панели управления (под ручки/переключатели)", basePrice: 2600 },
-        { id: "inner", name: "Внутреннее стекло духовки (жаропрочное)", basePrice: 2100 },
-        { id: "intermediate", name: "Промежуточное стекло (термобарьер, прозрачное)", basePrice: 1700 },
-        { id: "shower", name: "Душевая перегородка / ширма (сатинат/прозрачное 8 мм)", basePrice: 4200 },
-        { id: "ceramic", name: "Изделие из стеклокерамики", basePrice: 4800 }
-      ],
-      sliders: {
-        width: { min: 200, max: 1500, default: 595, step: 5 },
-        height: { min: 150, max: 2200, default: 475, step: 5 }
-      },
-      options: [
-        { id: "optHoles", name: "Отверстия", label: "Отверстия под ручку двери / регуляторы", price: 350, checked: true },
-        { id: "optPaint", name: "Стемалит", label: "Термостойкая покраска стемалит или шелкография", price: 600, checked: true },
-        { id: "optCorners", name: "Еврокромка", label: "Полированная еврокромка + защитные транспортировочные уголки", price: 0, free: true, checked: true, disabled: true }
-      ],
+    // Проверка сессии при загрузке
+    const saved = sessionStorage.getItem('calc_auth_hash');
+    if (saved && ALLOWED_HASHES.includes(saved)) {
+      unlock();
+    }
+
+    let config = {
+      glassTypes: [],
+      sliders: { width: {}, height: {} },
+      options: [],
       leadTime: "3–5 рабочих дней",
-      note: "Точная цена подтверждается мастером по модели/шильдику",
+      note: "Точная цена подтверждается мастером",
       standardArea: 0.28,
       roundTo: 50
     };
 
-    let state = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
-    let githubSha = null;
-
-    const statusDot = document.getElementById('statusDot');
-    const statusText = document.getElementById('statusText');
-    const statusCommit = document.getElementById('statusCommit');
-    const glassTypesContainer = document.getElementById('glassTypesContainer');
-    const optionsContainer = document.getElementById('optionsContainer');
-
-    const sliderWidthMin = document.getElementById('sliderWidthMin');
-    const sliderWidthMax = document.getElementById('sliderWidthMax');
-    const sliderWidthDefault = document.getElementById('sliderWidthDefault');
-    const sliderWidthStep = document.getElementById('sliderWidthStep');
-
-    const sliderHeightMin = document.getElementById('sliderHeightMin');
-    const sliderHeightMax = document.getElementById('sliderHeightMax');
-    const sliderHeightDefault = document.getElementById('sliderHeightDefault');
-    const sliderHeightStep = document.getElementById('sliderHeightStep');
-
-    const textLeadTime = document.getElementById('textLeadTime');
-    const textNote = document.getElementById('textNote');
-    const selectRoundTo = document.getElementById('selectRoundTo');
-
-    const mockGlassType = document.getElementById('mockGlassType');
-    const mockWidthSlider = document.getElementById('mockWidthSlider');
-    const mockHeightSlider = document.getElementById('mockHeightSlider');
-    const mockWidthVal = document.getElementById('mockWidthVal');
-    const mockHeightVal = document.getElementById('mockHeightVal');
-    const mockWidthMinLbl = document.getElementById('mockWidthMinLbl');
-    const mockWidthMaxLbl = document.getElementById('mockWidthMaxLbl');
-    const mockHeightMinLbl = document.getElementById('mockHeightMinLbl');
-    const mockHeightMaxLbl = document.getElementById('mockHeightMaxLbl');
-    const mockOptsContainer = document.getElementById('mockOptsContainer');
-    const mockSumType = document.getElementById('mockSumType');
-    const mockSumDim = document.getElementById('mockSumDim');
-    const mockSumOpts = document.getElementById('mockSumOpts');
-    const mockSumLead = document.getElementById('mockSumLead');
-    const mockTotalPrice = document.getElementById('mockTotalPrice');
-    const mockSumNote = document.getElementById('mockSumNote');
-
-    function showToast(msg, type = 'info') {
-      const box = document.getElementById('toastBox');
-      const text = document.getElementById('toastMsg');
-      text.textContent = msg;
-      box.className = 'toast-box show ' + type;
-      setTimeout(() => { box.classList.remove('show'); }, 3500);
+    function showToast(msg, type = 'success') {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.className = 'toast show ' + type;
+      setTimeout(() => el.classList.remove('show'), 3500);
     }
 
-    function getCredentials() {
-      return {
-        repo: localStorage.getItem('calc_gh_repo') || 'Punelittley/steklaaa',
-        branch: localStorage.getItem('calc_gh_branch') || 'main',
-        token: localStorage.getItem('calc_gh_token') || '',
-        serverPass: sessionStorage.getItem('calc_entered_pass') || 'stekla2026'
-      };
+    async function loadConfig() {
+      try {
+        const res = await fetch('calc-config.json?v=' + Date.now());
+        if (res.ok) {
+          config = await res.json();
+          render();
+          document.getElementById('saveStatus').textContent = 'Параметры актуальны';
+        }
+      } catch (e) {
+        console.error(e);
+      }
     }
 
-    function populateForm() {
-      glassTypesContainer.innerHTML = '';
-      state.glassTypes.forEach((gt, idx) => {
+    function render() {
+      // 1. Изделия
+      const glassList = document.getElementById('glassList');
+      glassList.innerHTML = '';
+      config.glassTypes.forEach((gt, idx) => {
         const row = document.createElement('div');
-        row.className = 'glass-item-row';
+        row.className = 'row-item';
         row.innerHTML = `
-          <div>
-            <input type="text" class="form-input gt-name" value="${escapeHtml(gt.name)}" placeholder="Название стекла">
+          <div><input type="text" class="input gt-name" value="${escapeHtml(gt.name)}" placeholder="Название"></div>
+          <div class="input-group">
+            <input type="number" class="input gt-price" value="${gt.basePrice}" min="100" step="50">
+            <span class="input-unit">₽</span>
           </div>
-          <div class="input-unit">
-            <input type="number" class="form-input gt-price" value="${gt.basePrice}" min="100" max="100000" step="50">
-            <span class="unit-badge">₽</span>
-          </div>
-          <button type="button" class="btn btn-danger btn-sm gt-del" title="Удалить">&times;</button>
+          <button type="button" class="btn btn-danger-outline btn-sm gt-del" title="Удалить">&times;</button>
         `;
-        const nameInput = row.querySelector('.gt-name');
-        const priceInput = row.querySelector('.gt-price');
-        const delBtn = row.querySelector('.gt-del');
-
-        nameInput.addEventListener('input', (e) => {
-          gt.name = e.target.value;
-          updateLivePreview();
+        row.querySelector('.gt-name').addEventListener('input', (e) => { gt.name = e.target.value; updatePreview(); });
+        row.querySelector('.gt-price').addEventListener('input', (e) => { gt.basePrice = parseInt(e.target.value, 10) || 0; updatePreview(); });
+        row.querySelector('.gt-del').addEventListener('click', () => {
+          if (config.glassTypes.length <= 1) return alert('Должно остаться минимум одно изделие');
+          config.glassTypes.splice(idx, 1);
+          render();
         });
-        priceInput.addEventListener('input', (e) => {
-          gt.basePrice = parseInt(e.target.value, 10) || 0;
-          updateLivePreview();
-        });
-        delBtn.addEventListener('click', () => {
-          if (state.glassTypes.length <= 1) {
-            alert('Должен остаться хотя бы один тип стекла!');
-            return;
-          }
-          state.glassTypes.splice(idx, 1);
-          populateForm();
-          updateLivePreview();
-        });
-        glassTypesContainer.appendChild(row);
+        glassList.appendChild(row);
       });
 
-      const sw = state.sliders.width;
-      sliderWidthMin.value = sw.min;
-      sliderWidthMax.value = sw.max;
-      sliderWidthDefault.value = sw.default;
-      sliderWidthStep.value = sw.step || 5;
-
-      const sh = state.sliders.height;
-      sliderHeightMin.value = sh.min;
-      sliderHeightMax.value = sh.max;
-      sliderHeightDefault.value = sh.default;
-      sliderHeightStep.value = sh.step || 5;
-
-      optionsContainer.innerHTML = '';
-      state.options.forEach((opt, idx) => {
+      // 2. Опции
+      const optList = document.getElementById('optionsList');
+      optList.innerHTML = '';
+      config.options.forEach((opt, idx) => {
         const row = document.createElement('div');
-        row.className = 'option-item-row';
+        row.className = 'row-option';
         row.innerHTML = `
-          <div>
-            <input type="text" class="form-input opt-label" value="${escapeHtml(opt.label)}" placeholder="Название опции">
+          <div><input type="text" class="input opt-label" value="${escapeHtml(opt.label)}" placeholder="Название опции"></div>
+          <div class="input-group">
+            <input type="number" class="input opt-price" value="${opt.price || 0}" min="0" step="50" ${opt.free ? 'disabled' : ''}>
+            <span class="input-unit">₽</span>
           </div>
-          <div class="input-unit">
-            <input type="number" class="form-input opt-price" value="${opt.price || 0}" min="0" step="50" ${opt.free ? 'disabled' : ''}>
-            <span class="unit-badge">₽</span>
-          </div>
-          <label class="check-toggle">
-            <input type="checkbox" class="opt-free" ${opt.free ? 'checked' : ''}>
-            <span>Бесплатно</span>
+          <label style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;cursor:pointer;">
+            <input type="checkbox" class="opt-free" ${opt.free ? 'checked' : ''}> Бесплатно
           </label>
-          <button type="button" class="btn btn-danger btn-sm opt-del" title="Удалить">&times;</button>
+          <button type="button" class="btn btn-danger-outline btn-sm opt-del" title="Удалить">&times;</button>
         `;
-        const labelInput = row.querySelector('.opt-label');
-        const priceInput = row.querySelector('.opt-price');
-        const freeCheck = row.querySelector('.opt-free');
-        const delBtn = row.querySelector('.opt-del');
-
-        labelInput.addEventListener('input', (e) => {
+        const pInput = row.querySelector('.opt-price');
+        row.querySelector('.opt-label').addEventListener('input', (e) => {
           opt.label = e.target.value;
           opt.name = opt.label.split(' ')[0] || opt.label;
-          updateLivePreview();
+          updatePreview();
         });
-        priceInput.addEventListener('input', (e) => {
-          opt.price = parseInt(e.target.value, 10) || 0;
-          updateLivePreview();
-        });
-        freeCheck.addEventListener('change', (e) => {
+        pInput.addEventListener('input', (e) => { opt.price = parseInt(e.target.value, 10) || 0; updatePreview(); });
+        row.querySelector('.opt-free').addEventListener('change', (e) => {
           opt.free = e.target.checked;
-          if (opt.free) {
-            opt.price = 0;
-            priceInput.value = 0;
-            priceInput.disabled = true;
-          } else {
-            priceInput.disabled = false;
-          }
-          updateLivePreview();
+          if (opt.free) { opt.price = 0; pInput.value = 0; pInput.disabled = true; }
+          else { pInput.disabled = false; }
+          updatePreview();
         });
-        delBtn.addEventListener('click', () => {
-          state.options.splice(idx, 1);
-          populateForm();
-          updateLivePreview();
+        row.querySelector('.opt-del').addEventListener('click', () => {
+          config.options.splice(idx, 1);
+          render();
         });
-        optionsContainer.appendChild(row);
+        optList.appendChild(row);
       });
 
-      textLeadTime.value = state.leadTime || "3–5 рабочих дней";
-      textNote.value = state.note || "Точная цена подтверждается мастером по модели/шильдику";
-      selectRoundTo.value = state.roundTo || 50;
+      // 3. Ползунки
+      const sw = config.sliders.width;
+      document.getElementById('wMin').value = sw.min;
+      document.getElementById('wMax').value = sw.max;
+      document.getElementById('wDef').value = sw.default;
 
-      updateLivePreview();
+      const sh = config.sliders.height;
+      document.getElementById('hMin').value = sh.min;
+      document.getElementById('hMax').value = sh.max;
+      document.getElementById('hDef').value = sh.default;
+
+      // 4. Тексты
+      document.getElementById('leadTimeInput').value = config.leadTime || "3–5 рабочих дней";
+      document.getElementById('noteInput').value = config.note || "Точная цена подтверждается мастером";
+
+      updatePreview();
     }
 
-    function readFormIntoState() {
-      state.sliders.width = {
-        min: parseInt(sliderWidthMin.value, 10) || 200,
-        max: parseInt(sliderWidthMax.value, 10) || 1500,
-        default: parseInt(sliderWidthDefault.value, 10) || 595,
-        step: parseInt(sliderWidthStep.value, 10) || 5
-      };
-      state.sliders.height = {
-        min: parseInt(sliderHeightMin.value, 10) || 150,
-        max: parseInt(sliderHeightMax.value, 10) || 2200,
-        default: parseInt(sliderHeightDefault.value, 10) || 475,
-        step: parseInt(sliderHeightStep.value, 10) || 5
-      };
-      state.leadTime = textLeadTime.value.trim() || "3–5 рабочих дней";
-      state.note = textNote.value.trim() || "Точная цена подтверждается мастером по модели/шильдику";
-      state.roundTo = parseInt(selectRoundTo.value, 10) || 50;
-      state.updatedAt = new Date().toISOString();
+    function syncFormToConfig() {
+      config.sliders.width.min = parseInt(document.getElementById('wMin').value, 10) || 200;
+      config.sliders.width.max = parseInt(document.getElementById('wMax').value, 10) || 1500;
+      config.sliders.width.default = parseInt(document.getElementById('wDef').value, 10) || 595;
+
+      config.sliders.height.min = parseInt(document.getElementById('hMin').value, 10) || 150;
+      config.sliders.height.max = parseInt(document.getElementById('hMax').value, 10) || 2200;
+      config.sliders.height.default = parseInt(document.getElementById('hDef').value, 10) || 475;
+
+      config.leadTime = document.getElementById('leadTimeInput').value.trim() || "3–5 рабочих дней";
+      config.note = document.getElementById('noteInput').value.trim() || "Точная цена подтверждается мастером";
+      config.updatedAt = new Date().toISOString();
     }
 
-    [sliderWidthMin, sliderWidthMax, sliderWidthDefault, sliderWidthStep,
-     sliderHeightMin, sliderHeightMax, sliderHeightDefault, sliderHeightStep,
-     textLeadTime, textNote, selectRoundTo].forEach(el => {
-      el.addEventListener('input', () => {
-        readFormIntoState();
-        updateLivePreview();
+    ['wMin', 'wMax', 'wDef', 'hMin', 'hMax', 'hDef', 'leadTimeInput', 'noteInput'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        syncFormToConfig();
+        updatePreview();
       });
     });
 
-    document.getElementById('btnAddGlassType').addEventListener('click', () => {
-      const id = 'glass_' + Date.now();
-      state.glassTypes.push({ id, name: 'Новый тип стекла', basePrice: 3000 });
-      populateForm();
-      showToast('Тип стекла добавлен');
+    document.getElementById('addGlassBtn').addEventListener('click', () => {
+      config.glassTypes.push({
+        id: 'glass_' + Date.now(),
+        name: 'Новое изделие',
+        basePrice: 3000
+      });
+      render();
     });
 
-    document.getElementById('btnAddOption').addEventListener('click', () => {
-      const id = 'opt_' + Date.now();
-      state.options.push({ id, name: 'Новая опция', label: 'Новая дополнительная услуга', price: 500, checked: false });
-      populateForm();
-      showToast('Опция добавлена');
+    document.getElementById('addOptionBtn').addEventListener('click', () => {
+      config.options.push({
+        id: 'opt_' + Date.now(),
+        name: 'Новая опция',
+        label: 'Новая дополнительная услуга',
+        price: 400,
+        checked: false
+      });
+      render();
     });
 
-    function updateLivePreview() {
-      const prevVal = mockGlassType.value;
-      mockGlassType.innerHTML = '';
-      state.glassTypes.forEach((gt, idx) => {
+    // ПРЕДПРОСМОТР
+    function updatePreview() {
+      const select = document.getElementById('prevGlassSelect');
+      const prevVal = select.value;
+      select.innerHTML = '';
+      config.glassTypes.forEach((gt, idx) => {
         const opt = document.createElement('option');
         opt.value = gt.id || ('gt_' + idx);
         opt.setAttribute('data-base', gt.basePrice);
         opt.textContent = `${gt.name} (${gt.basePrice} ₽)`;
         if (opt.value === prevVal || (!prevVal && idx === 0)) opt.selected = true;
-        mockGlassType.appendChild(opt);
+        select.appendChild(opt);
       });
 
-      const sw = state.sliders.width;
-      mockWidthSlider.min = sw.min;
-      mockWidthSlider.max = sw.max;
-      mockWidthSlider.step = sw.step || 5;
-      if (!mockWidthSlider.value || mockWidthSlider.value < sw.min || mockWidthSlider.value > sw.max) {
-        mockWidthSlider.value = sw.default;
-      }
-      mockWidthMinLbl.textContent = sw.min + ' мм';
-      mockWidthMaxLbl.textContent = sw.max + ' мм';
+      const wSlider = document.getElementById('prevWSlider');
+      const sw = config.sliders.width;
+      wSlider.min = sw.min || 200;
+      wSlider.max = sw.max || 1500;
+      if (!wSlider.value || wSlider.value < sw.min || wSlider.value > sw.max) wSlider.value = sw.default || 595;
 
-      const sh = state.sliders.height;
-      mockHeightSlider.min = sh.min;
-      mockHeightSlider.max = sh.max;
-      mockHeightSlider.step = sh.step || 5;
-      if (!mockHeightSlider.value || mockHeightSlider.value < sh.min || mockHeightSlider.value > sh.max) {
-        mockHeightSlider.value = sh.default;
-      }
-      mockHeightMinLbl.textContent = sh.min + ' мм';
-      mockHeightMaxLbl.textContent = sh.max + ' мм';
+      const hSlider = document.getElementById('prevHSlider');
+      const sh = config.sliders.height;
+      hSlider.min = sh.min || 150;
+      hSlider.max = sh.max || 2200;
+      if (!hSlider.value || hSlider.value < sh.min || hSlider.value > sh.max) hSlider.value = sh.default || 475;
 
-      const prevStates = {};
-      mockOptsContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-        prevStates[cb.dataset.id] = cb.checked;
-      });
-      mockOptsContainer.innerHTML = '';
-      state.options.forEach(optItem => {
+      const optsBox = document.getElementById('prevOptsBox');
+      const savedChecks = {};
+      optsBox.querySelectorAll('input').forEach(cb => { savedChecks[cb.dataset.id] = cb.checked; });
+      optsBox.innerHTML = '';
+      config.options.forEach(o => {
         const line = document.createElement('label');
-        line.className = 'mock-opt-line';
+        line.style.fontSize = '12px';
+        line.style.color = '#cbd5e1';
+        line.style.display = 'flex';
+        line.style.alignItems = 'center';
+        line.style.gap = '6px';
+        line.style.cursor = 'pointer';
+
         const cb = document.createElement('input');
         cb.type = 'checkbox';
-        cb.dataset.id = optItem.id;
-        cb.dataset.price = optItem.price || 0;
-        cb.dataset.name = optItem.name || optItem.label;
-        if (optItem.disabled) cb.disabled = true;
-        cb.checked = prevStates[optItem.id] !== undefined ? prevStates[optItem.id] : !!optItem.checked;
-
-        cb.addEventListener('change', calcMock);
+        cb.dataset.id = o.id;
+        cb.dataset.price = o.price || 0;
+        cb.dataset.name = o.name || o.label;
+        if (o.disabled) cb.disabled = true;
+        cb.checked = savedChecks[o.id] !== undefined ? savedChecks[o.id] : !!o.checked;
+        cb.addEventListener('change', calcPreview);
 
         const span = document.createElement('span');
-        const priceLabel = optItem.free || optItem.price === 0 
-          ? ' <b>(Бесплатно)</b>' 
-          : ` (+${optItem.price} ₽)`;
-        span.innerHTML = optItem.label + priceLabel;
+        span.textContent = o.label + (o.free || o.price === 0 ? ' (Бесплатно)' : ` (+${o.price} ₽)`);
 
         line.appendChild(cb);
         line.appendChild(span);
-        mockOptsContainer.appendChild(line);
+        optsBox.appendChild(line);
       });
 
-      calcMock();
+      calcPreview();
     }
 
-    function calcMock() {
-      const w = parseInt(mockWidthSlider.value, 10);
-      const h = parseInt(mockHeightSlider.value, 10);
-      mockWidthVal.textContent = w + ' мм';
-      mockHeightVal.textContent = h + ' мм';
+    function calcPreview() {
+      const wSlider = document.getElementById('prevWSlider');
+      const hSlider = document.getElementById('prevHSlider');
+      const w = parseInt(wSlider.value, 10);
+      const h = parseInt(hSlider.value, 10);
+      document.getElementById('prevWVal').textContent = w + ' мм';
+      document.getElementById('prevHVal').textContent = h + ' мм';
 
-      const opt = mockGlassType.options[mockGlassType.selectedIndex];
+      const select = document.getElementById('prevGlassSelect');
+      const opt = select.options[select.selectedIndex];
       if (!opt) return;
       const basePrice = parseInt(opt.getAttribute('data-base'), 10) || 3000;
-      const typeTitle = opt.text.split('(')[0].trim();
+      const title = opt.text.split('(')[0].trim();
 
       const area = (w * h) / 1000000;
-      const standardArea = state.standardArea || 0.28;
+      const standardArea = config.standardArea || 0.28;
       const areaFactor = Math.max(0.7, area / standardArea);
       let price = Math.round(basePrice * (0.6 + 0.4 * areaFactor));
 
-      const optsUsed = [];
-      mockOptsContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      const usedOpts = [];
+      document.querySelectorAll('#prevOptsBox input[type="checkbox"]').forEach(cb => {
         if (cb.checked) {
-          const p = parseInt(cb.dataset.price, 10) || 0;
-          price += p;
-          if (p > 0 || !cb.disabled) {
-            optsUsed.push(cb.dataset.name);
-          }
+          price += parseInt(cb.dataset.price, 10) || 0;
+          usedOpts.push(cb.dataset.name);
         }
       });
 
-      const roundTo = state.roundTo || 50;
+      const roundTo = config.roundTo || 50;
       price = Math.round(price / roundTo) * roundTo;
 
-      mockSumType.textContent = typeTitle;
-      mockSumDim.textContent = `${w} × ${h} мм (${area.toFixed(2)} м²)`;
-      mockSumOpts.textContent = optsUsed.length > 0 ? optsUsed.join(' + ') : 'Без доп. опций';
-      mockSumLead.textContent = state.leadTime || "3–5 рабочих дней";
-      mockTotalPrice.textContent = price.toLocaleString('ru-RU') + ' ₽';
-      mockSumNote.textContent = state.note || "Точная цена подтверждается мастером";
+      document.getElementById('prevSumType').textContent = title;
+      document.getElementById('prevSumDim').textContent = `${w} × ${h} мм (${area.toFixed(2)} м²)`;
+      document.getElementById('prevSumOpts').textContent = usedOpts.length ? usedOpts.join(' + ') : 'Без доп. опций';
+      document.getElementById('prevSumLead').textContent = config.leadTime || "3–5 рабочих дней";
+      document.getElementById('prevSumTotal').textContent = price.toLocaleString('ru-RU') + ' ₽';
     }
 
-    mockGlassType.addEventListener('change', calcMock);
-    mockWidthSlider.addEventListener('input', calcMock);
-    mockHeightSlider.addEventListener('input', calcMock);
+    document.getElementById('prevGlassSelect').addEventListener('change', calcPreview);
+    document.getElementById('prevWSlider').addEventListener('input', calcPreview);
+    document.getElementById('prevHSlider').addEventListener('input', calcPreview);
 
-    async function loadConfig() {
-      statusDot.className = 'status-dot warning';
-      statusText.textContent = 'Загрузка конфигурации...';
-
-      const creds = getCredentials();
-      if (creds.token && creds.repo) {
-        try {
-          const res = await fetch(`https://api.github.com/repos/${creds.repo}/contents/calc-config.json?ref=${creds.branch}`, {
-            headers: {
-              'Authorization': `Bearer ${creds.token}`,
-              'Accept': 'application/vnd.github.v3+json'
-            }
-          });
-          if (res.ok) {
-            const data = await res.json();
-            githubSha = data.sha;
-            const content = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ''))));
-            state = JSON.parse(content);
-            statusDot.className = 'status-dot online';
-            statusText.textContent = `Синхронизировано с GitHub (${creds.repo})`;
-            statusCommit.textContent = `SHA: ${githubSha.substring(0, 7)}`;
-            populateForm();
-            return;
-          }
-        } catch (e) {
-          console.warn('GitHub fetch error:', e);
-        }
-      }
+    // СОХРАНЕНИЕ
+    async function save() {
+      syncFormToConfig();
+      const pass = sessionStorage.getItem('calc_entered_pass') || 'stekla2026';
+      const status = document.getElementById('saveStatus');
+      status.textContent = 'Сохранение на сервер...';
 
       try {
-        const res = await fetch('calc-config.json?v=' + Date.now());
-        if (res.ok) {
-          state = await res.json();
-          statusDot.className = 'status-dot online';
-          statusText.textContent = 'Загружено с сервера stekla-rf.ru';
-          populateForm();
-          return;
-        }
-      } catch (e) {
-        console.warn('Local fetch error:', e);
-      }
-
-      statusDot.className = 'status-dot warning';
-      statusText.textContent = 'Стандартные параметры';
-      populateForm();
-    }
-
-    async function saveAll() {
-      readFormIntoState();
-      const creds = getCredentials();
-
-      const saveBtn = document.getElementById('btnSaveAll');
-      const stickyBtn = document.getElementById('btnSaveFromSticky');
-      saveBtn.disabled = true;
-      stickyBtn.disabled = true;
-      saveBtn.textContent = '⏳ Сохранение...';
-
-      const jsonStr = JSON.stringify(state, null, 2);
-      let serverSuccess = false;
-      let githubSuccess = false;
-
-      // 1. Сохранение на сервер (с зашифрованным паролем)
-      try {
-        const pass = sessionStorage.getItem('calc_entered_pass') || 'stekla2026';
-        const sRes = await fetch('/api/save-config', {
+        const res = await fetch('/api/save-config', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            password: pass,
-            config: state
-          })
+          body: JSON.stringify({ password: pass, config: config })
         });
-        if (sRes.ok) serverSuccess = true;
-      } catch (e) {
-        console.warn('Server save error:', e);
-      }
-
-      // 2. Сохранение в GitHub (если есть токен)
-      if (creds.token && creds.repo) {
-        try {
-          if (!githubSha) {
-            const check = await fetch(`https://api.github.com/repos/${creds.repo}/contents/calc-config.json?ref=${creds.branch}`, {
-              headers: { 'Authorization': `Bearer ${creds.token}` }
-            });
-            if (check.ok) {
-              const d = await check.json();
-              githubSha = d.sha;
-            }
-          }
-
-          const utf8Bytes = unescape(encodeURIComponent(jsonStr));
-          const base64Content = btoa(utf8Bytes);
-
-          const putRes = await fetch(`https://api.github.com/repos/${creds.repo}/contents/calc-config.json`, {
-            method: 'PUT',
-            headers: {
-              'Authorization': `Bearer ${creds.token}`,
-              'Content-Type': 'application/json',
-              'Accept': 'application/vnd.github.v3+json'
-            },
-            body: JSON.stringify({
-              message: 'Обновление калькулятора через панель управления',
-              content: base64Content,
-              branch: creds.branch,
-              sha: githubSha || undefined
-            })
-          });
-
-          if (putRes.ok) {
-            const resData = await putRes.json();
-            githubSha = resData.content.sha;
-            githubSuccess = true;
-            statusCommit.textContent = `SHA: ${githubSha.substring(0, 7)}`;
-          }
-        } catch (e) {
-          console.error('GitHub API error:', e);
+        if (res.ok) {
+          status.textContent = 'Изменения сохранены и действуют на сайте';
+          showToast('Изменения успешно сохранены на сайт!');
+        } else {
+          status.textContent = 'Ошибка сохранения';
+          showToast('Ошибка при сохранении, проверьте пароль', 'error');
         }
-      }
-
-      saveBtn.disabled = false;
-      stickyBtn.disabled = false;
-      saveBtn.textContent = '💾 Сохранить';
-
-      if (serverSuccess && githubSuccess) {
-        showToast('✅ Сохранено на сайт stekla-rf.ru и в GitHub!', 'success');
-      } else if (serverSuccess) {
-        showToast('✅ Сохранено на сайт stekla-rf.ru!', 'success');
-      } else if (githubSuccess) {
-        showToast('✅ Сохранено в GitHub!', 'success');
-      } else {
-        showToast('⚠️ Ошибка при сохранении, проверьте пароль', 'error');
+      } catch (err) {
+        status.textContent = 'Ошибка сети';
+        showToast('Не удалось связаться с сервером', 'error');
       }
     }
 
-    document.getElementById('btnSaveAll').addEventListener('click', saveAll);
-    document.getElementById('btnSaveFromSticky').addEventListener('click', saveAll);
-    document.getElementById('btnReloadConfig').addEventListener('click', loadConfig);
-
-    document.getElementById('btnExportJson').addEventListener('click', () => {
-      readFormIntoState();
-      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'calc-config.json';
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('calc-config.json скачан', 'success');
-    });
-
-    document.getElementById('fileImportJson').addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (evt) => {
-        try {
-          const imported = JSON.parse(evt.target.result);
-          if (imported.glassTypes && imported.sliders) {
-            state = imported;
-            populateForm();
-            showToast('Конфиг импортирован!', 'success');
-          }
-        } catch (err) {
-          alert('Ошибка чтения JSON: ' + err.message);
-        }
-      };
-      reader.readAsText(file);
-    });
-
-    const settingsModal = document.getElementById('settingsModal');
-    document.getElementById('btnSettingsModal').addEventListener('click', () => {
-      const creds = getCredentials();
-      document.getElementById('cfgGithubRepo').value = creds.repo;
-      document.getElementById('cfgGithubBranch').value = creds.branch;
-      document.getElementById('cfgGithubToken').value = creds.token;
-      settingsModal.classList.add('active');
-    });
-    document.getElementById('btnCloseModal').addEventListener('click', () => settingsModal.classList.remove('active'));
-    document.getElementById('btnSaveCredentials').addEventListener('click', () => {
-      localStorage.setItem('calc_gh_repo', document.getElementById('cfgGithubRepo').value.trim());
-      localStorage.setItem('calc_gh_branch', document.getElementById('cfgGithubBranch').value.trim() || 'main');
-      localStorage.setItem('calc_gh_token', document.getElementById('cfgGithubToken').value.trim());
-      settingsModal.classList.remove('active');
-      showToast('Настройки GitHub сохранены', 'info');
-      loadConfig();
-    });
+    document.getElementById('saveBtn').addEventListener('click', save);
+    document.getElementById('saveBtnSide').addEventListener('click', save);
 
     function escapeHtml(str) {
       return String(str || '').replace(/[&<>"']/g, function(m) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
       });
     }
-
-    // Проверка при загрузке страницы
-    checkAuth();
   </script>
 </body>
 </html>
