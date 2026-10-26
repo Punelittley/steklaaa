@@ -34,6 +34,100 @@
       flex-direction: column;
     }
 
+    /* ЗАГЛУШКА АВТОРИЗАЦИИ / ЗАЩИТА ПАРОЛЕМ */
+    .lock-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    .lock-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+    .lock-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: rgba(249, 115, 22, 0.1);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 18px;
+    }
+    .lock-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .lock-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+    .lock-input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 15px;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .lock-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .lock-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lock-btn:hover {
+      background: var(--accent-hover);
+    }
+    .lock-err {
+      color: #f87171;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+    .shake {
+      animation: shake 0.4s ease-in-out;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    /* ШАПКА */
     header {
       background: rgba(17, 24, 39, 0.85);
       backdrop-filter: blur(12px);
@@ -110,13 +204,6 @@
     .btn-primary:hover {
       background: var(--accent-hover);
       box-shadow: 0 4px 16px var(--accent-glow);
-    }
-    .btn-success {
-      background: #15803d;
-      color: #fff;
-    }
-    .btn-success:hover {
-      background: #16a34a;
     }
     .btn-danger {
       background: rgba(239, 68, 68, 0.15);
@@ -224,7 +311,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .form-input, .form-select, .form-textarea {
+    .form-input, .form-select {
       width: 100%;
       background: var(--input-bg);
       border: 1px solid var(--card-border);
@@ -235,7 +322,7 @@
       outline: none;
       transition: border-color 0.2s;
     }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
+    .form-input:focus, .form-select:focus {
       border-color: var(--accent);
     }
     .input-unit {
@@ -265,7 +352,6 @@
       grid-template-columns: 1fr 140px 40px;
       gap: 12px;
       align-items: center;
-      transition: all 0.2s;
     }
     .glass-item-row:hover {
       border-color: #334155;
@@ -300,16 +386,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-    }
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-    @media (max-width: 640px) {
-      .grid-4 { grid-template-columns: 1fr 1fr; }
-      .glass-item-row { grid-template-columns: 1fr 100px 36px; }
-      .option-item-row { grid-template-columns: 1fr 90px; }
     }
 
     /* Sticky Preview Card */
@@ -427,27 +503,13 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      max-width: 540px;
+      max-width: 520px;
       width: 100%;
-      padding: 28px;
+      padding: 26px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     }
-    .modal-head {
-      margin-bottom: 20px;
-    }
-    .modal-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-    .modal-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
 
-    /* Toast notification */
+    /* Toast */
     .toast-box {
       position: fixed;
       bottom: 24px;
@@ -479,291 +541,342 @@
 </head>
 <body>
 
-  <!-- ХЕДЕР -->
-  <header>
-    <div class="brand">
-      <div class="brand-logo">СТЕКЛА</div>
-      <div>
-        <div class="brand-title">Панель управления калькулятором</div>
-        <div class="brand-sub">stekla-rf.ru &bull; GitHub Punelittley/steklaaa</div>
-      </div>
-    </div>
-    <div class="header-actions">
-      <a href="index.html" class="btn btn-secondary" target="_blank">↗ Перейти на сайт</a>
-      <button type="button" class="btn btn-secondary" id="btnSettingsModal" title="Настройки токена">🔑 Токен GitHub</button>
-      <button type="button" class="btn btn-secondary" id="btnExportJson" title="Скачать копию">📥 Экспорт JSON</button>
-      <label class="btn btn-secondary" title="Загрузить файл конфига" style="margin:0;">
-        📤 Импорт JSON
-        <input type="file" id="fileImportJson" accept=".json" style="display:none;">
-      </label>
-      <button type="button" class="btn btn-primary" id="btnSaveAll">
-        <span>💾 Сохранить в GitHub</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- ОСНОВНОЙ КОНТЕНТ -->
-  <main class="container">
-    <!-- Строка статуса -->
-    <div class="status-bar">
-      <div class="status-info">
-        <span class="status-dot" id="statusDot"></span>
-        <span id="statusText">Проверка подключения...</span>
-        <span id="statusCommit" style="color:var(--muted);font-size:12px;"></span>
-      </div>
-      <div>
-        <button type="button" class="btn btn-secondary btn-sm" id="btnReloadConfig">🔄 Загрузить из репозитория</button>
-      </div>
-    </div>
-
-    <div class="dashboard-grid">
-      <!-- ЛЕВАЯ КОЛОНКА: РЕДАКТОР -->
-      <div class="editor-col">
-
-        <!-- 1. ТИПЫ СТЕКОЛ -->
-        <div class="panel-card">
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">🪟 1. Типы изделий и базовая стоимость</div>
-              <div class="panel-desc">Базовая цена за стандартное стекло (площадь 0.28 м²). Пересчитывается пропорционально площади.</div>
-            </div>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnAddGlassType">➕ Добавить тип</button>
-          </div>
-
-          <div id="glassTypesContainer">
-            <!-- Динамический список типов -->
-          </div>
-        </div>
-
-        <!-- 2. ДИАПАЗОНЫ ПОЛЗУНКОВ -->
-        <div class="panel-card">
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">📏 2. Диапазоны размеров (ползунки ширины и высоты)</div>
-              <div class="panel-desc">Ограничения минимального, максимального значения и шаг ползунка в миллиметрах.</div>
-            </div>
-          </div>
-
-          <div class="grid-2">
-            <!-- Ширина -->
-            <div style="background:rgba(15,23,42,0.4);border:1px solid var(--card-border);border-radius:8px;padding:14px;">
-              <div style="font-weight:700;margin-bottom:10px;color:var(--primary);font-size:13px;">↔️ ШИРИНА (ММ)</div>
-              <div class="grid-2">
-                <div class="form-group">
-                  <label class="form-label">Минимум</label>
-                  <input type="number" id="sliderWidthMin" class="form-input" min="50" max="3000" step="1">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Максимум</label>
-                  <input type="number" id="sliderWidthMax" class="form-input" min="50" max="4000" step="1">
-                </div>
-              </div>
-              <div class="grid-2">
-                <div class="form-group">
-                  <label class="form-label">По умолчанию</label>
-                  <input type="number" id="sliderWidthDefault" class="form-input" min="50" max="3000" step="1">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Шаг (step)</label>
-                  <input type="number" id="sliderWidthStep" class="form-input" min="1" max="50" step="1">
-                </div>
-              </div>
-            </div>
-
-            <!-- Высота -->
-            <div style="background:rgba(15,23,42,0.4);border:1px solid var(--card-border);border-radius:8px;padding:14px;">
-              <div style="font-weight:700;margin-bottom:10px;color:var(--primary);font-size:13px;">↕️ ВЫСОТА (ММ)</div>
-              <div class="grid-2">
-                <div class="form-group">
-                  <label class="form-label">Минимум</label>
-                  <input type="number" id="sliderHeightMin" class="form-input" min="50" max="3000" step="1">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Максимум</label>
-                  <input type="number" id="sliderHeightMax" class="form-input" min="50" max="4000" step="1">
-                </div>
-              </div>
-              <div class="grid-2">
-                <div class="form-group">
-                  <label class="form-label">По умолчанию</label>
-                  <input type="number" id="sliderHeightDefault" class="form-input" min="50" max="3000" step="1">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Шаг (step)</label>
-                  <input type="number" id="sliderHeightStep" class="form-input" min="1" max="50" step="1">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. ДОПОЛНИТЕЛЬНЫЕ ОПЦИИ -->
-        <div class="panel-card">
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">🛠️ 3. Дополнительные опции и услуги</div>
-              <div class="panel-desc">Отверстия, термопокраска стемалит, кромка и др. Укажите цену за опцию.</div>
-            </div>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnAddOption">➕ Добавить опцию</button>
-          </div>
-
-          <div id="optionsContainer">
-            <!-- Динамический список опций -->
-          </div>
-        </div>
-
-        <!-- 4. СРОКИ И ПРИМЕЧАНИЯ -->
-        <div class="panel-card">
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">📋 4. Тексты в чеке и параметры расчёта</div>
-              <div class="panel-desc">Сроки изготовления, сноски мастера и шаг округления цены.</div>
-            </div>
-          </div>
-
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">Срок изготовления</label>
-              <input type="text" id="textLeadTime" class="form-input" placeholder="3–5 рабочих дней">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Округление цен до</label>
-              <select id="selectRoundTo" class="form-select">
-                <option value="50">50 ₽ (рекомендуется)</option>
-                <option value="100">100 ₽</option>
-                <option value="10">10 ₽</option>
-                <option value="1">Без округления (1 ₽)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Примечание к стоимости</label>
-            <input type="text" id="textNote" class="form-input" placeholder="Точная цена подтверждается мастером по модели/шильдику">
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ПРАВАЯ КОЛОНКА: ИНТЕРАКТИВНЫЙ ПРЕДПРОСМОТР -->
-      <div class="preview-col">
-        <div class="panel-card preview-sticky">
-          <div class="panel-head" style="margin-bottom:10px;">
-            <div>
-              <div class="panel-title">👁️ Живой предпросмотр</div>
-              <div class="panel-desc">Мгновенный результат расчёта по вашим настройкам</div>
-            </div>
-            <span class="preview-badge">Live</span>
-          </div>
-
-          <div class="mock-calc">
-            <div class="mock-label">
-              <span>Тип изделия:</span>
-            </div>
-            <select id="mockGlassType" class="mock-select"></select>
-
-            <div class="mock-label">
-              <span>Ширина (мм):</span>
-              <b id="mockWidthVal" style="color:#fff;">595 мм</b>
-            </div>
-            <input type="range" id="mockWidthSlider" class="mock-slider">
-            <div class="mock-limits"><span id="mockWidthMinLbl">200 мм</span><span id="mockWidthMaxLbl">1500 мм</span></div>
-
-            <div class="mock-label">
-              <span>Высота (мм):</span>
-              <b id="mockHeightVal" style="color:#fff;">475 мм</b>
-            </div>
-            <input type="range" id="mockHeightSlider" class="mock-slider">
-            <div class="mock-limits"><span id="mockHeightMinLbl">150 мм</span><span id="mockHeightMaxLbl">2200 мм</span></div>
-
-            <div class="mock-label" style="margin-top:10px;">Дополнительные опции:</div>
-            <div class="mock-opts" id="mockOptsContainer"></div>
-
-            <div class="mock-summary">
-              <div class="mock-sum-row">
-                <span>Изделие:</span>
-                <b id="mockSumType">-</b>
-              </div>
-              <div class="mock-sum-row">
-                <span>Размеры:</span>
-                <b id="mockSumDim">-</b>
-              </div>
-              <div class="mock-sum-row">
-                <span>Опции:</span>
-                <b id="mockSumOpts">-</b>
-              </div>
-              <div class="mock-sum-row">
-                <span>Срок:</span>
-                <b id="mockSumLead">-</b>
-              </div>
-
-              <div class="mock-total-box">
-                <div style="font-size:11px;color:var(--muted);text-transform:uppercase;">Стоимость:</div>
-                <div class="mock-total-price" id="mockTotalPrice">0 ₽</div>
-                <div style="font-size:11px;color:var(--muted);margin-top:4px;" id="mockSumNote">-</div>
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-top:16px;">
-            <button type="button" class="btn btn-primary" id="btnSaveFromSticky" style="width:100%;justify-content:center;padding:12px;">
-              💾 Сохранить изменения в GitHub
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- МОДАЛКА НАСТРОЕК GITHUB ТОКЕНА -->
-  <div class="modal-overlay" id="settingsModal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <div class="modal-title">🔑 Подключение к GitHub</div>
-        <div class="modal-desc">
-          Конфигурация сохраняется непосредственно в репозиторий GitHub без сторонних баз данных. Для сохранения требуется токен GitHub с правом записи в репозиторий.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Репозиторий (owner/repo)</label>
-        <input type="text" id="cfgGithubRepo" class="form-input" value="Punelittley/steklaaa">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Ветка</label>
-        <input type="text" id="cfgGithubBranch" class="form-input" value="main">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">GitHub Personal Access Token (PAT)</label>
-        <input type="password" id="cfgGithubToken" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-        <div style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4;">
-          Токен создаётся в GitHub: <b>Settings &rarr; Developer Settings &rarr; Personal access tokens &rarr; Tokens (classic)</b> с правами <code>repo</code>.<br>
-          <a href="https://github.com/settings/tokens/new?scopes=repo&description=Stekla+Calc+Admin" target="_blank" style="color:var(--primary);text-decoration:underline;">
-            Создать токен в один клик ↗
-          </a>
-        </div>
-      </div>
-
-      <div class="form-group" style="margin-top:18px;">
-        <label class="form-label">Или пароль сервера (при сохранении на VPS)</label>
-        <input type="password" id="cfgServerPassword" class="form-input" placeholder="stekla2026">
-      </div>
-
-      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;">
-        <button type="button" class="btn btn-secondary" id="btnCloseModal">Отмена</button>
-        <button type="button" class="btn btn-primary" id="btnSaveCredentials">Сохранить и подключиться</button>
-      </div>
+  <!-- ЭКРАН ВХОДА (ПАРОЛЬ ЗАШИФРОВАН SHA-256) -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-card" id="lockCard">
+      <div class="lock-icon">🔐</div>
+      <h2 class="lock-title">Панель управления</h2>
+      <p class="lock-desc">Для редактирования параметров калькулятора введите пароль администратора.</p>
+      
+      <form id="lockForm" onsubmit="handleLogin(event)">
+        <input type="password" id="passInput" class="lock-input" placeholder="••••••••••••" autofocus autocomplete="current-password">
+        <button type="submit" class="lock-btn">Войти в панель</button>
+      </form>
+      <div class="lock-err" id="lockErr">Неверный пароль доступа</div>
     </div>
   </div>
 
-  <!-- TOAST -->
-  <div class="toast-box" id="toastBox">
-    <span id="toastMsg">Готово</span>
+  <!-- ОСНОВНОЙ ИНТЕРФЕЙС (СКРЫТ ДО ВВОДА ПАРОЛЯ) -->
+  <div id="appContainer" style="display:none;min-height:100vh;flex-direction:column;">
+    
+    <!-- ХЕДЕР -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">СТЕКЛА</div>
+        <div>
+          <div class="brand-title">Панель управления калькулятором</div>
+          <div class="brand-sub">stekla-rf.ru &bull; Punelittley/steklaaa</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-secondary" target="_blank">↗ На сайт</a>
+        <button type="button" class="btn btn-secondary" id="btnSettingsModal" title="Настройки GitHub">🔑 GitHub</button>
+        <button type="button" class="btn btn-secondary" id="btnExportJson">📥 Экспорт JSON</button>
+        <label class="btn btn-secondary" style="margin:0;">
+          📤 Импорт JSON
+          <input type="file" id="fileImportJson" accept=".json" style="display:none;">
+        </label>
+        <button type="button" class="btn btn-primary" id="btnSaveAll">
+          <span>💾 Сохранить</span>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" id="btnLogout" title="Заблокировать панель">🚪 Выйти</button>
+      </div>
+    </header>
+
+    <!-- КОНТЕНТ -->
+    <main class="container">
+      <div class="status-bar">
+        <div class="status-info">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Загрузка данных...</span>
+          <span id="statusCommit" style="color:var(--muted);font-size:12px;"></span>
+        </div>
+        <div>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnReloadConfig">🔄 Обновить</button>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- ЛЕВАЯ КОЛОНКА -->
+        <div class="editor-col">
+
+          <!-- 1. ТИПЫ СТЕКОЛ -->
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">🪟 1. Типы изделий и базовая цена</div>
+                <div class="panel-desc">Базовая цена за стандартный размер. Пересчитывается пропорционально площади.</div>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnAddGlassType">➕ Добавить тип</button>
+            </div>
+            <div id="glassTypesContainer"></div>
+          </div>
+
+          <!-- 2. ПОЛЗУНКИ -->
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">📏 2. Диапазоны размеров (ползунки)</div>
+                <div class="panel-desc">Ограничения минимального, максимального значения и шаг ползунка в миллиметрах.</div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <!-- Ширина -->
+              <div style="background:rgba(15,23,42,0.4);border:1px solid var(--card-border);border-radius:8px;padding:14px;">
+                <div style="font-weight:700;margin-bottom:10px;color:var(--primary);font-size:13px;">↔️ ШИРИНА (ММ)</div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Минимум</label>
+                    <input type="number" id="sliderWidthMin" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Максимум</label>
+                    <input type="number" id="sliderWidthMax" class="form-input">
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">По умолчанию</label>
+                    <input type="number" id="sliderWidthDefault" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Шаг (step)</label>
+                    <input type="number" id="sliderWidthStep" class="form-input">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Высота -->
+              <div style="background:rgba(15,23,42,0.4);border:1px solid var(--card-border);border-radius:8px;padding:14px;">
+                <div style="font-weight:700;margin-bottom:10px;color:var(--primary);font-size:13px;">↕️ ВЫСОТА (ММ)</div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Минимум</label>
+                    <input type="number" id="sliderHeightMin" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Максимум</label>
+                    <input type="number" id="sliderHeightMax" class="form-input">
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">По умолчанию</label>
+                    <input type="number" id="sliderHeightDefault" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Шаг (step)</label>
+                    <input type="number" id="sliderHeightStep" class="form-input">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. ДОПОЛНИТЕЛЬНЫЕ ОПЦИИ -->
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">🛠️ 3. Дополнительные опции</div>
+                <div class="panel-desc">Отверстия, покраска стемалит, кромка и др.</div>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnAddOption">➕ Добавить опцию</button>
+            </div>
+            <div id="optionsContainer"></div>
+          </div>
+
+          <!-- 4. СРОКИ И ПРИМЕЧАНИЯ -->
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">📋 4. Тексты и параметры расчёта</div>
+                <div class="panel-desc">Сроки изготовления и примечания к заказу.</div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Срок изготовления</label>
+                <input type="text" id="textLeadTime" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Округление цен до</label>
+                <select id="selectRoundTo" class="form-select">
+                  <option value="50">50 ₽ (рекомендуется)</option>
+                  <option value="100">100 ₽</option>
+                  <option value="10">10 ₽</option>
+                  <option value="1">Без округления (1 ₽)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Примечание к стоимости</label>
+              <input type="text" id="textNote" class="form-input">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА: ЖИВОЙ ПРЕДПРОСМОТР -->
+        <div class="preview-col">
+          <div class="panel-card preview-sticky">
+            <div class="panel-head" style="margin-bottom:10px;">
+              <div>
+                <div class="panel-title">👁️ Живой предпросмотр</div>
+                <div class="panel-desc">Мгновенный результат расчёта по вашим настройкам</div>
+              </div>
+              <span class="preview-badge">Live</span>
+            </div>
+
+            <div class="mock-calc">
+              <div class="mock-label">Тип изделия:</div>
+              <select id="mockGlassType" class="mock-select"></select>
+
+              <div class="mock-label">
+                <span>Ширина (мм):</span>
+                <b id="mockWidthVal" style="color:#fff;">595 мм</b>
+              </div>
+              <input type="range" id="mockWidthSlider" class="mock-slider">
+              <div class="mock-limits"><span id="mockWidthMinLbl">200 мм</span><span id="mockWidthMaxLbl">1500 мм</span></div>
+
+              <div class="mock-label">
+                <span>Высота (мм):</span>
+                <b id="mockHeightVal" style="color:#fff;">475 мм</b>
+              </div>
+              <input type="range" id="mockHeightSlider" class="mock-slider">
+              <div class="mock-limits"><span id="mockHeightMinLbl">150 мм</span><span id="mockHeightMaxLbl">2200 мм</span></div>
+
+              <div class="mock-label" style="margin-top:10px;">Дополнительные опции:</div>
+              <div class="mock-opts" id="mockOptsContainer"></div>
+
+              <div class="mock-summary">
+                <div class="mock-sum-row">
+                  <span>Изделие:</span>
+                  <b id="mockSumType">-</b>
+                </div>
+                <div class="mock-sum-row">
+                  <span>Размеры:</span>
+                  <b id="mockSumDim">-</b>
+                </div>
+                <div class="mock-sum-row">
+                  <span>Опции:</span>
+                  <b id="mockSumOpts">-</b>
+                </div>
+                <div class="mock-sum-row">
+                  <span>Срок:</span>
+                  <b id="mockSumLead">-</b>
+                </div>
+
+                <div class="mock-total-box">
+                  <div style="font-size:11px;color:var(--muted);text-transform:uppercase;">Стоимость:</div>
+                  <div class="mock-total-price" id="mockTotalPrice">0 ₽</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:4px;" id="mockSumNote">-</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:16px;">
+              <button type="button" class="btn btn-primary" id="btnSaveFromSticky" style="width:100%;justify-content:center;padding:12px;">
+                💾 Сохранить изменения
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- МОДАЛКА GITHUB -->
+    <div class="modal-overlay" id="settingsModal">
+      <div class="modal-card">
+        <h3 style="color:#fff;margin-bottom:12px;font-size:18px;">🔑 Настройки сохранения в GitHub</h3>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">
+          Токен сохраняется только в вашем браузере и используется для коммита изменений в репозиторий.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">Репозиторий (owner/repo)</label>
+          <input type="text" id="cfgGithubRepo" class="form-input" value="Punelittley/steklaaa">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ветка</label>
+          <input type="text" id="cfgGithubBranch" class="form-input" value="main">
+        </div>
+        <div class="form-group">
+          <label class="form-label">GitHub Token (PAT)</label>
+          <input type="password" id="cfgGithubToken" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
+          <button type="button" class="btn btn-secondary" id="btnCloseModal">Отмена</button>
+          <button type="button" class="btn btn-primary" id="btnSaveCredentials">Сохранить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-box" id="toastBox">
+      <span id="toastMsg">Готово</span>
+    </div>
+
   </div>
 
   <script>
+    // ХЕШИ РАЗРЕШЕННЫХ ПАРОЛЕЙ (SHA-256)
+    // Пароль 1: 'stekla2026'
+    // Пароль 2: 'SteklaCalc2026!'
+    const ALLOWED_HASHES = [
+      '9ad1157afc3b2a12e84034ca0ef71a316d6246b5fbcb4f3adc4090bd68f0495d', // stekla2026
+      'dea8564f6195494aecf59b055ece6b247adf6af11efe67e7dd55c99d320d6d4c'  // SteklaCalc2026!
+    ];
+
+    // Вычисление SHA-256 в браузере
+    async function sha256(str) {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    // Проверка авторизации
+    async function checkAuth() {
+      const savedHash = sessionStorage.getItem('calc_auth_hash');
+      if (savedHash && ALLOWED_HASHES.includes(savedHash)) {
+        unlockUI();
+        return true;
+      }
+      return false;
+    }
+
+    async function handleLogin(e) {
+      if (e) e.preventDefault();
+      const pass = document.getElementById('passInput').value;
+      const hash = await sha256(pass);
+
+      if (ALLOWED_HASHES.includes(hash)) {
+        sessionStorage.setItem('calc_auth_hash', hash);
+        sessionStorage.setItem('calc_entered_pass', pass);
+        unlockUI();
+      } else {
+        const err = document.getElementById('lockErr');
+        const card = document.getElementById('lockCard');
+        err.style.display = 'block';
+        card.classList.add('shake');
+        setTimeout(() => card.classList.remove('shake'), 400);
+      }
+    }
+
+    function unlockUI() {
+      document.getElementById('lockScreen').style.display = 'none';
+      document.getElementById('appContainer').style.display = 'flex';
+      loadConfig();
+    }
+
+    document.getElementById('btnLogout').addEventListener('click', () => {
+      sessionStorage.removeItem('calc_auth_hash');
+      sessionStorage.removeItem('calc_entered_pass');
+      location.reload();
+    });
+
     // КОНФИГУРАЦИЯ ПО УМОЛЧАНИЮ
     const DEFAULT_CONFIG = {
       glassTypes: [
@@ -792,7 +905,6 @@
     let state = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
     let githubSha = null;
 
-    // Элементы
     const statusDot = document.getElementById('statusDot');
     const statusText = document.getElementById('statusText');
     const statusCommit = document.getElementById('statusCommit');
@@ -813,7 +925,6 @@
     const textNote = document.getElementById('textNote');
     const selectRoundTo = document.getElementById('selectRoundTo');
 
-    // Мок элементы
     const mockGlassType = document.getElementById('mockGlassType');
     const mockWidthSlider = document.getElementById('mockWidthSlider');
     const mockHeightSlider = document.getElementById('mockHeightSlider');
@@ -831,7 +942,6 @@
     const mockTotalPrice = document.getElementById('mockTotalPrice');
     const mockSumNote = document.getElementById('mockSumNote');
 
-    // Тост
     function showToast(msg, type = 'info') {
       const box = document.getElementById('toastBox');
       const text = document.getElementById('toastMsg');
@@ -840,26 +950,16 @@
       setTimeout(() => { box.classList.remove('show'); }, 3500);
     }
 
-    // Сохранение и чтение настроек GitHub
     function getCredentials() {
       return {
         repo: localStorage.getItem('calc_gh_repo') || 'Punelittley/steklaaa',
         branch: localStorage.getItem('calc_gh_branch') || 'main',
         token: localStorage.getItem('calc_gh_token') || '',
-        serverPass: localStorage.getItem('calc_server_pass') || ''
+        serverPass: sessionStorage.getItem('calc_entered_pass') || 'stekla2026'
       };
     }
 
-    function saveCredentials(repo, branch, token, serverPass) {
-      localStorage.setItem('calc_gh_repo', repo);
-      localStorage.setItem('calc_gh_branch', branch);
-      localStorage.setItem('calc_gh_token', token);
-      localStorage.setItem('calc_server_pass', serverPass);
-    }
-
-    // Инициализация полей формы из state
     function populateForm() {
-      // 1. Типы изделий
       glassTypesContainer.innerHTML = '';
       state.glassTypes.forEach((gt, idx) => {
         const row = document.createElement('div');
@@ -898,7 +998,6 @@
         glassTypesContainer.appendChild(row);
       });
 
-      // 2. Слайдеры
       const sw = state.sliders.width;
       sliderWidthMin.value = sw.min;
       sliderWidthMax.value = sw.max;
@@ -911,7 +1010,6 @@
       sliderHeightDefault.value = sh.default;
       sliderHeightStep.value = sh.step || 5;
 
-      // 3. Опции
       optionsContainer.innerHTML = '';
       state.options.forEach((opt, idx) => {
         const row = document.createElement('div');
@@ -963,7 +1061,6 @@
         optionsContainer.appendChild(row);
       });
 
-      // 4. Тексты
       textLeadTime.value = state.leadTime || "3–5 рабочих дней";
       textNote.value = state.note || "Точная цена подтверждается мастером по модели/шильдику";
       selectRoundTo.value = state.roundTo || 50;
@@ -990,7 +1087,6 @@
       state.updatedAt = new Date().toISOString();
     }
 
-    // Слушатели слайдеров и текстов
     [sliderWidthMin, sliderWidthMax, sliderWidthDefault, sliderWidthStep,
      sliderHeightMin, sliderHeightMax, sliderHeightDefault, sliderHeightStep,
      textLeadTime, textNote, selectRoundTo].forEach(el => {
@@ -1000,35 +1096,21 @@
       });
     });
 
-    // Добавление типа стекла
     document.getElementById('btnAddGlassType').addEventListener('click', () => {
       const id = 'glass_' + Date.now();
-      state.glassTypes.push({
-        id: id,
-        name: 'Новый тип стекла',
-        basePrice: 3000
-      });
+      state.glassTypes.push({ id, name: 'Новый тип стекла', basePrice: 3000 });
       populateForm();
       showToast('Тип стекла добавлен');
     });
 
-    // Добавление опции
     document.getElementById('btnAddOption').addEventListener('click', () => {
       const id = 'opt_' + Date.now();
-      state.options.push({
-        id: id,
-        name: 'Новая опция',
-        label: 'Описание новой услуги / опции',
-        price: 500,
-        checked: false
-      });
+      state.options.push({ id, name: 'Новая опция', label: 'Новая дополнительная услуга', price: 500, checked: false });
       populateForm();
       showToast('Опция добавлена');
     });
 
-    // ЖИВОЙ ПРЕДПРОСМОТР (LIVE PREVIEW)
     function updateLivePreview() {
-      // 1. Селект типов
       const prevVal = mockGlassType.value;
       mockGlassType.innerHTML = '';
       state.glassTypes.forEach((gt, idx) => {
@@ -1040,7 +1122,6 @@
         mockGlassType.appendChild(opt);
       });
 
-      // 2. Слайдеры
       const sw = state.sliders.width;
       mockWidthSlider.min = sw.min;
       mockWidthSlider.max = sw.max;
@@ -1061,7 +1142,6 @@
       mockHeightMinLbl.textContent = sh.min + ' мм';
       mockHeightMaxLbl.textContent = sh.max + ' мм';
 
-      // 3. Опции
       const prevStates = {};
       mockOptsContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => {
         prevStates[cb.dataset.id] = cb.checked;
@@ -1136,12 +1216,10 @@
     mockWidthSlider.addEventListener('input', calcMock);
     mockHeightSlider.addEventListener('input', calcMock);
 
-    // ЗАГРУЗКА ИЗ СЕРВЕРА / GITHUB
     async function loadConfig() {
       statusDot.className = 'status-dot warning';
       statusText.textContent = 'Загрузка конфигурации...';
 
-      // 1. Попытка загрузить из GitHub API, если есть токен
       const creds = getCredentials();
       if (creds.token && creds.repo) {
         try {
@@ -1157,10 +1235,9 @@
             const content = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ''))));
             state = JSON.parse(content);
             statusDot.className = 'status-dot online';
-            statusText.textContent = `Подключено к GitHub (${creds.repo})`;
+            statusText.textContent = `Синхронизировано с GitHub (${creds.repo})`;
             statusCommit.textContent = `SHA: ${githubSha.substring(0, 7)}`;
             populateForm();
-            showToast('Конфигурация успешно загружена из GitHub', 'success');
             return;
           }
         } catch (e) {
@@ -1168,37 +1245,27 @@
         }
       }
 
-      // 2. Загрузка локального calc-config.json
       try {
         const res = await fetch('calc-config.json?v=' + Date.now());
         if (res.ok) {
           state = await res.json();
           statusDot.className = 'status-dot online';
-          statusText.textContent = 'Загружено из локального calc-config.json';
+          statusText.textContent = 'Загружено с сервера stekla-rf.ru';
           populateForm();
-          showToast('Конфигурация загружена из файла на сервере', 'info');
           return;
         }
       } catch (e) {
         console.warn('Local fetch error:', e);
       }
 
-      // 3. Fallback
       statusDot.className = 'status-dot warning';
-      statusText.textContent = 'Используются стандартные параметры';
+      statusText.textContent = 'Стандартные параметры';
       populateForm();
     }
 
-    // СОХРАНЕНИЕ
     async function saveAll() {
       readFormIntoState();
       const creds = getCredentials();
-
-      if (!creds.token && !creds.serverPass) {
-        openSettingsModal();
-        showToast('Пожалуйста, укажите токен GitHub или пароль', 'error');
-        return;
-      }
 
       const saveBtn = document.getElementById('btnSaveAll');
       const stickyBtn = document.getElementById('btnSaveFromSticky');
@@ -1207,13 +1274,28 @@
       saveBtn.textContent = '⏳ Сохранение...';
 
       const jsonStr = JSON.stringify(state, null, 2);
-      let githubSuccess = false;
       let serverSuccess = false;
+      let githubSuccess = false;
 
-      // 1. Сохранение через GitHub API
+      // 1. Сохранение на сервер (с зашифрованным паролем)
+      try {
+        const pass = sessionStorage.getItem('calc_entered_pass') || 'stekla2026';
+        const sRes = await fetch('/api/save-config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            password: pass,
+            config: state
+          })
+        });
+        if (sRes.ok) serverSuccess = true;
+      } catch (e) {
+        console.warn('Server save error:', e);
+      }
+
+      // 2. Сохранение в GitHub (если есть токен)
       if (creds.token && creds.repo) {
         try {
-          // Получаем свежий SHA если не известен
           if (!githubSha) {
             const check = await fetch(`https://api.github.com/repos/${creds.repo}/contents/calc-config.json?ref=${creds.branch}`, {
               headers: { 'Authorization': `Bearer ${creds.token}` }
@@ -1235,7 +1317,7 @@
               'Accept': 'application/vnd.github.v3+json'
             },
             body: JSON.stringify({
-              message: 'Обновление настроек калькулятора через панель управления',
+              message: 'Обновление калькулятора через панель управления',
               content: base64Content,
               branch: creds.branch,
               sha: githubSha || undefined
@@ -1247,45 +1329,24 @@
             githubSha = resData.content.sha;
             githubSuccess = true;
             statusCommit.textContent = `SHA: ${githubSha.substring(0, 7)}`;
-          } else {
-            const errData = await putRes.json();
-            console.error('GitHub PUT error:', errData);
-            alert('Ошибка GitHub: ' + (errData.message || 'Не удалось сохранить'));
           }
         } catch (e) {
           console.error('GitHub API error:', e);
         }
       }
 
-      // 2. Сохранение на сервер VPS (если запущен эндпоинт /api/save-config)
-      try {
-        const sRes = await fetch('/api/save-config', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            password: creds.serverPass,
-            config: state
-          })
-        });
-        if (sRes.ok) {
-          serverSuccess = true;
-        }
-      } catch (e) {
-        // Серверный эндпоинт может отсутствовать если сайт на GitHub Pages
-      }
-
       saveBtn.disabled = false;
       stickyBtn.disabled = false;
-      saveBtn.textContent = '💾 Сохранить в GitHub';
+      saveBtn.textContent = '💾 Сохранить';
 
-      if (githubSuccess && serverSuccess) {
-        showToast('✅ Сохранено в GitHub и на сервер stekla-rf.ru!', 'success');
-      } else if (githubSuccess) {
-        showToast('✅ Сохранено в репозиторий GitHub!', 'success');
+      if (serverSuccess && githubSuccess) {
+        showToast('✅ Сохранено на сайт stekla-rf.ru и в GitHub!', 'success');
       } else if (serverSuccess) {
-        showToast('✅ Сохранено на сервер stekla-rf.ru!', 'success');
+        showToast('✅ Сохранено на сайт stekla-rf.ru!', 'success');
+      } else if (githubSuccess) {
+        showToast('✅ Сохранено в GitHub!', 'success');
       } else {
-        showToast('⚠️ Проверьте токен GitHub или скачайте JSON вручную', 'error');
+        showToast('⚠️ Ошибка при сохранении, проверьте пароль', 'error');
       }
     }
 
@@ -1293,7 +1354,6 @@
     document.getElementById('btnSaveFromSticky').addEventListener('click', saveAll);
     document.getElementById('btnReloadConfig').addEventListener('click', loadConfig);
 
-    // Экспорт JSON
     document.getElementById('btnExportJson').addEventListener('click', () => {
       readFormIntoState();
       const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
@@ -1303,10 +1363,9 @@
       a.download = 'calc-config.json';
       a.click();
       URL.revokeObjectURL(url);
-      showToast('Файл calc-config.json скачан', 'success');
+      showToast('calc-config.json скачан', 'success');
     });
 
-    // Импорт JSON
     document.getElementById('fileImportJson').addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -1317,41 +1376,30 @@
           if (imported.glassTypes && imported.sliders) {
             state = imported;
             populateForm();
-            showToast('Конфиг успешно импортирован из файла!', 'success');
-          } else {
-            alert('Неверная структура файла calc-config.json');
+            showToast('Конфиг импортирован!', 'success');
           }
         } catch (err) {
-          alert('Ошибка чтения JSON файла: ' + err.message);
+          alert('Ошибка чтения JSON: ' + err.message);
         }
       };
       reader.readAsText(file);
     });
 
-    // Модалка настроек
     const settingsModal = document.getElementById('settingsModal');
-    function openSettingsModal() {
+    document.getElementById('btnSettingsModal').addEventListener('click', () => {
       const creds = getCredentials();
       document.getElementById('cfgGithubRepo').value = creds.repo;
       document.getElementById('cfgGithubBranch').value = creds.branch;
       document.getElementById('cfgGithubToken').value = creds.token;
-      document.getElementById('cfgServerPassword').value = creds.serverPass;
       settingsModal.classList.add('active');
-    }
-    function closeSettingsModal() {
-      settingsModal.classList.remove('active');
-    }
-
-    document.getElementById('btnSettingsModal').addEventListener('click', openSettingsModal);
-    document.getElementById('btnCloseModal').addEventListener('click', closeSettingsModal);
+    });
+    document.getElementById('btnCloseModal').addEventListener('click', () => settingsModal.classList.remove('active'));
     document.getElementById('btnSaveCredentials').addEventListener('click', () => {
-      const repo = document.getElementById('cfgGithubRepo').value.trim();
-      const branch = document.getElementById('cfgGithubBranch').value.trim() || 'main';
-      const token = document.getElementById('cfgGithubToken').value.trim();
-      const pass = document.getElementById('cfgServerPassword').value.trim();
-      saveCredentials(repo, branch, token, pass);
-      closeSettingsModal();
-      showToast('Настройки сохранены, обновляем данные...', 'info');
+      localStorage.setItem('calc_gh_repo', document.getElementById('cfgGithubRepo').value.trim());
+      localStorage.setItem('calc_gh_branch', document.getElementById('cfgGithubBranch').value.trim() || 'main');
+      localStorage.setItem('calc_gh_token', document.getElementById('cfgGithubToken').value.trim());
+      settingsModal.classList.remove('active');
+      showToast('Настройки GitHub сохранены', 'info');
       loadConfig();
     });
 
@@ -1361,8 +1409,8 @@
       });
     }
 
-    // Старт
-    loadConfig();
+    // Проверка при загрузке страницы
+    checkAuth();
   </script>
 </body>
 </html>
