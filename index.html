@@ -1781,7 +1781,7 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
                 <span class="calc-num-val" id="widthVal">595 мм</span>
               </div>
               <input type="range" id="glassWidth" min="200" max="1500" step="5" value="595" class="calc-slider">
-              <div class="calc-range-limits"><span>200 мм</span><span>1500 мм</span></div>
+              <div class="calc-range-limits"><span id="widthMinLbl">200 мм</span><span id="widthMaxLbl">1500 мм</span></div>
             </div>
 
             <div class="calc-field">
@@ -1790,13 +1790,13 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
                 <span class="calc-num-val" id="heightVal">475 мм</span>
               </div>
               <input type="range" id="glassHeight" min="150" max="2200" step="5" value="475" class="calc-slider">
-              <div class="calc-range-limits"><span>150 мм</span><span>2200 мм</span></div>
+              <div class="calc-range-limits"><span id="heightMinLbl">150 мм</span><span id="heightMaxLbl">2200 мм</span></div>
             </div>
           </div>
 
           <div class="calc-field">
             <label class="calc-field-lbl">Дополнительные опции:</label>
-            <div class="calc-options-list">
+            <div class="calc-options-list" id="calcOptionsContainer">
               <label class="calc-check-opt">
                 <input type="checkbox" id="optHoles" checked>
                 <span>Отверстия под ручку двери / регуляторы (+350 ₽)</span>
@@ -1834,14 +1834,14 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
               </div>
               <div class="calc-sum-line">
                 <span>Срок изготовления:</span>
-                <b>3–5 рабочих дней</b>
+                <b id="summaryLeadTime">3–5 рабочих дней</b>
               </div>
             </div>
 
             <div class="calc-total-box">
               <span class="calc-total-lbl">Ориентировочная стоимость:</span>
               <div class="calc-total-price" id="calcTotalPrice">3 850 ₽</div>
-              <div class="calc-total-sub">Точная цена подтверждается мастером по модели/шильдику</div>
+              <div class="calc-total-sub" id="summaryNote">Точная цена подтверждается мастером по модели/шильдику</div>
             </div>
           </div>
 
@@ -3089,16 +3089,125 @@ document.addEventListener('keydown', (e) => {
   const heightSlider = document.getElementById('glassHeight');
   const widthVal = document.getElementById('widthVal');
   const heightVal = document.getElementById('heightVal');
-  const optHoles = document.getElementById('optHoles');
-  const optPaint = document.getElementById('optPaint');
+  const widthMinLbl = document.getElementById('widthMinLbl');
+  const widthMaxLbl = document.getElementById('widthMaxLbl');
+  const heightMinLbl = document.getElementById('heightMinLbl');
+  const heightMaxLbl = document.getElementById('heightMaxLbl');
+  const optionsContainer = document.getElementById('calcOptionsContainer');
   
   const summaryType = document.getElementById('summaryType');
   const summaryDimensions = document.getElementById('summaryDimensions');
   const summaryOptions = document.getElementById('summaryOptions');
+  const summaryLeadTime = document.getElementById('summaryLeadTime');
+  const summaryNote = document.getElementById('summaryNote');
   const calcTotalPrice = document.getElementById('calcTotalPrice');
   const calcOrderBtn = document.getElementById('calcOrderBtn');
 
   if (!typeSelect || !widthSlider || !heightSlider) return;
+
+  let currentConfig = {
+    glassTypes: [
+      { id: 'external', name: 'Внешнее стекло духовки (со смотровым окном)', basePrice: 3200 },
+      { id: 'panel', name: 'Стекло панели управления (под ручки/переключатели)', basePrice: 2600 },
+      { id: 'inner', name: 'Внутреннее стекло духовки (жаропрочное)', basePrice: 2100 },
+      { id: 'intermediate', name: 'Промежуточное стекло (термобарьер, прозрачное)', basePrice: 1700 },
+      { id: 'shower', name: 'Душевая перегородка / ширма (сатинат/прозрачное 8 мм)', basePrice: 4200 },
+      { id: 'ceramic', name: 'Изделие из стеклокерамики', basePrice: 4800 }
+    ],
+    sliders: {
+      width: { min: 200, max: 1500, default: 595, step: 5 },
+      height: { min: 150, max: 2200, default: 475, step: 5 }
+    },
+    options: [
+      { id: 'optHoles', name: 'Отверстия', label: 'Отверстия под ручку двери / регуляторы', price: 350, checked: true },
+      { id: 'optPaint', name: 'Стемалит', label: 'Термостойкая покраска стемалит или шелкография', price: 600, checked: true },
+      { id: 'optCorners', name: 'Еврокромка', label: 'Полированная еврокромка + защитные транспортировочные уголки', price: 0, free: true, checked: true, disabled: true }
+    ],
+    leadTime: '3–5 рабочих дней',
+    note: 'Точная цена подтверждается мастером по модели/шильдику',
+    standardArea: 0.28,
+    roundTo: 50
+  };
+
+  function applyConfig(cfg) {
+    if (!cfg) return;
+    currentConfig = Object.assign({}, currentConfig, cfg);
+
+    // 1. Обновляем селект типов стекол
+    if (Array.isArray(cfg.glassTypes) && cfg.glassTypes.length > 0) {
+      const prevVal = typeSelect.value;
+      typeSelect.innerHTML = '';
+      cfg.glassTypes.forEach((gt, idx) => {
+        const opt = document.createElement('option');
+        opt.value = gt.id || ('gt_' + idx);
+        opt.setAttribute('data-base', gt.basePrice || 3000);
+        opt.textContent = gt.name;
+        if (opt.value === prevVal || (!prevVal && idx === 0)) {
+          opt.selected = true;
+        }
+        typeSelect.appendChild(opt);
+      });
+      if (!typeSelect.value && typeSelect.options.length > 0) {
+        typeSelect.options[0].selected = true;
+      }
+    }
+
+    // 2. Обновляем слайдеры
+    if (cfg.sliders) {
+      if (cfg.sliders.width) {
+        const sw = cfg.sliders.width;
+        if (sw.min != null) { widthSlider.min = sw.min; if (widthMinLbl) widthMinLbl.textContent = sw.min + ' мм'; }
+        if (sw.max != null) { widthSlider.max = sw.max; if (widthMaxLbl) widthMaxLbl.textContent = sw.max + ' мм'; }
+        if (sw.step != null) widthSlider.step = sw.step;
+      }
+      if (cfg.sliders.height) {
+        const sh = cfg.sliders.height;
+        if (sh.min != null) { heightSlider.min = sh.min; if (heightMinLbl) heightMinLbl.textContent = sh.min + ' мм'; }
+        if (sh.max != null) { heightSlider.max = sh.max; if (heightMaxLbl) heightMaxLbl.textContent = sh.max + ' мм'; }
+        if (sh.step != null) heightSlider.step = sh.step;
+      }
+    }
+
+    // 3. Обновляем опции
+    if (Array.isArray(cfg.options) && optionsContainer) {
+      const prevStates = {};
+      optionsContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        prevStates[cb.id] = cb.checked;
+      });
+
+      optionsContainer.innerHTML = '';
+      cfg.options.forEach(optItem => {
+        const lbl = document.createElement('label');
+        lbl.className = 'calc-check-opt';
+
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.id = optItem.id;
+        cb.setAttribute('data-price', optItem.price || 0);
+        cb.setAttribute('data-name', optItem.name || optItem.label);
+        if (optItem.disabled) cb.disabled = true;
+        cb.checked = prevStates[optItem.id] !== undefined ? prevStates[optItem.id] : !!optItem.checked;
+
+        const span = document.createElement('span');
+        const priceLabel = optItem.free || optItem.price === 0 
+          ? ' <b>(Бесплатно)</b>' 
+          : ' (+' + (optItem.price || 0) + ' ₽)';
+        span.innerHTML = optItem.label + priceLabel;
+
+        lbl.appendChild(cb);
+        lbl.appendChild(span);
+        optionsContainer.appendChild(lbl);
+
+        cb.addEventListener('change', updateGlassCalc);
+      });
+    }
+
+    // 4. Тексты
+    if (summaryLeadTime && cfg.leadTime) summaryLeadTime.textContent = cfg.leadTime;
+    if (summaryNote && cfg.note) summaryNote.textContent = cfg.note;
+
+    updateGlassCalc();
+  }
 
   function updateGlassCalc() {
     const w = parseInt(widthSlider.value, 10);
@@ -3107,31 +3216,40 @@ document.addEventListener('keydown', (e) => {
     heightVal.textContent = h + ' мм';
 
     const selectedOpt = typeSelect.options[typeSelect.selectedIndex];
+    if (!selectedOpt) return;
     const basePrice = parseInt(selectedOpt.getAttribute('data-base'), 10) || 3000;
     const typeTitle = selectedOpt.text.split('(')[0].trim();
 
     // Расчет площади в м²
     const area = (w * h) / 1000000;
-    const standardArea = 0.28; // стандартное стекло 595x475
+    const standardArea = currentConfig.standardArea || 0.28;
     const areaFactor = Math.max(0.7, area / standardArea);
 
     let price = Math.round(basePrice * (0.6 + 0.4 * areaFactor));
 
     const optionsList = [];
-    if (optHoles.checked) {
-      price += 350;
-      optionsList.push('Отверстия');
-    }
-    if (optPaint.checked) {
-      price += 600;
-      optionsList.push('Стемалит');
-    }
+    const checkBoxes = optionsContainer 
+      ? optionsContainer.querySelectorAll('input[type="checkbox"]')
+      : [document.getElementById('optHoles'), document.getElementById('optPaint')].filter(Boolean);
+
+    checkBoxes.forEach(cb => {
+      if (cb && cb.checked) {
+        const p = parseInt(cb.getAttribute('data-price'), 10);
+        if (!isNaN(p)) price += p;
+        const name = cb.getAttribute('data-name') || cb.parentElement.textContent.trim().split('(')[0].trim();
+        if (p > 0 || name.indexOf('Бесплатно') === -1) {
+          optionsList.push(name);
+        }
+      }
+    });
+
     if (optionsList.length === 0) {
       optionsList.push('Без доп. опций');
     }
 
     // Округление до 50 руб
-    price = Math.round(price / 50) * 50;
+    const roundTo = currentConfig.roundTo || 50;
+    price = Math.round(price / roundTo) * roundTo;
 
     summaryType.textContent = typeTitle;
     summaryDimensions.textContent = w + ' × ' + h + ' мм (' + area.toFixed(2) + ' м²)';
@@ -3145,10 +3263,27 @@ document.addEventListener('keydown', (e) => {
   typeSelect.addEventListener('change', updateGlassCalc);
   widthSlider.addEventListener('input', updateGlassCalc);
   heightSlider.addEventListener('input', updateGlassCalc);
-  optHoles.addEventListener('change', updateGlassCalc);
-  optPaint.addEventListener('change', updateGlassCalc);
+
+  // Слушатели для дефолтных опций
+  const optHoles = document.getElementById('optHoles');
+  const optPaint = document.getElementById('optPaint');
+  if (optHoles) { optHoles.setAttribute('data-price', '350'); optHoles.setAttribute('data-name', 'Отверстия'); optHoles.addEventListener('change', updateGlassCalc); }
+  if (optPaint) { optPaint.setAttribute('data-price', '600'); optPaint.setAttribute('data-name', 'Стемалит'); optPaint.addEventListener('change', updateGlassCalc); }
 
   updateGlassCalc();
+
+  // Загрузка актуального calc-config.json
+  fetch('calc-config.json?v=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(data => {
+      applyConfig(data);
+    })
+    .catch(err => {
+      console.log('Calc config defaults used:', err.message);
+    });
 })();
 
 // 2. ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР ДОСТАВКИ СДЭК
