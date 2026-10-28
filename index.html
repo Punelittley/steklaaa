@@ -1905,6 +1905,9 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
               <option value="intermediate" data-base="1700">Промежуточное стекло (термобарьер, прозрачное)</option>
               <option value="shower" data-base="4200">Душевая перегородка / ширма (сатинат/прозрачное 8 мм)</option>
               <option value="ceramic" data-base="4800">Изделие из стеклокерамики</option>
+              <option value="kitchen_apron" data-base="4500">Фартук для кухонного гарнитура (скинали)</option>
+              <option value="office_partitions" data-base="5500">Стеклянные офисные перегородки</option>
+              <option value="staircase_railings" data-base="6200">Стеклянные лестничные ограждения</option>
             </select>
           </div>
 
@@ -2209,7 +2212,8 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
 
       <!-- Фильтры -->
       <div class="filters-bar" role="group" aria-label="Фильтры галереи">
-        <button type="button" class="filter-btn active" data-filter="all">Все работы (35)</button>
+        <button type="button" class="filter-btn active" data-filter="all">Все работы (38)</button>
+        <button type="button" class="filter-btn" data-filter="interior">Фартуки, перегородки и ограждения</button>
         <button type="button" class="filter-btn" data-filter="shower">Душевые ширмы и перегородки</button>
         <button type="button" class="filter-btn" data-filter="mirror">Стёкла с зеркальным тонированием (Hansa, Hotpoint-Ariston)</button>
         <button type="button" class="filter-btn" data-filter="external">Внешние стекла (с отверстиями)</button>
@@ -3197,7 +3201,10 @@ const photosData = [
   { src: './works/shower-corner-macro.png', title: 'Макро: полированный безопасный угол душевой ширмы', desc: 'Шлифованная трапециевидная еврокромка и скругление углов для максимальной безопасности' },
   { src: './works/shower-satin-hand.png', title: 'Матовое закалённое стекло (сатинат) на просвет', desc: 'Мягкое светорассеивание и визуальная приватность душевой зоны' },
   { src: './works/shower-racks-storage.jpg', title: 'Душевые перегородки с полосой приватности', desc: 'Комбинированное прозрачно-матовое закалённое стекло на складе готовой продукции' },
-  { src: './works/shower-edge-frosted.png', title: 'Кромка и плоскость матового стекла сатинат', desc: 'Идеальная полировка еврокромки и приятная бархатистая фактура закалённого сатината' }
+  { src: './works/shower-edge-frosted.png', title: 'Кромка и плоскость матового стекла сатинат', desc: 'Идеальная полировка еврокромки и приятная бархатистая фактура закалённого сатината' },
+  { src: './works/kitchen-apron.png', title: 'Фартук для кухонного гарнитура (скинали)', desc: 'Закалённое жаропрочное стекло для кухни с подсветкой и вырезами под розетки' },
+  { src: './works/office-partitions.jpg', title: 'Стеклянные офисные перегородки', desc: 'Закалённое стекло 8–10 мм в профиле, с распашной стеклянной дверью' },
+  { src: './works/staircase-railings.jpg', title: 'Стеклянные лестничные ограждения', desc: 'Ударопрочные перила второго света с поручнем из натурального дерева' }
 ];
 
 let activePhotoIndex = 0;

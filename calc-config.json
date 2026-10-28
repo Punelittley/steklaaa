@@ -29,6 +29,21 @@
       "id": "ceramic",
       "name": "Изделие из стеклокерамики",
       "basePrice": 4800
+    },
+    {
+      "id": "kitchen_apron",
+      "name": "Фартук для кухонного гарнитура (скинали)",
+      "basePrice": 4500
+    },
+    {
+      "id": "office_partitions",
+      "name": "Стеклянные офисные перегородки",
+      "basePrice": 5500
+    },
+    {
+      "id": "staircase_railings",
+      "name": "Стеклянные лестничные ограждения",
+      "basePrice": 6200
     }
   ],
   "sliders": {
@@ -74,7 +89,7 @@
   "note": "Точная цена подтверждается мастером по модели/шильдику",
   "standardArea": 0.28,
   "roundTo": 50,
-  "updatedAt": "2026-10-28T05:00:18.134Z",
+  "updatedAt": "2026-10-28T17:46:59.335Z",
   "leadTimeInStock": "2–3 дня",
   "leadTimeCustom": "3–5 недель"
 }

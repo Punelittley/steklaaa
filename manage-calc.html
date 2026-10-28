@@ -228,11 +228,45 @@
     /* ТАБЛИЦА / СТРОКИ ТОВАРОВ */
     .row-item {
       display: grid;
-      grid-template-columns: 1fr 130px 40px;
-      gap: 10px;
+      grid-template-columns: 28px 1fr 125px 64px 34px;
+      gap: 8px;
       align-items: center;
       padding: 8px 0;
       border-bottom: 1px solid #283548;
+    }
+    @media (max-width: 600px) {
+      .row-item {
+        grid-template-columns: 1fr 110px 34px;
+      }
+      .row-num, .row-moves { display: none; }
+    }
+    .row-num {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 700;
+      text-align: center;
+    }
+    .row-moves {
+      display: flex;
+      gap: 3px;
+    }
+    .btn-move {
+      background: #1e293b;
+      border: 1px solid var(--border);
+      color: #94a3b8;
+      border-radius: 4px;
+      padding: 4px 6px;
+      font-size: 11px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .btn-move:hover {
+      background: #334155;
+      color: #fff;
+    }
+    .btn-move:disabled {
+      opacity: 0.3;
+      cursor: default;
     }
     .row-item:last-child {
       border-bottom: none;
@@ -609,19 +643,51 @@
         const row = document.createElement('div');
         row.className = 'row-item';
         row.innerHTML = `
-          <div><input type="text" class="input gt-name" value="${escapeHtml(gt.name)}" placeholder="Название"></div>
+          <div class="row-num">${idx + 1}</div>
+          <div><input type="text" class="input gt-name" id="gt_input_${idx}" value="${escapeHtml(gt.name)}" placeholder="Название изделия"></div>
           <div class="input-group">
             <input type="number" class="input gt-price" value="${gt.basePrice}" min="100" step="50">
             <span class="input-unit">₽</span>
+          </div>
+          <div class="row-moves">
+            <button type="button" class="btn-move btn-move-up" title="Переместить выше" ${idx === 0 ? 'disabled' : ''}>▲</button>
+            <button type="button" class="btn-move btn-move-down" title="Переместить ниже" ${idx === config.glassTypes.length - 1 ? 'disabled' : ''}>▼</button>
           </div>
           <button type="button" class="btn btn-danger-outline btn-sm gt-del" title="Удалить">&times;</button>
         `;
         row.querySelector('.gt-name').addEventListener('input', (e) => { gt.name = e.target.value; updatePreview(); });
         row.querySelector('.gt-price').addEventListener('input', (e) => { gt.basePrice = parseInt(e.target.value, 10) || 0; updatePreview(); });
+
+        const upBtn = row.querySelector('.btn-move-up');
+        const downBtn = row.querySelector('.btn-move-down');
+        if (upBtn) {
+          upBtn.addEventListener('click', () => {
+            if (idx > 0) {
+              const temp = config.glassTypes[idx];
+              config.glassTypes[idx] = config.glassTypes[idx - 1];
+              config.glassTypes[idx - 1] = temp;
+              render();
+            }
+          });
+        }
+        if (downBtn) {
+          downBtn.addEventListener('click', () => {
+            if (idx < config.glassTypes.length - 1) {
+              const temp = config.glassTypes[idx];
+              config.glassTypes[idx] = config.glassTypes[idx + 1];
+              config.glassTypes[idx + 1] = temp;
+              render();
+            }
+          });
+        }
+
         row.querySelector('.gt-del').addEventListener('click', () => {
           if (config.glassTypes.length <= 1) return alert('Должно остаться минимум одно изделие');
-          config.glassTypes.splice(idx, 1);
-          render();
+          if (confirm('Удалить изделие «' + gt.name + '»?')) {
+            config.glassTypes.splice(idx, 1);
+            render();
+            showToast('Изделие удалено');
+          }
         });
         glassList.appendChild(row);
       });
@@ -703,12 +769,21 @@
     });
 
     document.getElementById('addGlassBtn').addEventListener('click', () => {
+      const newIdx = config.glassTypes.length;
       config.glassTypes.push({
         id: 'glass_' + Date.now(),
         name: 'Новое изделие',
-        basePrice: 3000
+        basePrice: 4000
       });
       render();
+      setTimeout(() => {
+        const el = document.getElementById('gt_input_' + newIdx);
+        if (el) {
+          el.focus();
+          el.select();
+        }
+      }, 50);
+      showToast('Добавлена новая строка изделия');
     });
 
     document.getElementById('addOptionBtn').addEventListener('click', () => {
