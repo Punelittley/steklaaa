@@ -70,9 +70,11 @@
       "disabled": true
     }
   ],
-  "leadTime": "3–5 рабочих дней",
+  "leadTime": "Из наличия: 2–3 дня | Под заказ: 3–5 недель",
   "note": "Точная цена подтверждается мастером по модели/шильдику",
   "standardArea": 0.28,
   "roundTo": 50,
-  "updatedAt": "2026-10-26T12:00:00Z"
+  "updatedAt": "2026-10-28T05:00:18.134Z",
+  "leadTimeInStock": "2–3 дня",
+  "leadTimeCustom": "3–5 недель"
 }

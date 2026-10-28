@@ -575,7 +575,7 @@
       glassTypes: [],
       sliders: { width: {}, height: {} },
       options: [],
-      leadTime: "3–5 рабочих дней",
+      leadTime: "Из наличия: 2–3 дня | Под заказ: 3–5 недель",
       note: "Точная цена подтверждается мастером",
       standardArea: 0.28,
       roundTo: 50
@@ -675,7 +675,7 @@
       document.getElementById('hDef').value = sh.default;
 
       // 4. Тексты
-      document.getElementById('leadTimeInput').value = config.leadTime || "3–5 рабочих дней";
+      document.getElementById('leadTimeInput').value = config.leadTime || "Из наличия: 2–3 дня | Под заказ: 3–5 недель";
       document.getElementById('noteInput').value = config.note || "Точная цена подтверждается мастером";
 
       updatePreview();
@@ -690,7 +690,7 @@
       config.sliders.height.max = parseInt(document.getElementById('hMax').value, 10) || 2200;
       config.sliders.height.default = parseInt(document.getElementById('hDef').value, 10) || 475;
 
-      config.leadTime = document.getElementById('leadTimeInput').value.trim() || "3–5 рабочих дней";
+      config.leadTime = document.getElementById('leadTimeInput').value.trim() || "Из наличия: 2–3 дня | Под заказ: 3–5 недель";
       config.note = document.getElementById('noteInput').value.trim() || "Точная цена подтверждается мастером";
       config.updatedAt = new Date().toISOString();
     }
@@ -814,7 +814,7 @@
       document.getElementById('prevSumType').textContent = title;
       document.getElementById('prevSumDim').textContent = `${w} × ${h} мм (${area.toFixed(2)} м²)`;
       document.getElementById('prevSumOpts').textContent = usedOpts.length ? usedOpts.join(' + ') : 'Без доп. опций';
-      document.getElementById('prevSumLead').textContent = config.leadTime || "3–5 рабочих дней";
+      document.getElementById('prevSumLead').textContent = config.leadTime || "Из наличия: 2–3 дня | Под заказ: 3–5 недель";
       document.getElementById('prevSumTotal').textContent = price.toLocaleString('ru-RU') + ' ₽';
     }
 

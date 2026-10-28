@@ -295,7 +295,7 @@ h1 em { font-style: normal; color: var(--orange); }
 .hero-badges {
   margin-top: 32px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 14px;
 }
 .hero-badge-card {
@@ -1597,6 +1597,132 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
   .calc-row-2 { grid-template-columns: 1fr; gap: 14px; }
   .cdek-type-toggle { grid-template-columns: 1fr; }
 }
+
+/* КУКИ-СОГЛАШЕНИЕ ПО 152-ФЗ */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(31, 33, 29, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #f7f6f0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 14px 0;
+  z-index: 9990;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.35);
+  display: none;
+  animation: slideUpCookie 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes slideUpCookie {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.cookie-banner.show {
+  display: block;
+}
+.cookie-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cookie-text {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #d6ded0;
+  max-width: 860px;
+}
+.cookie-text a {
+  color: #ff9166;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.cookie-text a:hover {
+  color: #ffffff;
+}
+.cookie-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cookie-btn-accept {
+  background: var(--orange);
+  color: #ffffff;
+  border: 0;
+  padding: 8px 22px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.cookie-btn-accept:hover {
+  background: var(--orange-hover);
+  transform: translateY(-1px);
+}
+.cookie-btn-info {
+  background: transparent;
+  color: #d6ded0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.cookie-btn-info:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* МОДАЛКА ПОЛИТИКИ КОНФИДЕНЦИАЛЬНОСТИ (152-ФЗ) */
+.privacy-dialog {
+  border: 0;
+  padding: 0;
+  border-radius: 20px;
+  background: transparent;
+  width: min(720px, calc(100% - 32px));
+  max-width: 720px;
+  margin: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+}
+.privacy-dialog::backdrop {
+  background: rgba(18, 22, 17, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.privacy-modal-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+}
+.privacy-body {
+  overflow-y: auto;
+  padding-right: 8px;
+  margin: 16px 0;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #374151;
+}
+.privacy-body h4 {
+  font-size: 14px;
+  color: #111827;
+  margin: 14px 0 4px;
+}
+.privacy-body p, .privacy-body ul {
+  margin: 0 0 10px;
+}
+.privacy-body ul {
+  padding-left: 20px;
+}
+
 </style>
 </head>
 <body>
@@ -1608,6 +1734,10 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
       <div class="announcement-item">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         <span>г. Челябинск, ул. 3-го Интернационала, 90 <b>(по предварительному звонку)</b></span>
+      </div>
+      <div class="announcement-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Сроки: из наличия <b>2–3 дня</b> • под заказ <b>3–5 недель</b></span>
       </div>
       <div class="announcement-item">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -1686,6 +1816,10 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
           <div class="hero-badge-card">
             <b>г. Челябинск</b>
             <span>ул. 3-го Интернационала, 90 (по звонку)</span>
+          </div>
+          <div class="hero-badge-card">
+            <b>Сроки исполнения</b>
+            <span>Из наличия 2–3 дня • под заказ 3–5 недель</span>
           </div>
           <div class="hero-badge-card">
             <b>Доставка СДЭК</b>
@@ -1832,9 +1966,13 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
                 <span>Обработка:</span>
                 <b id="summaryOptions">Отверстия + Стемалит</b>
               </div>
-              <div class="calc-sum-line">
-                <span>Срок изготовления:</span>
-                <b id="summaryLeadTime">3–5 рабочих дней</b>
+              <div class="calc-sum-line" style="align-items:flex-start;">
+                <span>Сроки исполнения:</span>
+                <div style="text-align:right;">
+                  <div style="font-size:12px;color:var(--text);"><span style="color:var(--muted);">Из наличия:</span> <b style="color:#22c55e;">2–3 дня (отправка)</b></div>
+                  <div style="font-size:12px;margin-top:2px;"><span style="color:var(--muted);">Под заказ:</span> <b style="color:#38bdf8;">3–5 недель (изготовление)</b></div>
+                  <span id="summaryLeadTime" style="display:none;">Из наличия: 2–3 дня | Под заказ: 3–5 недель</span>
+                </div>
               </div>
             </div>
 
@@ -2624,6 +2762,15 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
 
         <div class="address-details">
           <div class="address-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div>
+              <b>Сроки исполнения заказов:</b><br>
+              • Отправка стекла из наличия: <b>2–3 рабочих дня</b><br>
+              • Изготовление стекла под заказ: <b>3–5 недель</b>
+            </div>
+          </div>
+
+          <div class="address-item">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <div>
               <b>Адрес мастерской и склада:</b><br>
@@ -2694,8 +2841,8 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
 
         <div>
           <div class="step-num">02</div>
-          <h4>Уточняем параметры</h4>
-          <p>Проверяем цвет рамки, покраску стемалит, отверстия под ручки или переключатели, наличие на складе и срок.</p>
+          <h4>Уточняем параметры и наличие</h4>
+          <p>Проверяем цвет рамки, покраску стемалит, отверстия и наличие. Отправка стекла из наличия — 2–3 дня, изготовление под заказ — 3–5 недель.</p>
         </div>
 
         <div>
@@ -2722,6 +2869,14 @@ footer { border-top: 1px solid var(--line); padding: 34px 0; font-size: 12px; co
       </div>
 
       <div class="faq-list">
+        <details open>
+          <summary>Какие сроки отправки и изготовления стекол?</summary>
+          <p>
+            • <b>Стекла из наличия на складе:</b> срок отправки курьерской службой СДЭК составляет <b>2–3 рабочих дня</b> с момента согласования заказа.<br>
+            • <b>Стекла под индивидуальный заказ:</b> изготовление по вашей модели или размерам занимает <b>3–5 недель</b>.
+          </p>
+        </details>
+
         <details open>
           <summary>Где находится мастерская и как забрать заказ в Челябинске?</summary>
           <p>Мастерская и склад находятся по адресу: <b>г. Челябинск, ул. 3-го Интернационала, 90</b>. Посещение и самовывоз осуществляются <b>по предварительному звонку</b> по телефону <a href="tel:+79020246482"><b>+7 (902) 024-64-82</b></a>.</p>
@@ -3123,7 +3278,7 @@ document.addEventListener('keydown', (e) => {
       { id: 'optPaint', name: 'Стемалит', label: 'Термостойкая покраска стемалит или шелкография', price: 600, checked: true },
       { id: 'optCorners', name: 'Еврокромка', label: 'Полированная еврокромка + защитные транспортировочные уголки', price: 0, free: true, checked: true, disabled: true }
     ],
-    leadTime: '3–5 рабочих дней',
+    leadTime: 'Из наличия: 2–3 дня | Под заказ: 3–5 недель',
     note: 'Точная цена подтверждается мастером по модели/шильдику',
     standardArea: 0.28,
     roundTo: 50
@@ -3353,6 +3508,129 @@ document.addEventListener('keydown', (e) => {
   });
 
   updateCdek();
+})();
+</script>
+
+
+<!-- ПЛАШКА СОГЛАСИЯ НА COOKIE (152-ФЗ) -->
+<div class="cookie-banner" id="cookieBanner" role="region" aria-label="Согласие на использование файлов cookie">
+  <div class="wrap">
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        Мы используем файлы cookie и сервисы сбора технических данных для корректной работы калькулятора и улучшения удобства сайта. Продолжая использовать сайт, вы соглашаетесь с обработкой файлов cookie и <a href="#" id="openPrivacyFromBanner">Политикой конфиденциальности (152-ФЗ)</a>.
+      </div>
+      <div class="cookie-actions">
+        <button type="button" class="cookie-btn-accept" id="cookieAcceptBtn">Принять</button>
+        <button type="button" class="cookie-btn-info" id="openPrivacyFromBannerBtn">Подробнее</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО: ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ И COOKIE (152-ФЗ) -->
+<dialog class="privacy-dialog" id="privacyDialog" aria-labelledby="privacyDialogTitle">
+  <div class="privacy-modal-card">
+    <button class="call-modal-close" type="button" id="closePrivacyModal" aria-label="Закрыть окно">×</button>
+    <div class="call-modal-eyebrow">СОГЛАСИЕ И ЗАКОНОДАТЕЛЬСТВО РФ</div>
+    <h3 class="call-modal-title" id="privacyDialogTitle" style="font-size:18px;margin-bottom:6px;">Политика обработки персональных данных и файлов cookie</h3>
+    <div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:12px;">В соответствии с Федеральным законом РФ от 27.07.2006 № 152-ФЗ «О персональных данных»</div>
+
+    <div class="privacy-body">
+      <h4>1. Общие положения</h4>
+      <p>Настоящая Политика определяет порядок обработки и защиты информации о физических лицах (далее — Пользователи), которая может быть получена при использовании сайта <b>stekla-rf.ru</b> мастерской жаропрочного стекла (г. Челябинск, ул. 3-го Интернационала, 90, тел. +7 (902) 024-64-82).</p>
+
+      <h4>2. Состав собираемых данных</h4>
+      <p>При использовании сайта и обращении к мастеру могут обрабатываться следующие данные:</p>
+      <ul>
+        <li>Имя и контактный номер телефона (при телефонном звонке или обращении через мессенджер / Авито);</li>
+        <li>Город и адрес пункта выдачи заказов СДЭК для отправки и доставки готового изделия;</li>
+        <li>Технические данные файлов cookie: параметры браузера, сессионные настройки онлайн-калькулятора, дата и время визита.</li>
+      </ul>
+
+      <h4>3. Цели сбора и обработки данных</h4>
+      <p>Персональные данные используются исключительно в целях:</p>
+      <ul>
+        <li>Расчёта ориентировочной и точной стоимости изготовления и доставки стекла;</li>
+        <li>Обратной связи, консультирования по параметрам духовых шкафов и плит, оформления заказа;</li>
+        <li>Организации надёжной броне-упаковки и отправки заказа транспортной компанией СДЭК;</li>
+        <li>Обеспечения стабильной и корректной технической работы калькулятора и разделов сайта.</li>
+      </ul>
+
+      <h4>4. Использование файлов Cookie</h4>
+      <p>Сайт использует файлы cookie (куки) для сохранения настроек калькулятора (выбранные размеры, тип стекла, расчёт доставки СДЭК). Пользователь может в любой момент ограничить или запретить сохранение cookie в настройках своего интернет-браузера, однако это может повлиять на сохранение данных в калькуляторе.</p>
+
+      <h4>5. Конфиденциальность и передача третьим лицам</h4>
+      <p>Мы гарантируем конфиденциальность данных. Передача информации третьим лицам осуществляется исключительно службам доставки (в частности, курьерской компании СДЭК) в объёме, строго необходимом для доставки заказа в ваш город, либо в случаях, прямо предусмотренных законодательством РФ.</p>
+
+      <h4>6. Сроки хранения и контакты</h4>
+      <p>Данные хранятся не дольше, чем этого требуют цели обработки. Для отзыва согласия на обработку данных или уточнения информации обратитесь по телефону: <b><a href="tel:+79020246482">+7 (902) 024-64-82</a></b> или адресу: г. Челябинск, ул. 3-го Интернационала, 90.</p>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;margin-top:10px;">
+      <button type="button" class="btn-primary" id="closePrivacyFooterBtn" style="padding:8px 24px;">
+        <span>Понятно, закрыть</span>
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+// СОГЛАСИЕ НА COOKIE (152-ФЗ)
+(function() {
+  const banner = document.getElementById('cookieBanner');
+  const acceptBtn = document.getElementById('cookieAcceptBtn');
+  const openPrivacyBtn = document.getElementById('openPrivacyFromBanner');
+  const openPrivacyInfoBtn = document.getElementById('openPrivacyFromBannerBtn');
+  const footerPrivacyBtn = document.getElementById('openPrivacyPolicyBtn');
+  const modalPrivacyBtn = document.getElementById('openPrivacyFromModal');
+  const privacyDialog = document.getElementById('privacyDialog');
+  const closePrivacyBtn = document.getElementById('closePrivacyModal');
+  const closePrivacyFooterBtn = document.getElementById('closePrivacyFooterBtn');
+
+  if (!localStorage.getItem('cookieConsentAccepted')) {
+    banner.classList.add('show');
+  }
+
+  function acceptCookie() {
+    localStorage.setItem('cookieConsentAccepted', 'true');
+    document.cookie = "cookie_consent=1; path=/; max-age=31536000; SameSite=Lax";
+    banner.classList.remove('show');
+  }
+
+  if (acceptBtn) acceptBtn.addEventListener('click', acceptCookie);
+
+  function openPrivacy(e) {
+    if (e) e.preventDefault();
+    if (privacyDialog) {
+      if (typeof privacyDialog.showModal === 'function') {
+        privacyDialog.showModal();
+      } else {
+        privacyDialog.setAttribute('open', '');
+      }
+    }
+  }
+
+  function closePrivacy() {
+    if (privacyDialog) {
+      if (typeof privacyDialog.close === 'function') {
+        privacyDialog.close();
+      } else {
+        privacyDialog.removeAttribute('open');
+      }
+    }
+  }
+
+  if (openPrivacyBtn) openPrivacyBtn.addEventListener('click', openPrivacy);
+  if (openPrivacyInfoBtn) openPrivacyInfoBtn.addEventListener('click', openPrivacy);
+  if (footerPrivacyBtn) footerPrivacyBtn.addEventListener('click', openPrivacy);
+  if (modalPrivacyBtn) modalPrivacyBtn.addEventListener('click', openPrivacy);
+  if (closePrivacyBtn) closePrivacyBtn.addEventListener('click', closePrivacy);
+  if (closePrivacyFooterBtn) closePrivacyFooterBtn.addEventListener('click', closePrivacy);
+  if (privacyDialog) {
+    privacyDialog.addEventListener('click', function(e) {
+      if (e.target === privacyDialog) closePrivacy();
+    });
+  }
 })();
 </script>
 
