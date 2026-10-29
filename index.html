@@ -3360,6 +3360,61 @@ document.addEventListener('keydown', (e) => {
       if (!typeSelect.value && typeSelect.options.length > 0) {
         typeSelect.options[0].selected = true;
       }
+
+      // 1.1 Синхронизация карточек в каталоге с актуальной конфигурацией
+      renderCatalogCards(cfg.glassTypes);
+    }
+
+    function renderCatalogCards(types) {
+      const catalogGrid = document.querySelector('#catalog .catalog-grid');
+      if (!catalogGrid || !Array.isArray(types) || types.length === 0) return;
+
+      catalogGrid.innerHTML = '';
+      types.forEach((item, idx) => {
+        const article = document.createElement('article');
+        article.className = 'catalog-card open-call-btn';
+        article.setAttribute('data-modal-title', item.name);
+
+        const numStr = idx < 9 ? '0' + (idx + 1) : String(idx + 1);
+        const tagStr = (item.tag || 'ИЗДЕЛИЕ').toUpperCase();
+        const imgSrc = item.image || './works/real-door-mounted.jpg';
+        const priceStr = item.basePrice ? 'от ' + Number(item.basePrice).toLocaleString('ru-RU') + ' ₽' : 'по запросу';
+        const descStr = item.desc || '';
+
+        article.innerHTML = `
+          <div class="catalog-card-image">
+            <img src="${imgSrc}" alt="${escapeHtml(item.name)}" loading="lazy">
+            <span class="catalog-tag">${numStr} / ${escapeHtml(tagStr)}</span>
+          </div>
+          <div class="catalog-body">
+            <h3>${escapeHtml(item.name)}</h3>
+            <p>${escapeHtml(descStr)}</p>
+            <div class="catalog-footer">
+              <span style="font-size:13px;font-weight:700;color:var(--orange)">${priceStr}</span>
+              <button type="button" class="catalog-action-btn">Заказать ↗</button>
+            </div>
+          </div>
+        `;
+
+        article.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (typeof openCallModal === 'function') {
+            openCallModal(item.name);
+          }
+        });
+
+        catalogGrid.appendChild(article);
+      });
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     // 2. Обновляем слайдеры

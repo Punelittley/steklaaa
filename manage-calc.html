@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Управление ценами калькулятора | СТЕКЛА-РФ</title>
+  <title>Управление товарами и ценами | СТЕКЛА-РФ</title>
   <style>
     :root {
-      --bg: #0f172a;
+      --bg: #0b1120;
       --card-bg: #1e293b;
-      --border: #334155;
+      --card-border: #334155;
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #2563eb;
       --accent-hover: #1d4ed8;
       --success: #16a34a;
       --success-hover: #15803d;
-      --danger: #dc2626;
-      --danger-hover: #b91c1c;
-      --input-bg: #0b1329;
-      --radius: 8px;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --input-bg: #0f172a;
+      --radius: 10px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
@@ -45,15 +45,16 @@
     }
     .auth-box {
       background: var(--card-bg);
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 32px 28px;
-      max-width: 380px;
+      padding: 36px 30px;
+      max-width: 400px;
       width: 100%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      text-align: center;
     }
     .auth-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 700;
       color: #fff;
       margin-bottom: 6px;
@@ -61,36 +62,35 @@
     .auth-desc {
       font-size: 13px;
       color: var(--muted);
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
     .auth-input {
       width: 100%;
       background: var(--input-bg);
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       color: #fff;
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-radius: var(--radius);
       font-size: 15px;
-      margin-bottom: 12px;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
       outline: none;
+      transition: border-color 0.2s;
     }
-    .auth-input:focus {
-      border-color: var(--accent);
-    }
+    .auth-input:focus { border-color: var(--accent); }
     .auth-btn {
       width: 100%;
       background: var(--accent);
       color: #fff;
       border: none;
-      padding: 11px;
+      padding: 12px;
       border-radius: var(--radius);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 14px;
       cursor: pointer;
     }
-    .auth-btn:hover {
-      background: var(--accent-hover);
-    }
+    .auth-btn:hover { background: var(--accent-hover); }
     .auth-error {
       color: #f87171;
       font-size: 13px;
@@ -100,14 +100,17 @@
 
     /* ШАПКА */
     header {
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
+      background: #111827;
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     .brand-title {
       font-size: 16px;
@@ -129,57 +132,41 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 6px;
       padding: 8px 16px;
       font-size: 13px;
       font-weight: 600;
-      border-radius: var(--radius);
+      border-radius: 8px;
       cursor: pointer;
       border: 1px solid transparent;
       text-decoration: none;
-      transition: background-color 0.15s, border-color 0.15s;
+      transition: all 0.15s;
     }
-    .btn-primary {
-      background: var(--success);
-      color: #fff;
-    }
-    .btn-primary:hover {
-      background: var(--success-hover);
-    }
-    .btn-secondary {
-      background: #334155;
-      color: #f1f5f9;
-      border-color: #475569;
-    }
-    .btn-secondary:hover {
-      background: #475569;
-    }
-    .btn-danger-outline {
-      background: transparent;
-      color: #f87171;
-      border-color: #7f1d1d;
-    }
-    .btn-danger-outline:hover {
-      background: var(--danger);
-      color: #fff;
-    }
-    .btn-sm {
-      padding: 5px 10px;
-      font-size: 12px;
-    }
+    .btn-primary { background: var(--success); color: #fff; }
+    .btn-primary:hover { background: var(--success-hover); }
+    .btn-blue { background: var(--accent); color: #fff; }
+    .btn-blue:hover { background: var(--accent-hover); }
+    .btn-secondary { background: #334155; color: #f1f5f9; border-color: #475569; }
+    .btn-secondary:hover { background: #475569; }
+    .btn-danger-outline { background: transparent; color: #f87171; border-color: #7f1d1d; }
+    .btn-danger-outline:hover { background: var(--danger); color: #fff; }
+    .btn-sm { padding: 5px 10px; font-size: 12px; }
 
-    /* ОСНОВНАЯ СЕТКА */
+    /* ОСНОВНАЯ ОБЛАСТЬ */
     .main-wrap {
-      max-width: 1240px;
+      max-width: 1200px;
       width: 100%;
       margin: 0 auto;
-      padding: 24px 20px 60px;
+      padding: 20px 20px 60px;
       flex: 1;
     }
-    .save-bar {
-      background: #111e38;
-      border: 1px solid #1e3a8a;
+
+    /* ПАНЕЛЬ УПРАВЛЕНИЯ ВВЕРХУ */
+    .top-action-bar {
+      background: #1e293b;
+      border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 12px 18px;
+      padding: 14px 20px;
       margin-bottom: 20px;
       display: flex;
       align-items: center;
@@ -187,172 +174,281 @@
       gap: 16px;
       flex-wrap: wrap;
     }
-    .save-status {
+    .status-text {
       font-size: 13px;
       color: #93c5fd;
     }
-
-    .grid-layout {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 20px;
-      align-items: start;
+    .tabs-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 10px;
     }
-    @media (max-width: 900px) {
-      .grid-layout {
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: #334155;
+      color: #fff;
+    }
+
+    /* КАРТОЧКА ТОВАРА */
+    .product-card {
+      background: #1e293b;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      display: grid;
+      grid-template-columns: 140px 1fr 120px;
+      gap: 16px;
+      align-items: start;
+      transition: border-color 0.2s;
+    }
+    .product-card:hover {
+      border-color: #475569;
+    }
+    @media (max-width: 768px) {
+      .product-card {
         grid-template-columns: 1fr;
       }
     }
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin-bottom: 18px;
-    }
-    .card-head {
+    /* ФОТО ТОВАРА */
+    .product-img-wrap {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-    }
-    .card-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    /* ТАБЛИЦА / СТРОКИ ТОВАРОВ */
-    .row-item {
-      display: grid;
-      grid-template-columns: 28px 1fr 125px 64px 34px;
+      flex-direction: column;
       gap: 8px;
       align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid #283548;
     }
-    @media (max-width: 600px) {
-      .row-item {
-        grid-template-columns: 1fr 110px 34px;
+    .product-img-preview {
+      width: 140px;
+      height: 100px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #0f172a;
+      border: 1px solid #334155;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .product-img-wrap {
+        flex-direction: row;
+        width: 100%;
       }
-      .row-num, .row-moves { display: none; }
+      .product-img-preview {
+        width: 100px;
+        height: 75px;
+      }
     }
-    .row-num {
-      font-size: 11px;
-      color: var(--muted);
-      font-weight: 700;
-      text-align: center;
-    }
-    .row-moves {
+    .img-actions {
       display: flex;
-      gap: 3px;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
     }
-    .btn-move {
-      background: #1e293b;
-      border: 1px solid var(--border);
-      color: #94a3b8;
-      border-radius: 4px;
-      padding: 4px 6px;
-      font-size: 11px;
-      cursor: pointer;
-      line-height: 1;
-    }
-    .btn-move:hover {
+    .btn-photo {
       background: #334155;
-      color: #fff;
+      color: #f1f5f9;
+      border: 1px solid #475569;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 8px;
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
     }
-    .btn-move:disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
-    .row-item:last-child {
-      border-bottom: none;
-    }
-    .row-option {
-      display: grid;
-      grid-template-columns: 1fr 110px 85px 40px;
-      gap: 10px;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid #283548;
-    }
-    .row-option:last-child {
-      border-bottom: none;
+    .btn-photo:hover {
+      background: #475569;
     }
 
-    /* ПОЛЯ ВВОДА */
+    /* ПОЛЯ ВВОДА В КАРТОЧКЕ */
+    .product-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .product-title-row {
+      display: grid;
+      grid-template-columns: 1fr 140px;
+      gap: 12px;
+    }
+    @media (max-width: 600px) {
+      .product-title-row {
+        grid-template-columns: 1fr;
+      }
+    }
     .input {
       width: 100%;
       background: var(--input-bg);
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       color: #fff;
-      padding: 8px 10px;
+      padding: 9px 12px;
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 14px;
       outline: none;
     }
-    .input:focus {
-      border-color: var(--accent);
-    }
-    .input-group {
-      position: relative;
-    }
-    .input-group .input {
-      padding-right: 28px;
-    }
+    .input:focus { border-color: var(--accent); }
+    .input-title { font-weight: 600; }
+    .input-desc { resize: vertical; min-height: 55px; font-size: 13px; line-height: 1.4; }
+    .input-group { position: relative; }
+    .input-group .input { padding-right: 28px; }
     .input-unit {
       position: absolute;
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 12px;
+      font-size: 13px;
       color: var(--muted);
       pointer-events: none;
     }
-    .form-col {
+
+    /* УПРАВЛЕНИЕ КАРТОЧКОЙ (СПРАВА) */
+    .product-actions {
       display: flex;
       flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+    @media (max-width: 768px) {
+      .product-actions {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 6px;
+        padding-top: 8px;
+        border-top: 1px solid #334155;
+      }
+    }
+    .order-btns {
+      display: flex;
       gap: 4px;
-      margin-bottom: 12px;
     }
-    .form-lbl {
+    .btn-order {
+      background: #334155;
+      color: #cbd5e1;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      padding: 5px 9px;
       font-size: 12px;
-      color: var(--muted);
+      cursor: pointer;
     }
+    .btn-order:hover { background: #475569; color: #fff; }
+    .btn-order:disabled { opacity: 0.3; cursor: default; }
+
+    /* МОДАЛКА ВЫБОРА ФОТО */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      max-width: 760px;
+      width: 100%;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .modal-title { font-size: 17px; font-weight: 700; color: #fff; }
+    .photo-grid {
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+      padding-right: 6px;
+    }
+    .photo-choice-item {
+      background: #0f172a;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.15s;
+    }
+    .photo-choice-item:hover {
+      border-color: var(--accent);
+      transform: scale(1.03);
+    }
+    .photo-choice-item img {
+      width: 100%;
+      height: 95px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-choice-title {
+      font-size: 11px;
+      color: #cbd5e1;
+      padding: 4px 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    /* ВКЛАДКА 2: ОПЦИИ И СРОКИ */
+    .card-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card-box-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .opt-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 90px 40px;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #334155;
+    }
+    .opt-row:last-child { border-bottom: none; }
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 14px;
     }
-
-    /* ПРЕДПРОСМОТР */
-    .preview-box {
-      background: #0b1329;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-    }
-    .preview-line {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      margin-bottom: 6px;
-    }
-    .preview-line span { color: var(--muted); }
-    .preview-line b { color: #fff; font-weight: 600; text-align: right; }
-    .preview-total {
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-    .preview-price {
-      font-size: 26px;
-      font-weight: 800;
-      color: #38bdf8;
+    @media (max-width: 600px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .opt-row { grid-template-columns: 1fr 90px; }
     }
 
     /* УВЕДОМЛЕНИЕ */
@@ -361,32 +457,33 @@
       bottom: 24px;
       right: 24px;
       background: #0f172a;
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       color: #fff;
       padding: 12px 20px;
       border-radius: var(--radius);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
       display: none;
       font-size: 13px;
-      z-index: 10000;
+      z-index: 100000;
     }
-    .toast.show { display: block; }
+    .toast.show { display: block; animation: slideIn 0.3s ease; }
     .toast.success { border-color: var(--success); }
     .toast.error { border-color: var(--danger); color: #fca5a5; }
+    @keyframes slideIn { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   </style>
 </head>
 <body>
 
-  <!-- АВТОРИЗАЦИЯ -->
+  <!-- ВХОД -->
   <div class="auth-overlay" id="authOverlay">
     <div class="auth-box">
-      <div class="auth-title">Вход в панель управления</div>
-      <div class="auth-desc">Введите пароль для редактирования параметров калькулятора.</div>
+      <div class="auth-title">Управление товарами</div>
+      <div class="auth-desc">Введите пароль для редактирования каталога и цен.</div>
       <form id="authForm" onsubmit="login(event)">
         <input type="password" id="passField" class="auth-input" placeholder="Пароль" autofocus autocomplete="current-password">
         <button type="submit" class="auth-btn">Войти</button>
       </form>
-      <div class="auth-error" id="authError">Неверный пароль</div>
+      <div class="auth-error" id="authError">Неверный пароль доступа</div>
     </div>
   </div>
 
@@ -394,170 +491,132 @@
   <div id="app" style="display:none;min-height:100vh;flex-direction:column;">
     <header>
       <div>
-        <div class="brand-title">СТЕКЛА-РФ | Редактор калькулятора</div>
-        <div class="brand-sub">Изменение цен и параметров на сайте stekla-rf.ru</div>
+        <div class="brand-title">СТЕКЛА-РФ | Редактор товаров и цен</div>
+        <div class="brand-sub">Добавление товаров, фото, описаний и цен на сайте stekla-rf.ru</div>
       </div>
       <div class="header-actions">
-        <a href="index.html" class="btn btn-secondary" target="_blank">На сайт</a>
+        <a href="index.html" class="btn btn-secondary" target="_blank">На сайт ↗</a>
         <button type="button" class="btn btn-danger-outline btn-sm" id="logoutBtn">Выйти</button>
       </div>
     </header>
 
     <main class="main-wrap">
-      <!-- Панель сохранения -->
-      <div class="save-bar">
-        <div class="save-status" id="saveStatus">Все параметры загружены.</div>
-        <button type="button" class="btn btn-primary" id="saveBtn" style="padding:10px 24px;font-size:14px;">
-          Сохранить изменения
+      <!-- Панель управления -->
+      <div class="top-action-bar">
+        <div class="status-text" id="statusText">Параметры загружены</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="button" class="btn btn-blue" id="btnAddNewProduct">
+            + Добавить новый товар
+          </button>
+          <button type="button" class="btn btn-primary" id="btnSaveMain" style="padding:10px 22px;font-size:14px;">
+            Сохранить изменения
+          </button>
+        </div>
+      </div>
+
+      <!-- Вкладки -->
+      <div class="tabs-bar">
+        <button type="button" class="tab-btn active" id="tabBtnProducts" onclick="switchTab('products')">
+          Товары в каталоге (<span id="productsCount">0</span>)
+        </button>
+        <button type="button" class="tab-btn" id="tabBtnOptions" onclick="switchTab('options')">
+          Дополнительные услуги
+        </button>
+        <button type="button" class="tab-btn" id="tabBtnTerms" onclick="switchTab('terms')">
+          Сроки и тексты
         </button>
       </div>
 
-      <div class="grid-layout">
-        <!-- ЛЕВАЯ КОЛОНКА -->
-        <div>
-          <!-- 1. ТИПЫ СТЕКОЛ -->
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">1. Изделия и базовые цены</div>
-              <button type="button" class="btn btn-secondary btn-sm" id="addGlassBtn">+ Добавить изделие</button>
-            </div>
-            <div id="glassList"></div>
+      <!-- ВКЛАДКА 1: СПИСОК ТОВАРОВ -->
+      <div id="tabProducts">
+        <div id="productsList">
+          <!-- Карточки товаров генерируются скриптом -->
+        </div>
+
+        <div style="text-align:center;margin-top:20px;">
+          <button type="button" class="btn btn-blue" id="btnAddNewProductBottom" style="padding:12px 24px;">
+            + Добавить ещё один товар
+          </button>
+        </div>
+      </div>
+
+      <!-- ВКЛАДКА 2: ДОП. ОПЦИИ -->
+      <div id="tabOptions" style="display:none;">
+        <div class="card-box">
+          <div class="card-box-title">
+            <span>Дополнительные услуги к стеклу</span>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnAddOption">+ Добавить услугу</button>
           </div>
+          <div id="optionsList"></div>
+        </div>
+      </div>
 
-          <!-- 2. ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ -->
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">2. Дополнительные опции</div>
-              <button type="button" class="btn btn-secondary btn-sm" id="addOptionBtn">+ Добавить опцию</button>
+      <!-- ВКЛАДКА 3: СРОКИ И ПАРАМЕТРЫ -->
+      <div id="tabTerms" style="display:none;">
+        <div class="card-box">
+          <div class="card-box-title">Сроки и тексты калькулятора</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div>
+              <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Срок исполнения заказа:</label>
+              <input type="text" id="leadTimeInput" class="input" placeholder="Из наличия: 2–3 дня | Под заказ: 3–5 недель">
             </div>
-            <div id="optionsList"></div>
-          </div>
-
-          <!-- 3. ДИАПАЗОНЫ РАЗМЕРОВ -->
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">3. Размеры изделий (ползунки)</div>
-            </div>
-            <div class="grid-2">
-              <div style="background:#131c2e;padding:12px;border-radius:6px;">
-                <div style="font-weight:600;font-size:13px;color:#38bdf8;margin-bottom:8px;">Ширина (мм)</div>
-                <div class="grid-2">
-                  <div class="form-col">
-                    <span class="form-lbl">Минимум:</span>
-                    <input type="number" id="wMin" class="input">
-                  </div>
-                  <div class="form-col">
-                    <span class="form-lbl">Максимум:</span>
-                    <input type="number" id="wMax" class="input">
-                  </div>
-                </div>
-                <div class="form-col" style="margin-top:6px;">
-                  <span class="form-lbl">По умолчанию:</span>
-                  <input type="number" id="wDef" class="input">
-                </div>
-              </div>
-
-              <div style="background:#131c2e;padding:12px;border-radius:6px;">
-                <div style="font-weight:600;font-size:13px;color:#38bdf8;margin-bottom:8px;">Высота (мм)</div>
-                <div class="grid-2">
-                  <div class="form-col">
-                    <span class="form-lbl">Минимум:</span>
-                    <input type="number" id="hMin" class="input">
-                  </div>
-                  <div class="form-col">
-                    <span class="form-lbl">Максимум:</span>
-                    <input type="number" id="hMax" class="input">
-                  </div>
-                </div>
-                <div class="form-col" style="margin-top:6px;">
-                  <span class="form-lbl">По умолчанию:</span>
-                  <input type="number" id="hDef" class="input">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4. СРОКИ И ПРИМЕЧАНИЯ -->
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">4. Тексты в калькуляторе</div>
-            </div>
-            <div class="form-col">
-              <span class="form-lbl">Срок изготовления:</span>
-              <input type="text" id="leadTimeInput" class="input">
-            </div>
-            <div class="form-col">
-              <span class="form-lbl">Примечание мастера:</span>
-              <input type="text" id="noteInput" class="input">
+            <div>
+              <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Примечание мастера:</label>
+              <input type="text" id="noteInput" class="input" placeholder="Точная цена подтверждается мастером по модели/шильдику">
             </div>
           </div>
         </div>
 
-        <!-- ПРАВАЯ КОЛОНКА: ПРЕДПРОСМОТР -->
-        <div>
-          <div class="card" style="position:sticky;top:20px;">
-            <div class="card-head">
-              <div class="card-title">Пример расчета для клиента</div>
-            </div>
-            <div class="preview-box">
-              <div class="form-col">
-                <span class="form-lbl">Изделие:</span>
-                <select id="prevGlassSelect" class="input"></select>
-              </div>
-
-              <div class="form-col">
-                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px;">
-                  <span>Ширина:</span>
-                  <b id="prevWVal" style="color:#fff;">595 мм</b>
+        <div class="card-box">
+          <div class="card-box-title">Ограничения ползунков (ширина и высота)</div>
+          <div class="grid-2">
+            <div>
+              <div style="font-weight:600;font-size:13px;color:#38bdf8;margin-bottom:8px;">Ширина (мм)</div>
+              <div class="grid-2">
+                <div>
+                  <label style="font-size:11px;color:var(--muted);">Мин:</label>
+                  <input type="number" id="wMin" class="input">
                 </div>
-                <input type="range" id="prevWSlider" style="width:100%;accent-color:#2563eb;">
-              </div>
-
-              <div class="form-col">
-                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px;">
-                  <span>Высота:</span>
-                  <b id="prevHVal" style="color:#fff;">475 мм</b>
-                </div>
-                <input type="range" id="prevHSlider" style="width:100%;accent-color:#2563eb;">
-              </div>
-
-              <div class="form-col" style="margin-top:10px;">
-                <span class="form-lbl">Опции:</span>
-                <div id="prevOptsBox" style="display:flex;flex-direction:column;gap:6px;margin-top:4px;"></div>
-              </div>
-
-              <div style="background:#131c2e;border:1px solid #1e293b;border-radius:6px;padding:12px;margin-top:14px;">
-                <div class="preview-line">
-                  <span>Изделие:</span>
-                  <b id="prevSumType">-</b>
-                </div>
-                <div class="preview-line">
-                  <span>Размеры:</span>
-                  <b id="prevSumDim">-</b>
-                </div>
-                <div class="preview-line">
-                  <span>Опции:</span>
-                  <b id="prevSumOpts">-</b>
-                </div>
-                <div class="preview-line">
-                  <span>Срок:</span>
-                  <b id="prevSumLead">-</b>
-                </div>
-
-                <div class="preview-total">
-                  <span style="font-size:11px;color:var(--muted);text-transform:uppercase;">Стоимость:</span>
-                  <div class="preview-price" id="prevSumTotal">0 ₽</div>
+                <div>
+                  <label style="font-size:11px;color:var(--muted);">Макс:</label>
+                  <input type="number" id="wMax" class="input">
                 </div>
               </div>
             </div>
-
-            <button type="button" class="btn btn-primary" id="saveBtnSide" style="width:100%;margin-top:14px;padding:12px;">
-              Сохранить изменения
-            </button>
+            <div>
+              <div style="font-weight:600;font-size:13px;color:#38bdf8;margin-bottom:8px;">Высота (мм)</div>
+              <div class="grid-2">
+                <div>
+                  <label style="font-size:11px;color:var(--muted);">Мин:</label>
+                  <input type="number" id="hMin" class="input">
+                </div>
+                <div>
+                  <label style="font-size:11px;color:var(--muted);">Макс:</label>
+                  <input type="number" id="hMax" class="input">
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
     </main>
+
+    <!-- МОДАЛКА ВЫБОРА ФОТО ИЗ БИБЛИОТЕКИ -->
+    <div class="modal-overlay" id="galleryModal">
+      <div class="modal-card">
+        <div class="modal-head">
+          <div class="modal-title">Выберите фотографию из библиотеки</div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeGalleryModal()">Закрыть</button>
+        </div>
+        <div class="photo-grid" id="galleryGrid">
+          <!-- Картинки генерируются скриптом -->
+        </div>
+      </div>
+    </div>
+
+    <!-- СКРЫТЫЙ ИНПУТ ДЛЯ ВЫБОРА ФАЙЛА С ТЕЛЕФОНА / ПК -->
+    <input type="file" id="hiddenFileInput" accept="image/*" style="display:none;">
 
     <div class="toast" id="toast"></div>
   </div>
@@ -567,6 +626,28 @@
       '9ad1157afc3b2a12e84034ca0ef71a316d6246b5fbcb4f3adc4090bd68f0495d', // stekla2026
       'dea8564f6195494aecf59b055ece6b247adf6af11efe67e7dd55c99d320d6d4c'  // SteklaCalc2026!
     ];
+
+    // Библиотека готовых фото для быстрого выбора
+    const WORKSHOP_PHOTOS = [
+      { url: './works/kitchen-apron.png', title: 'Кухонный фартук' },
+      { url: './works/office-partitions.jpg', title: 'Офисные перегородки' },
+      { url: './works/staircase-railings.jpg', title: 'Лестничные ограждения' },
+      { url: './works/real-door-mounted.jpg', title: 'Внешнее с ручкой' },
+      { url: './works/panel-white-pair.png', title: 'Панели управления' },
+      { url: './works/inner-clear-1.jpg', title: 'Внутреннее стекло' },
+      { url: './works/intermediate-clear-straight.png', title: 'Среднее стекло' },
+      { url: './works/microwave-glass.png', title: 'Стекло для СВЧ' },
+      { url: './works/mirror-tinted-hansa.jpg', title: 'Зеркальное' },
+      { url: './works/image-12.webp', title: 'Полка холодильника' },
+      { url: './works/shower-screen-vertical.png', title: 'Душевая ширма' },
+      { url: './works/glass-ceramic-clear.png', title: 'Стеклокерамика' },
+      { url: './works/real-black-gloss.png', title: 'Черный глянец' },
+      { url: './works/real-white-clear.png', title: 'Белое стекло' },
+      { url: './works/real-3.jpg', title: 'Окно духовки' },
+      { url: './works/package-2.jpg', title: 'Упаковка СДЭК' }
+    ];
+
+    let currentEditingPhotoIdx = null;
 
     async function sha256(str) {
       const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
@@ -599,9 +680,8 @@
       location.reload();
     });
 
-    // Проверка сессии при загрузке
-    const saved = sessionStorage.getItem('calc_auth_hash');
-    if (saved && ALLOWED_HASHES.includes(saved)) {
+    // Проверка сессии
+    if (sessionStorage.getItem('calc_auth_hash') && ALLOWED_HASHES.includes(sessionStorage.getItem('calc_auth_hash'))) {
       unlock();
     }
 
@@ -622,82 +702,273 @@
       setTimeout(() => el.classList.remove('show'), 3500);
     }
 
+    function switchTab(tab) {
+      document.getElementById('tabProducts').style.display = tab === 'products' ? 'block' : 'none';
+      document.getElementById('tabOptions').style.display = tab === 'options' ? 'block' : 'none';
+      document.getElementById('tabTerms').style.display = tab === 'terms' ? 'block' : 'none';
+
+      document.getElementById('tabBtnProducts').className = 'tab-btn' + (tab === 'products' ? ' active' : '');
+      document.getElementById('tabBtnOptions').className = 'tab-btn' + (tab === 'options' ? ' active' : '');
+      document.getElementById('tabBtnTerms').className = 'tab-btn' + (tab === 'terms' ? ' active' : '');
+    }
+
     async function loadConfig() {
       try {
         const res = await fetch('calc-config.json?v=' + Date.now());
         if (res.ok) {
           config = await res.json();
-          render();
-          document.getElementById('saveStatus').textContent = 'Параметры актуальны';
+          renderAll();
+          document.getElementById('statusText').textContent = 'Данные загружены с сервера';
         }
       } catch (e) {
         console.error(e);
       }
     }
 
-    function render() {
-      // 1. Изделия
-      const glassList = document.getElementById('glassList');
-      glassList.innerHTML = '';
-      config.glassTypes.forEach((gt, idx) => {
-        const row = document.createElement('div');
-        row.className = 'row-item';
-        row.innerHTML = `
-          <div class="row-num">${idx + 1}</div>
-          <div><input type="text" class="input gt-name" id="gt_input_${idx}" value="${escapeHtml(gt.name)}" placeholder="Название изделия"></div>
-          <div class="input-group">
-            <input type="number" class="input gt-price" value="${gt.basePrice}" min="100" step="50">
-            <span class="input-unit">₽</span>
+    function renderAll() {
+      renderProducts();
+      renderOptions();
+      renderTerms();
+    }
+
+    // 1. РЕНДЕРИНГ ТОВАРОВ
+    function renderProducts() {
+      const container = document.getElementById('productsList');
+      container.innerHTML = '';
+      document.getElementById('productsCount').textContent = config.glassTypes.length;
+
+      config.glassTypes.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.id = 'product_card_' + idx;
+
+        const imgSrc = item.image || './works/real-door-mounted.jpg';
+
+        card.innerHTML = `
+          <!-- Колонка фото -->
+          <div class="product-img-wrap">
+            <img src="${imgSrc}" alt="${escapeHtml(item.name)}" class="product-img-preview" id="p_img_${idx}">
+            <div class="img-actions">
+              <button type="button" class="btn-photo" onclick="triggerUploadPhoto(${idx})">Загрузить фото</button>
+              <button type="button" class="btn-photo" onclick="openGalleryModal(${idx})">Из библиотеки</button>
+            </div>
           </div>
-          <div class="row-moves">
-            <button type="button" class="btn-move btn-move-up" title="Переместить выше" ${idx === 0 ? 'disabled' : ''}>▲</button>
-            <button type="button" class="btn-move btn-move-down" title="Переместить ниже" ${idx === config.glassTypes.length - 1 ? 'disabled' : ''}>▼</button>
+
+          <!-- Колонка полей -->
+          <div class="product-fields">
+            <div class="product-title-row">
+              <div>
+                <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px;">Название товара:</label>
+                <input type="text" class="input input-title" id="p_name_${idx}" value="${escapeHtml(item.name)}" placeholder="Название изделия">
+              </div>
+              <div>
+                <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px;">Базовая цена:</label>
+                <div class="input-group">
+                  <input type="number" class="input" id="p_price_${idx}" value="${item.basePrice || 0}" min="100" step="50">
+                  <span class="input-unit">₽</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px;">Описание для каталога:</label>
+              <textarea class="input input-desc" id="p_desc_${idx}" placeholder="Краткое описание товара...">${escapeHtml(item.desc || '')}</textarea>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div>
+                <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px;">Категория / Бейдж:</label>
+                <input type="text" class="input" id="p_tag_${idx}" value="${escapeHtml(item.tag || '')}" placeholder="Например: КУХОННЫЕ ФАРТУКИ">
+              </div>
+              <div style="display:flex;align-items:flex-end;padding-bottom:6px;">
+                <span style="font-size:12px;color:var(--muted);">Позиция в списке: <b>#${idx + 1}</b></span>
+              </div>
+            </div>
           </div>
-          <button type="button" class="btn btn-danger-outline btn-sm gt-del" title="Удалить">&times;</button>
+
+          <!-- Колонка действий -->
+          <div class="product-actions">
+            <div class="order-btns">
+              <button type="button" class="btn-order" onclick="moveProduct(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Выше">▲</button>
+              <button type="button" class="btn-order" onclick="moveProduct(${idx}, 1)" ${idx === config.glassTypes.length - 1 ? 'disabled' : ''} title="Ниже">▼</button>
+            </div>
+            <button type="button" class="btn btn-danger-outline btn-sm" onclick="deleteProduct(${idx})" style="margin-top:10px;">
+              Удалить
+            </button>
+          </div>
         `;
-        row.querySelector('.gt-name').addEventListener('input', (e) => { gt.name = e.target.value; updatePreview(); });
-        row.querySelector('.gt-price').addEventListener('input', (e) => { gt.basePrice = parseInt(e.target.value, 10) || 0; updatePreview(); });
 
-        const upBtn = row.querySelector('.btn-move-up');
-        const downBtn = row.querySelector('.btn-move-down');
-        if (upBtn) {
-          upBtn.addEventListener('click', () => {
-            if (idx > 0) {
-              const temp = config.glassTypes[idx];
-              config.glassTypes[idx] = config.glassTypes[idx - 1];
-              config.glassTypes[idx - 1] = temp;
-              render();
-            }
-          });
-        }
-        if (downBtn) {
-          downBtn.addEventListener('click', () => {
-            if (idx < config.glassTypes.length - 1) {
-              const temp = config.glassTypes[idx];
-              config.glassTypes[idx] = config.glassTypes[idx + 1];
-              config.glassTypes[idx + 1] = temp;
-              render();
-            }
-          });
-        }
+        // Слушатели ввода
+        card.querySelector('#p_name_' + idx).addEventListener('input', (e) => { item.name = e.target.value; });
+        card.querySelector('#p_price_' + idx).addEventListener('input', (e) => { item.basePrice = parseInt(e.target.value, 10) || 0; });
+        card.querySelector('#p_desc_' + idx).addEventListener('input', (e) => { item.desc = e.target.value; });
+        card.querySelector('#p_tag_' + idx).addEventListener('input', (e) => { item.tag = e.target.value; });
 
-        row.querySelector('.gt-del').addEventListener('click', () => {
-          if (config.glassTypes.length <= 1) return alert('Должно остаться минимум одно изделие');
-          if (confirm('Удалить изделие «' + gt.name + '»?')) {
-            config.glassTypes.splice(idx, 1);
-            render();
-            showToast('Изделие удалено');
-          }
-        });
-        glassList.appendChild(row);
+        container.appendChild(card);
       });
+    }
 
-      // 2. Опции
-      const optList = document.getElementById('optionsList');
-      optList.innerHTML = '';
+    // ПЕРЕМЕЩЕНИЕ ТОВАРА
+    function moveProduct(idx, dir) {
+      const targetIdx = idx + dir;
+      if (targetIdx < 0 || targetIdx >= config.glassTypes.length) return;
+      syncFormToConfig();
+      const temp = config.glassTypes[idx];
+      config.glassTypes[idx] = config.glassTypes[targetIdx];
+      config.glassTypes[targetIdx] = temp;
+      renderProducts();
+    }
+
+    // УДАЛЕНИЕ ТОВАРА
+    function deleteProduct(idx) {
+      if (config.glassTypes.length <= 1) {
+        alert('В каталоге должен оставаться хотя бы один товар!');
+        return;
+      }
+      const item = config.glassTypes[idx];
+      if (confirm(`Удалить товар «${item.name}»?`)) {
+        config.glassTypes.splice(idx, 1);
+        renderProducts();
+        showToast('Товар удалён');
+      }
+    }
+
+    // ДОБАВЛЕНИЕ НОВОГО ТОВАРА
+    function addNewProduct() {
+      syncFormToConfig();
+      const newProduct = {
+        id: 'product_' + Date.now(),
+        name: 'Новый товар',
+        basePrice: 3500,
+        desc: 'Описание нового изделия из закалённого стекла...',
+        image: './works/real-door-mounted.jpg',
+        tag: 'НОВАЯ КАТЕГОРИЯ'
+      };
+      config.glassTypes.push(newProduct);
+      renderProducts();
+
+      const newIdx = config.glassTypes.length - 1;
+      const card = document.getElementById('product_card_' + newIdx);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const nameField = card.querySelector('#p_name_' + newIdx);
+        if (nameField) {
+          nameField.focus();
+          nameField.select();
+        }
+      }
+      showToast('Добавлен новый товар, введите название и цену');
+    }
+
+    document.getElementById('btnAddNewProduct').addEventListener('click', addNewProduct);
+    document.getElementById('btnAddNewProductBottom').addEventListener('click', addNewProduct);
+
+    // 2. ЗАГРУЗКА ФОТО С ТЕЛЕФОНА / ПК
+    const hiddenFileInput = document.getElementById('hiddenFileInput');
+
+    function triggerUploadPhoto(idx) {
+      currentEditingPhotoIdx = idx;
+      hiddenFileInput.value = '';
+      hiddenFileInput.click();
+    }
+
+    hiddenFileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file || currentEditingPhotoIdx === null) return;
+
+      const idx = currentEditingPhotoIdx;
+      showToast('Обработка и загрузка фото...', 'info');
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          // Сжатие изображения для быстрой загрузки (до 1200px max)
+          const canvas = document.createElement('canvas');
+          let w = img.width;
+          let h = img.height;
+          const maxSide = 1200;
+          if (w > maxSide || h > maxSide) {
+            if (w > h) {
+              h = Math.round((h * maxSide) / w);
+              w = maxSide;
+            } else {
+              w = Math.round((w * maxSide) / h);
+              h = maxSide;
+            }
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+          // Отправка на сервер
+          const pass = sessionStorage.getItem('calc_entered_pass') || 'stekla2026';
+          fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: pass, image: compressedDataUrl })
+          })
+          .then(r => r.json())
+          .then(res => {
+            if (res.success && res.url) {
+              config.glassTypes[idx].image = res.url;
+              document.getElementById('p_img_' + idx).src = res.url;
+              showToast('Фото успешно загружено и прикреплено к товару!');
+            } else {
+              config.glassTypes[idx].image = compressedDataUrl;
+              document.getElementById('p_img_' + idx).src = compressedDataUrl;
+              showToast('Фото прикреплено');
+            }
+          })
+          .catch(() => {
+            config.glassTypes[idx].image = compressedDataUrl;
+            document.getElementById('p_img_' + idx).src = compressedDataUrl;
+            showToast('Фото прикреплено');
+          });
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // 3. ВЫБОР ФОТО ИЗ БИБЛИОТЕКИ
+    const galleryModal = document.getElementById('galleryModal');
+    const galleryGrid = document.getElementById('galleryGrid');
+
+    function openGalleryModal(idx) {
+      currentEditingPhotoIdx = idx;
+      galleryGrid.innerHTML = '';
+      WORKSHOP_PHOTOS.forEach(p => {
+        const item = document.createElement('div');
+        item.className = 'photo-choice-item';
+        item.innerHTML = `
+          <img src="${p.url}" alt="${p.title}">
+          <div class="photo-choice-title">${p.title}</div>
+        `;
+        item.addEventListener('click', () => {
+          config.glassTypes[idx].image = p.url;
+          document.getElementById('p_img_' + idx).src = p.url;
+          closeGalleryModal();
+          showToast('Фото выбрано');
+        });
+        galleryGrid.appendChild(item);
+      });
+      galleryModal.classList.add('active');
+    }
+
+    function closeGalleryModal() {
+      galleryModal.classList.remove('active');
+    }
+
+    // 4. ОПЦИИ И СРОКИ
+    function renderOptions() {
+      const list = document.getElementById('optionsList');
+      list.innerHTML = '';
       config.options.forEach((opt, idx) => {
         const row = document.createElement('div');
-        row.className = 'row-option';
+        row.className = 'opt-row';
         row.innerHTML = `
           <div><input type="text" class="input opt-label" value="${escapeHtml(opt.label)}" placeholder="Название опции"></div>
           <div class="input-group">
@@ -707,86 +978,29 @@
           <label style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;cursor:pointer;">
             <input type="checkbox" class="opt-free" ${opt.free ? 'checked' : ''}> Бесплатно
           </label>
-          <button type="button" class="btn btn-danger-outline btn-sm opt-del" title="Удалить">&times;</button>
+          <button type="button" class="btn btn-danger-outline btn-sm" onclick="deleteOption(${idx})" title="Удалить">&times;</button>
         `;
         const pInput = row.querySelector('.opt-price');
         row.querySelector('.opt-label').addEventListener('input', (e) => {
           opt.label = e.target.value;
           opt.name = opt.label.split(' ')[0] || opt.label;
-          updatePreview();
         });
-        pInput.addEventListener('input', (e) => { opt.price = parseInt(e.target.value, 10) || 0; updatePreview(); });
+        pInput.addEventListener('input', (e) => { opt.price = parseInt(e.target.value, 10) || 0; });
         row.querySelector('.opt-free').addEventListener('change', (e) => {
           opt.free = e.target.checked;
           if (opt.free) { opt.price = 0; pInput.value = 0; pInput.disabled = true; }
           else { pInput.disabled = false; }
-          updatePreview();
         });
-        row.querySelector('.opt-del').addEventListener('click', () => {
-          config.options.splice(idx, 1);
-          render();
-        });
-        optList.appendChild(row);
+        list.appendChild(row);
       });
-
-      // 3. Ползунки
-      const sw = config.sliders.width;
-      document.getElementById('wMin').value = sw.min;
-      document.getElementById('wMax').value = sw.max;
-      document.getElementById('wDef').value = sw.default;
-
-      const sh = config.sliders.height;
-      document.getElementById('hMin').value = sh.min;
-      document.getElementById('hMax').value = sh.max;
-      document.getElementById('hDef').value = sh.default;
-
-      // 4. Тексты
-      document.getElementById('leadTimeInput').value = config.leadTime || "Из наличия: 2–3 дня | Под заказ: 3–5 недель";
-      document.getElementById('noteInput').value = config.note || "Точная цена подтверждается мастером";
-
-      updatePreview();
     }
 
-    function syncFormToConfig() {
-      config.sliders.width.min = parseInt(document.getElementById('wMin').value, 10) || 200;
-      config.sliders.width.max = parseInt(document.getElementById('wMax').value, 10) || 1500;
-      config.sliders.width.default = parseInt(document.getElementById('wDef').value, 10) || 595;
-
-      config.sliders.height.min = parseInt(document.getElementById('hMin').value, 10) || 150;
-      config.sliders.height.max = parseInt(document.getElementById('hMax').value, 10) || 2200;
-      config.sliders.height.default = parseInt(document.getElementById('hDef').value, 10) || 475;
-
-      config.leadTime = document.getElementById('leadTimeInput').value.trim() || "Из наличия: 2–3 дня | Под заказ: 3–5 недель";
-      config.note = document.getElementById('noteInput').value.trim() || "Точная цена подтверждается мастером";
-      config.updatedAt = new Date().toISOString();
+    function deleteOption(idx) {
+      config.options.splice(idx, 1);
+      renderOptions();
     }
 
-    ['wMin', 'wMax', 'wDef', 'hMin', 'hMax', 'hDef', 'leadTimeInput', 'noteInput'].forEach(id => {
-      document.getElementById(id).addEventListener('input', () => {
-        syncFormToConfig();
-        updatePreview();
-      });
-    });
-
-    document.getElementById('addGlassBtn').addEventListener('click', () => {
-      const newIdx = config.glassTypes.length;
-      config.glassTypes.push({
-        id: 'glass_' + Date.now(),
-        name: 'Новое изделие',
-        basePrice: 4000
-      });
-      render();
-      setTimeout(() => {
-        const el = document.getElementById('gt_input_' + newIdx);
-        if (el) {
-          el.focus();
-          el.select();
-        }
-      }, 50);
-      showToast('Добавлена новая строка изделия');
-    });
-
-    document.getElementById('addOptionBtn').addEventListener('click', () => {
+    document.getElementById('btnAddOption').addEventListener('click', () => {
       config.options.push({
         id: 'opt_' + Date.now(),
         name: 'Новая опция',
@@ -794,115 +1008,45 @@
         price: 400,
         checked: false
       });
-      render();
+      renderOptions();
     });
 
-    // ПРЕДПРОСМОТР
-    function updatePreview() {
-      const select = document.getElementById('prevGlassSelect');
-      const prevVal = select.value;
-      select.innerHTML = '';
-      config.glassTypes.forEach((gt, idx) => {
-        const opt = document.createElement('option');
-        opt.value = gt.id || ('gt_' + idx);
-        opt.setAttribute('data-base', gt.basePrice);
-        opt.textContent = `${gt.name} (${gt.basePrice} ₽)`;
-        if (opt.value === prevVal || (!prevVal && idx === 0)) opt.selected = true;
-        select.appendChild(opt);
-      });
+    function renderTerms() {
+      document.getElementById('leadTimeInput').value = config.leadTime || "Из наличия: 2–3 дня | Под заказ: 3–5 недель";
+      document.getElementById('noteInput').value = config.note || "Точная цена подтверждается мастером";
 
-      const wSlider = document.getElementById('prevWSlider');
       const sw = config.sliders.width;
-      wSlider.min = sw.min || 200;
-      wSlider.max = sw.max || 1500;
-      if (!wSlider.value || wSlider.value < sw.min || wSlider.value > sw.max) wSlider.value = sw.default || 595;
+      document.getElementById('wMin').value = sw.min || 200;
+      document.getElementById('wMax').value = sw.max || 1500;
 
-      const hSlider = document.getElementById('prevHSlider');
       const sh = config.sliders.height;
-      hSlider.min = sh.min || 150;
-      hSlider.max = sh.max || 2200;
-      if (!hSlider.value || hSlider.value < sh.min || hSlider.value > sh.max) hSlider.value = sh.default || 475;
-
-      const optsBox = document.getElementById('prevOptsBox');
-      const savedChecks = {};
-      optsBox.querySelectorAll('input').forEach(cb => { savedChecks[cb.dataset.id] = cb.checked; });
-      optsBox.innerHTML = '';
-      config.options.forEach(o => {
-        const line = document.createElement('label');
-        line.style.fontSize = '12px';
-        line.style.color = '#cbd5e1';
-        line.style.display = 'flex';
-        line.style.alignItems = 'center';
-        line.style.gap = '6px';
-        line.style.cursor = 'pointer';
-
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.dataset.id = o.id;
-        cb.dataset.price = o.price || 0;
-        cb.dataset.name = o.name || o.label;
-        if (o.disabled) cb.disabled = true;
-        cb.checked = savedChecks[o.id] !== undefined ? savedChecks[o.id] : !!o.checked;
-        cb.addEventListener('change', calcPreview);
-
-        const span = document.createElement('span');
-        span.textContent = o.label + (o.free || o.price === 0 ? ' (Бесплатно)' : ` (+${o.price} ₽)`);
-
-        line.appendChild(cb);
-        line.appendChild(span);
-        optsBox.appendChild(line);
-      });
-
-      calcPreview();
+      document.getElementById('hMin').value = sh.min || 150;
+      document.getElementById('hMax').value = sh.max || 2200;
     }
 
-    function calcPreview() {
-      const wSlider = document.getElementById('prevWSlider');
-      const hSlider = document.getElementById('prevHSlider');
-      const w = parseInt(wSlider.value, 10);
-      const h = parseInt(hSlider.value, 10);
-      document.getElementById('prevWVal').textContent = w + ' мм';
-      document.getElementById('prevHVal').textContent = h + ' мм';
+    function syncFormToConfig() {
+      config.leadTime = document.getElementById('leadTimeInput').value.trim() || "Из наличия: 2–3 дня | Под заказ: 3–5 недель";
+      config.note = document.getElementById('noteInput').value.trim() || "Точная цена подтверждается мастером";
 
-      const select = document.getElementById('prevGlassSelect');
-      const opt = select.options[select.selectedIndex];
-      if (!opt) return;
-      const basePrice = parseInt(opt.getAttribute('data-base'), 10) || 3000;
-      const title = opt.text.split('(')[0].trim();
+      config.sliders.width.min = parseInt(document.getElementById('wMin').value, 10) || 200;
+      config.sliders.width.max = parseInt(document.getElementById('wMax').value, 10) || 1500;
 
-      const area = (w * h) / 1000000;
-      const standardArea = config.standardArea || 0.28;
-      const areaFactor = Math.max(0.7, area / standardArea);
-      let price = Math.round(basePrice * (0.6 + 0.4 * areaFactor));
+      config.sliders.height.min = parseInt(document.getElementById('hMin').value, 10) || 150;
+      config.sliders.height.max = parseInt(document.getElementById('hMax').value, 10) || 2200;
 
-      const usedOpts = [];
-      document.querySelectorAll('#prevOptsBox input[type="checkbox"]').forEach(cb => {
-        if (cb.checked) {
-          price += parseInt(cb.dataset.price, 10) || 0;
-          usedOpts.push(cb.dataset.name);
-        }
-      });
-
-      const roundTo = config.roundTo || 50;
-      price = Math.round(price / roundTo) * roundTo;
-
-      document.getElementById('prevSumType').textContent = title;
-      document.getElementById('prevSumDim').textContent = `${w} × ${h} мм (${area.toFixed(2)} м²)`;
-      document.getElementById('prevSumOpts').textContent = usedOpts.length ? usedOpts.join(' + ') : 'Без доп. опций';
-      document.getElementById('prevSumLead').textContent = config.leadTime || "Из наличия: 2–3 дня | Под заказ: 3–5 недель";
-      document.getElementById('prevSumTotal').textContent = price.toLocaleString('ru-RU') + ' ₽';
+      config.updatedAt = new Date().toISOString();
     }
 
-    document.getElementById('prevGlassSelect').addEventListener('change', calcPreview);
-    document.getElementById('prevWSlider').addEventListener('input', calcPreview);
-    document.getElementById('prevHSlider').addEventListener('input', calcPreview);
-
-    // СОХРАНЕНИЕ
-    async function save() {
+    // 5. СОХРАНЕНИЕ НА СЕРВЕР
+    async function saveAll() {
       syncFormToConfig();
       const pass = sessionStorage.getItem('calc_entered_pass') || 'stekla2026';
-      const status = document.getElementById('saveStatus');
-      status.textContent = 'Сохранение на сервер...';
+      const status = document.getElementById('statusText');
+      status.textContent = 'Сохранение данных на сайт...';
+
+      const saveBtn = document.getElementById('btnSaveMain');
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Сохраняем...';
 
       try {
         const res = await fetch('/api/save-config', {
@@ -910,21 +1054,26 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ password: pass, config: config })
         });
+
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Сохранить изменения';
+
         if (res.ok) {
-          status.textContent = 'Изменения сохранены и действуют на сайте';
-          showToast('Изменения успешно сохранены на сайт!');
+          status.textContent = 'Все изменения сохранены и действуют на сайте!';
+          showToast('✅ Изменения успешно сохранены на сайт!');
         } else {
           status.textContent = 'Ошибка сохранения';
           showToast('Ошибка при сохранении, проверьте пароль', 'error');
         }
       } catch (err) {
-        status.textContent = 'Ошибка сети';
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Сохранить изменения';
+        status.textContent = 'Ошибка связи с сервером';
         showToast('Не удалось связаться с сервером', 'error');
       }
     }
 
-    document.getElementById('saveBtn').addEventListener('click', save);
-    document.getElementById('saveBtnSide').addEventListener('click', save);
+    document.getElementById('btnSaveMain').addEventListener('click', saveAll);
 
     function escapeHtml(str) {
       return String(str || '').replace(/[&<>"']/g, function(m) {
